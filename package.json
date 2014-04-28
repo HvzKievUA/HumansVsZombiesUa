@@ -1,0 +1,27 @@
+{
+  "name": "HumansVsZombiesUa",
+  "version": "0.0.1",
+  "description": "Ukrainian version of world known Humans Vs Zombies.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/eagleeye/HumansVsZombiesUa.git"
+  },
+  "keywords": [
+    "HumansVsZombies"
+  ],
+  "author": "Andrii Shumada",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eagleeye/HumansVsZombiesUa/issues"
+  },
+  "homepage": "https://github.com/eagleeye/HumansVsZombiesUa",
+  "dependencies": {
+    "express": "^4.1.1",
+    "passport-vkontakte": "^0.2.1",
+    "passport": "^0.2.0"
+  }
+}
