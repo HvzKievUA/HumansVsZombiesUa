@@ -1,0 +1,62 @@
+{
+  "name": "passport-vkontakte",
+  "version": "0.2.0",
+  "description": "VK.com authentication strategy for Passport.",
+  "author": {
+    "name": "Jared Hanson",
+    "email": "jaredhanson@gmail.com",
+    "url": "http://www.jaredhanson.net/"
+  },
+  "contributors": [
+    {
+      "name": "Stepan Stolyarov",
+      "email": "stepan.stolyarov@gmail.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/stevebest/passport-vkontakte.git"
+  },
+  "bugs": {
+    "url": "http://github.com/stevebest/passport-vkontakte/issues"
+  },
+  "main": "./lib/passport-vkontakte",
+  "dependencies": {
+    "pkginfo": "0.2.x",
+    "passport-oauth2": "~1.1.1"
+  },
+  "devDependencies": {
+    "vows": "0.7.x"
+  },
+  "scripts": {
+    "test": "NODE_PATH=lib node_modules/.bin/vows test/*-test.js"
+  },
+  "engines": {
+    "node": ">= 0.4.0"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ],
+  "keywords": [
+    "passport",
+    "vkontakte",
+    "vk",
+    "вконтакте",
+    "auth",
+    "authn",
+    "authentication",
+    "identity"
+  ],
+  "readme": "# Passport-VKontakte\r\n\r\n[Passport](http://passportjs.org/) strategy for authenticating with [VK.com](http://www.vk.com/)\r\nusing the OAuth 2.0 API.\r\n\r\nThis module lets you authenticate using VK.com in your Node.js applications.\r\nBy plugging into Passport, VK.com authentication can be easily and\r\nunobtrusively integrated into any application or framework that supports\r\n[Connect](http://www.senchalabs.org/connect/)-style middleware, including\r\n[Express](http://expressjs.com/).\r\n\r\n## Installation\r\n\r\n    $ npm install passport-vkontakte\r\n\r\n## Usage\r\n\r\n#### Configure Strategy\r\n\r\nThe VK.com authentication strategy authenticates users using a VK.com\r\naccount and OAuth 2.0 tokens.  The strategy requires a `verify` callback, which\r\naccepts these credentials and calls `done` providing a user, as well as\r\n`options` specifying a app ID, app secret, and callback URL.\r\n\r\n```javascript\r\npassport.use(new VKontakteStrategy({\r\n    clientID:     VKONTAKTE_APP_ID, // VK.com docs call it 'API ID'\r\n    clientSecret: VKONTAKTE_APP_SECRET,\r\n    callbackURL:  \"http://localhost:3000/auth/vkontakte/callback\"\r\n  },\r\n  function(accessToken, refreshToken, profile, done) {\r\n    User.findOrCreate({ vkontakteId: profile.id }, function (err, user) {\r\n      return done(err, user);\r\n    });\r\n  }\r\n));\r\n```\r\n\r\n#### Authenticate Requests\r\n\r\nUse `passport.authenticate()`, specifying the `'vkontakte'` strategy, to\r\nauthenticate requests.\r\n\r\nFor example, as route middleware in an [Express](http://expressjs.com/)\r\napplication:\r\n\r\n```javascript\r\napp.get('/auth/vkontakte',\r\n  passport.authenticate('vkontakte'),\r\n  function(req, res){\r\n    // The request will be redirected to vk.com for authentication, so\r\n    // this function will not be called.\r\n  });\r\n\r\napp.get('/auth/vkontakte/callback',\r\n  passport.authenticate('vkontakte', { failureRedirect: '/login' }),\r\n  function(req, res) {\r\n    // Successful authentication, redirect home.\r\n    res.redirect('/');\r\n  });\r\n```\r\n\r\n##### Display Mode\r\n\r\nSet `display` in `passport.authenticate()` options to specify display\r\nmode. Refer to the [OAuth dialog\r\ndocumentation](http://vk.com/dev/auth_mobile)\r\nfor information on its usage.\r\n\r\n    app.get('/auth/vkontakte',\r\n      passport.authenticate('vkontakte', { display: 'mobile' }),\r\n      function(req, res){\r\n        // ...\r\n      });\r\n\r\n#### Extended Permissions\r\n\r\nIf you need extended permissions from the user, the permissions can be requested\r\nvia the `scope` option to `passport.authenticate()`.\r\n\r\nFor example, this authorization requests permission to the user's friends:\r\n\r\n```javascript\r\napp.get('/auth/vkontakte',\r\n  passport.authenticate('vkontakte', { scope: ['friends'] }),\r\n  function(req, res){\r\n    // The request will be redirected to vk.com for authentication, with\r\n    // extended permissions.\r\n  });\r\n```\r\n\r\n#### Profile Fields\r\n\r\nThe VK.com profile may contain a lot of information.  The\r\nstrategy can be configured with a `profileFields` parameter which specifies a\r\nlist of additional fields your application needs. For example, to fetch users's `city` and `bdate` configure strategy like this.\r\n\r\n    passport.use(new VKontakteStrategy({\r\n        // clientID, clientSecret and callbackURL\r\n        profileFields: ['city', bdate']\r\n      },\r\n      // verify callback\r\n    ));\r\n\r\n## Tests\r\n\r\n    $ npm install --dev\r\n    $ make test\r\n\r\n[![Build Status](https://secure.travis-ci.org/stevebest/passport-vkontakte.png)](http://travis-ci.org/stevebest/passport-vkontakte)\r\n\r\n## Credits\r\n\r\n  - [Jared Hanson](http://github.com/jaredhanson)\r\n  - [Stepan Stolyarov](http://github.com/stevebest)\r\n\r\n## License\r\n\r\n(The MIT License)\r\n\r\nCopyright (c) 2011 Jared Hanson\r\n\r\nCopyright (c) 2012 Stepan Stolyarov\r\n\r\nPermission is hereby granted, free of charge, to any person obtaining a copy of\r\nthis software and associated documentation files (the \"Software\"), to deal in\r\nthe Software without restriction, including without limitation the rights to\r\nuse, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of\r\nthe Software, and to permit persons to whom the Software is furnished to do so,\r\nsubject to the following conditions:\r\n\r\nThe above copyright notice and this permission notice shall be included in all\r\ncopies or substantial portions of the Software.\r\n\r\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\r\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS\r\nFOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR\r\nCOPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER\r\nIN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN\r\nCONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\r\n",
+  "readmeFilename": "README.md",
+  "homepage": "https://github.com/stevebest/passport-vkontakte",
+  "_id": "passport-vkontakte@0.2.0",
+  "dist": {
+    "shasum": "00f4593c19b4e644b6a0e3595a7af367c2d1e3e5"
+  },
+  "_resolved": "git+http://git@github.com/eagleeye/passport-vkontakte.git#3d055a6a44bdcea650570a09ba5180ea9d7a74a8",
+  "_from": "passport-vkontakte@git+http://git@github.com/eagleeye/passport-vkontakte.git"
+}

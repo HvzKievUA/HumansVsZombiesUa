@@ -4,7 +4,7 @@
 
   passport = require('passport');
 
-  VKontakteStrategy = require('passport-vkontakte').Strategy;
+  VKontakteStrategy = require('./lib/passport-vkontakte').Strategy;
 
   mongoose = require('mongoose');
 

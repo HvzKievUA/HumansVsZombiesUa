@@ -101,7 +101,7 @@
   app.boot(function(err) {
     var port;
     if (err) {
-      log.error(err);
+      console.error(err);
     }
     port = config.http.port;
     server.listen(port);

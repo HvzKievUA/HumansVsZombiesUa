@@ -63,7 +63,7 @@ app.use (err, req, res, next) ->
 
 app.boot (err) ->
 	if err
-		log.error err
+		console.error err
 	port = config.http.port
 	server.listen port
 	console.info('server started at ' + config.http.siteUrl + ' '.green)
