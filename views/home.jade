@@ -1,0 +1,6 @@
+extends layout
+
+block content
+	p Ласкаво просимо до Humans Vs Zombies KPI. Ви #{isAuth ? '' : 'не '}авторизовані
+	- if (!isAuth)
+		a(href="/login") Ввійти
