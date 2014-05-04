@@ -25,7 +25,7 @@
   "homepage": "https://github.com/eagleeye/HumansVsZombiesUa",
   "dependencies": {
     "express": "^4.1.1",
-    "passport-vkontakte": "^0.2.1",
+    "passport-vkontakte": "git+ssh://git@github.com:eagleeye/passport-vkontakte.git",
     "passport": "^0.2.0",
     "cookie-parser": "^1.0.1",
     "body-parser": "^1.0.2",
