@@ -20,7 +20,7 @@ app.set('view engine', 'jade')
 app.use(express.static(__dirname + '/client'))
 app.use(cookieParser(config.cookieSecret))
 app.use(bodyParser())
-app.use(expressSession({ secret: process.env.HVZ_SESSION_SECRET or 'keyboard cat' }))
+app.use(expressSession({ secret: config.sessionSecret }))
 app.use(passport.initialize())
 app.use(passport.session())
 
@@ -59,12 +59,11 @@ app.use expressWinston.errorLogger
 	]
 
 app.use (err, req, res, next) ->
-#	console.error(err)
 	res.status(500).render('500', {title: '500: server errro', message: err})
 
 app.boot (err) ->
 	if err
 		log.error err
-	port = process.env.PORT || 5000
+	port = config.http.port
 	server.listen port
-	console.info('server started at http://localhost:' + port + ''.green)
+	console.info('server started at ' + config.http.siteUrl + ' '.green)

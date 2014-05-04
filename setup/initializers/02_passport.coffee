@@ -8,7 +8,7 @@ module.exports = (done) ->
 	passport.use new VKontakteStrategy
 		clientID: config.vk.appId # VK.com docs call it 'API ID'
 		clientSecret: config.vk.appSecret
-		callbackURL: "http://localhost:5000/auth/vkontakte/callback"
+		callbackURL: config.http.siteUrl + "auth/vkontakte/callback"
 	, (accessToken, refreshToken, profile, callback) ->
 		console.log('User.findOrCreate', accessToken, refreshToken, profile)
 		User.findOne { vkontakteId: profile.id }, (err, user) ->

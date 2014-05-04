@@ -43,7 +43,7 @@
   app.use(bodyParser());
 
   app.use(expressSession({
-    secret: process.env.HVZ_SESSION_SECRET || 'keyboard cat'
+    secret: config.sessionSecret
   }));
 
   app.use(passport.initialize());
@@ -103,9 +103,9 @@
     if (err) {
       log.error(err);
     }
-    port = process.env.PORT || 5000;
+    port = config.http.port;
     server.listen(port);
-    return console.info('server started at http://localhost:' + port + ''.green);
+    return console.info('server started at ' + config.http.siteUrl + ' '.green);
   });
 
 }).call(this);
