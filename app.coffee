@@ -59,7 +59,7 @@ app.use expressWinston.errorLogger
 
 app.use (err, req, res, next) ->
 	if err.code is "VKSecurity"
-		return res.redirect err.redirect_uri
+		return res.render 'vkFinish', vkRedirect: err.redirect_uri
 	res.status(500).render('500', {title: '500: server errro', message: err})
 
 app.boot (err) ->
