@@ -62,7 +62,9 @@
     return res.send('secure');
   });
 
-  app.get('/auth/vkontakte', passport.authenticate('vkontakte'), function(req, res) {
+  app.get('/auth/vkontakte', passport.authenticate('vkontakte', {
+    scope: ['friends']
+  }), function(req, res) {
     return res.end('LOOOL');
   });
 

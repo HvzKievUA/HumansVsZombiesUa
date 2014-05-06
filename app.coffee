@@ -35,7 +35,7 @@ app.get '/secure',
 		res.send('secure')
 
 app.get '/auth/vkontakte',
-	passport.authenticate('vkontakte'),
+	passport.authenticate('vkontakte', { scope: ['friends'] }),
 	(req, res) ->
 		res.end('LOOOL')
 
