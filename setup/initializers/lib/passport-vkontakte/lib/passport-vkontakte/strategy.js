@@ -144,6 +144,7 @@ Strategy.prototype.userProfile = function(accessToken, done) {
     try {
       var json = JSON.parse(body);
       if (json.error) {
+	     console.log('VK API err', json)
          if (json.error === "need_validation" && json.redirect_uri) {
              return res.redirect(json.redirect_uri)
          }
