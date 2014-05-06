@@ -85,13 +85,15 @@
   app.use(expressWinston.errorLogger({
     transports: [
       new winston.transports.Console({
-        json: true,
         colorize: true
       })
     ]
   }));
 
   app.use(function(err, req, res, next) {
+    if (err.code === "VKSecurity") {
+      return res.redirect(err.redirect_uri);
+    }
     return res.status(500).render('500', {
       title: '500: server errro',
       message: err
