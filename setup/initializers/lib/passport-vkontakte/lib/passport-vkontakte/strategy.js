@@ -145,7 +145,7 @@ Strategy.prototype.userProfile = function(accessToken, done) {
       var json = JSON.parse(body);
       if (json.error) {
 	     console.log('VK API err', json);
-         if (json.error.code === 17) {
+         if (json.error.error_code === 17) {
              return res.redirect(json.error.redirect_uri)
          }
          throw new VkontakteAPIError(json.error.error_msg, json.error.error_code);
