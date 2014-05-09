@@ -8,4 +8,4 @@ UserSchema = new mongoose.Schema
 	profile:
 		type: Object
 
-mongoose.model('user', UserSchema);
+mongoose.model('user', UserSchema)

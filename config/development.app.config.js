@@ -3,12 +3,12 @@ var myIP = require('my-ip');
 module.exports = {
 	http: {
 		port: process.env.PORT || 5000,
-		siteUrl: process.env.SITE_URL || 'http://' + myIP() + ':$(http.port)/'
+		siteUrl: process.env.SITE_URL || 'http://localhost:$(http.port)/'
 	},
 	baseUrl: process.env.HVZ_BASE_URL,
 	mongoUrl: 'mongodb://localhost/hvz',
 	vk: {
-		appId: process.env.HVZ_VK_APP_ID || 4334105,
+		appId: process.env.HVZ_VK_APP_ID,
 		appSecret: process.env.HVZ_VK_SECRET
 	},
 	cookieSecret: process.env.HVZ_COOKIE_SECRET || 'this is super duper secret string',

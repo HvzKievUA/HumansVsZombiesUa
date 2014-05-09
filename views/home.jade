@@ -4,3 +4,10 @@ block content
 	p Ласкаво просимо до Humans Vs Zombies KPI. Ви #{isAuth ? '' : 'не '}авторизовані
 	- if (!isAuth)
 		a(href="/login") Ввійти
+	p Список користувачів
+	ol
+		each user in users
+			li
+				a(href=user.profile.profileUrl)
+					img(src=user.profile.photos[0].value)
+					=user.profile.displayName

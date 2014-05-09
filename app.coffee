@@ -10,6 +10,7 @@ winston = require('winston')
 config = require('cnf')
 bootable = require 'bootable'
 favicon = require('serve-favicon')
+mongoose = require 'mongoose'
 
 app = bootable(express())
 server = http.createServer(app)
@@ -32,7 +33,9 @@ app.all '/',  (req, res, next) ->
 	next()
 
 app.get '/', (req, res) ->
-	res.render('home', isAuth: req.isAuthenticated())
+	User = mongoose.model('user')
+	User.find (err, users) ->
+		res.render('home', isAuth: req.isAuthenticated(), users: users)
 
 app.get '/secure',
 #	passport.authenticate('vkontakte'),

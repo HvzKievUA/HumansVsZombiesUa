@@ -1,5 +1,5 @@
 passport = require('passport')
-VKontakteStrategy = require('./lib/passport-vkontakte').Strategy
+VKontakteStrategy = require('passport-vkontakte').Strategy
 mongoose = require 'mongoose'
 User = mongoose.model('user')
 config = require 'cnf'
