@@ -5,9 +5,9 @@ block content
 	- if (!isAuth)
 		a(href="/login") Ввійти
 	p Список користувачів
-	ol
+	ol.list-group
 		each user in users
-			li
+			li.list-group-item
 				a(href=user.profile.profileUrl)
 					img(src=user.profile.photos[0].value)
 					=user.profile.displayName
