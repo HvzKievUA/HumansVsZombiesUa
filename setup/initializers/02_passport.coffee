@@ -10,7 +10,6 @@ module.exports = (done) ->
 		clientSecret: config.vk.appSecret
 		callbackURL: config.http.siteUrl + "auth/vkontakte/callback"
 	, (accessToken, refreshToken, profile, callback) ->
-		console.log('User.findOrCreate', accessToken, refreshToken, profile)
 		User.findOne { vkontakteId: profile.id }, (err, user) ->
 			if user or err
 				return callback(err, user)
@@ -24,6 +23,7 @@ module.exports = (done) ->
 		done(null, user.id)
 
 	passport.deserializeUser (id, done) ->
-		User.findById id, done
+		User.findById id, (err, user) ->
+			done err, user
 
 	done()

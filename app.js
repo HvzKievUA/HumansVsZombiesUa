@@ -32,7 +32,7 @@
 
   server = http.createServer(app);
 
-  app.use(favicon(__dirname + '/client/favicon.png'));
+  app.use(favicon(__dirname + '/client/img/favicon.png'));
 
   app.set('views', __dirname + '/views');
 
@@ -66,7 +66,8 @@
     return User.find(function(err, users) {
       return res.render('home', {
         isAuth: req.isAuthenticated(),
-        users: users
+        users: users,
+        user: req.user
       });
     });
   });
@@ -91,9 +92,13 @@
     return res.render('login');
   });
 
+  app.get('/rules', function(req, res) {
+    return res.render('rules');
+  });
+
   app.use(function(req, res) {
     return res.status(404).render('404', {
-      title: '404: File Not Found'
+      title: '404: Page Not Found'
     });
   });
 

@@ -18,7 +18,6 @@
       clientSecret: config.vk.appSecret,
       callbackURL: config.http.siteUrl + "auth/vkontakte/callback"
     }, function(accessToken, refreshToken, profile, callback) {
-      console.log('User.findOrCreate', accessToken, refreshToken, profile);
       return User.findOne({
         vkontakteId: profile.id
       }, function(err, user) {
@@ -39,7 +38,9 @@
       return done(null, user.id);
     });
     passport.deserializeUser(function(id, done) {
-      return User.findById(id, done);
+      return User.findById(id, function(err, user) {
+        return done(err, user);
+      });
     });
     return done();
   };

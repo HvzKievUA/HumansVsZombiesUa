@@ -1,13 +1,10 @@
 extends layout
 
 block content
-	p Ласкаво просимо до Humans Vs Zombies KPI. Ви #{isAuth ? '' : 'не '}авторизовані
-	- if (!isAuth)
-		a(href="/login") Ввійти
-	p Список користувачів
+	p Список пользователей
 	ol.list-group
 		each user in users
-			li.list-group-item
+			li.list-group-item.user-list
 				a(href=user.profile.profileUrl)
-					img(src=user.profile.photos[0].value)
+					img.avatar(src=user.profile.photos[0].value)
 					=user.profile.displayName
