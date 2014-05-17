@@ -3,6 +3,7 @@ VKontakteStrategy = require('passport-vkontakte').Strategy
 mongoose = require 'mongoose'
 User = mongoose.model('user')
 config = require 'cnf'
+uuid = require 'node-uuid'
 
 module.exports = (done) ->
 	passport.use new VKontakteStrategy
@@ -16,6 +17,8 @@ module.exports = (done) ->
 			newUser = new User
 				vkontakteId: profile.id
 				profile: profile
+				role: 'human'
+				hash: uuid.v4().substr(0,13)
 			newUser.save (err) ->
 				callback(err, newUser)
 

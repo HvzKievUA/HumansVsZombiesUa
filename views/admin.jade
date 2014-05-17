@@ -1,0 +1,28 @@
+extends layout
+
+block title
+	| Админка
+
+block content
+	p Всего юзверей: #{users.length}
+	ol
+		each user in users
+			li #{user.hash} #{user.profile.displayName}
+	form.pure-form(action="/admin/generatemedcine", method="POST")
+		fieldset
+			legend Лекарстваа. Всего: #{medicines.length}
+			input(type="number", name="count", min="1", max="100", required="required")
+			input.pure-button.pure-button-primary(type="submit", value="Сгенерировать")
+	table.medicines.pure-table
+		thead
+			td Код
+			td Сгенерирован
+			td Использован
+			td Время использования
+		tbody
+			each medicine in medicines
+				tr.medicine(class="#{medicine.usedBy ? 'used' : ''}")
+					td=medicine.code
+					td=medicine.generated
+					td=medicine.usedBy
+					td=medicine.usedDate

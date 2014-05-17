@@ -1,7 +1,11 @@
 extends layout
 
+
+block title
+	| - Главная страница
+
 block content
-	p Список пользователей
+	p Список пользователей. Всего: #{users.length}
 	ol.list-group
 		each user in users
 			li.list-group-item.user-list

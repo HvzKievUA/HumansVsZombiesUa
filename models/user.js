@@ -12,6 +12,15 @@
     },
     profile: {
       type: Object
+    },
+    role: {
+      type: String
+    },
+    lastActionDate: {
+      type: Date
+    },
+    hash: {
+      type: String
     }
   });
 

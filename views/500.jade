@@ -1,6 +1,11 @@
 extends layout
 
+block title
+	| 500: Ошибка сайта
+
 block content
-	p Oops, something went wrong on server. Please send message below to
-	a(href="mailto:eagleeyes91@gmail.com?subject=Uncaught%20Error%20on%20hvz&body=#{message}") eagleeyes91@gmail.com
+	h2 Непредвидeнная ошибка
+	p Ой, что-то пошло не так. Пожайлуста, сообщите мне на почту об ошибке. Укажите ваши последние действия.
+	p
+		a(href="mailto:eagleeyes91@gmail.com?subject=Uncaught%20Error%20on%20hvz&body=#{message}") Написать админу на  eagleeyes91@gmail.com
 	p= message

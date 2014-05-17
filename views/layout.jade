@@ -9,7 +9,9 @@ html
 		meta(charset="utf-8")
 		meta(http-equiv="X-UA-Compatible", content="IE=edge")
 		meta(name="viewport", content="width=device-width, initial-scale=1")
-		title Humans vs Zombies KPI
+		title
+			block title
+			|  | Humans vs Zombies KPI
 		script(src='//code.jquery.com/jquery-2.1.1.min.js')
 		block head
 	body
@@ -18,7 +20,10 @@ html
 				ul
 					li: a(href="/") Главная
 					li: a(href="/rules") Правила
-					li: a(href="/chat") Чат
+					li: a(href="/teamHuman") Команда людей
+					li: a(href="/teamZombie") Команда зомби
+					if isAuth && user.role == 'admin'
+						li: a(href="/admin") Админка
 					li
 						if isAuth
 							| Здраствуйте, #{user.profile.displayName}

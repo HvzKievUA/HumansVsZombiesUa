@@ -11,6 +11,10 @@ config = require('cnf')
 bootable = require 'bootable'
 favicon = require('serve-favicon')
 mongoose = require 'mongoose'
+authorize = require './middleware/authorizeRole'
+moment = require 'moment'
+uuid = require 'node-uuid'
+async = require 'async'
 
 app = bootable(express())
 server = http.createServer(app)
@@ -32,31 +36,61 @@ app.all '/',  (req, res, next) ->
 	res.header("Access-Control-Allow-Headers", "X-Requested-With")
 	next()
 
-app.get '/', (req, res) ->
+app.get '/', authorize(), (req, res) ->
 	User = mongoose.model('user')
 	User.find (err, users) ->
-		res.render('home', isAuth: req.isAuthenticated(), users: users, user: req.user)
+		res.viewData.users = users
+		res.render('home', res.viewData)
 
-app.get '/secure',
-#	passport.authenticate('vkontakte'),
-	(req, res) ->
-		res.send('secure')
+app.get '/admin', authorize('admin'),
+	(req, res, next) ->
+		User = mongoose.model 'user'
+		Medicine = mongoose.model 'medicine'
+		User.find (err, users) ->
+			if err then return next(err)
+			res.viewData.users = users
+			Medicine.find (err, medicines) ->
+				if err then return next(err)
+				res.viewData.medicines = medicines
+				res.render 'admin', res.viewData
+
+app.post '/admin/generatemedcine', authorize('admin'), (req, res, next) ->
+	count = parseInt(req.body.count) || 0
+	unless 0 < count < 101
+		return next(new Error("Сірьожа, '#{count}' не канає, не більше 100, не менше 1"))
+	Medicine = mongoose.model 'medicine'
+	createCode = (cb) ->
+		medicine = new Medicine
+			code: uuid.v4().substr(0,13)
+			generated: new Date()
+		medicine.save cb
+
+	async.times count, (n, next) ->
+		createCode(next)
+	, (err, codes) ->
+		if err
+			return next(err)
+		console.log("generated #{codes.length} medicine codes")
+		res.redirect '/admin'
+
 
 app.get '/auth/vkontakte',
 	passport.authenticate('vkontakte', { scope: ['friends'] }),
 	(req, res) ->
-		res.end('LOOOL')
+		res.redirect('/')
 
 app.get '/auth/vkontakte/callback',
 	passport.authenticate('vkontakte', { failureRedirect: '/login' }),
 	(req, res) ->
 		res.redirect('/');
 
-app.get '/login', (req, res) ->
-	res.render('login')
+app.get '/teamHuman', authorize('human'), (req, res) ->
+	res.render('team', res.viewData)
+app.get '/teamZombie', authorize('zombie'), (req, res) ->
+	res.render('team', res.viewData)
 
-app.get '/rules', (req, res) ->
-	res.render('rules')
+app.get '/rules', authorize(), (req, res) ->
+	res.render('rules', res.viewData)
 
 app.use (req, res) ->
 	res.status(404).render('404', {title: '404: Page Not Found'})
@@ -69,9 +103,7 @@ app.use expressWinston.errorLogger
 	]
 
 app.use (err, req, res, next) ->
-	if err.code is "VKSecurity"
-		return res.render 'vkFinish', vkRedirect: err.redirect_uri
-	res.status(500).render('500', {title: '500: server errro', message: err})
+	res.status(500).render('500', {title: '500: server error', message: err})
 
 app.boot (err) ->
 	if err
