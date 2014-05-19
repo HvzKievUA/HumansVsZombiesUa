@@ -19,6 +19,12 @@
     lastActionDate: {
       type: Date
     },
+    registered: {
+      type: Date
+    },
+    getZombie: {
+      type: Date
+    },
     hash: {
       type: String
     }

@@ -19,6 +19,7 @@ module.exports = (done) ->
 				profile: profile
 				role: 'human'
 				hash: uuid.v4().substr(0,13)
+				registered: new Date()
 			newUser.save (err) ->
 				callback(err, newUser)
 

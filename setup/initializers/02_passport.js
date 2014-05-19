@@ -31,7 +31,8 @@
           vkontakteId: profile.id,
           profile: profile,
           role: 'human',
-          hash: uuid.v4().substr(0, 13)
+          hash: uuid.v4().substr(0, 13),
+          registered: new Date()
         });
         return newUser.save(function(err) {
           return callback(err, newUser);

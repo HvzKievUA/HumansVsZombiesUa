@@ -122,6 +122,27 @@
     });
   });
 
+  app.post('/human/submitMedicine', authorize('human'), function(req, res, next) {
+    var Medicine, code;
+    code = req.body.code;
+    Medicine = mongoose.model('medicine');
+    return Medicine.findOneAndUpdate({
+      'code': code
+    }, {
+      usedBy: req.user.vkontakteId,
+      usedDate: new Date()
+    }, function(err, data) {
+      console.log({
+        code: code,
+        err: err,
+        data: data
+      });
+      res.viewData.error = err;
+      res.viewData.data = data;
+      return res.render('profile', res.viewData);
+    });
+  });
+
   app.get('/auth/vkontakte', passport.authenticate('vkontakte', {
     scope: ['friends']
   }), function(req, res) {
@@ -140,6 +161,11 @@
 
   app.get('/teamZombie', authorize('zombie'), function(req, res) {
     return res.render('team', res.viewData);
+  });
+
+  app.get('/profile', authorize('any'), function(req, res) {
+    res.viewData.timer = 3600 * 24;
+    return res.render('profile', res.viewData);
   });
 
   app.get('/rules', authorize(), function(req, res) {

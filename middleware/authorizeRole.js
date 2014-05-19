@@ -7,6 +7,9 @@
       res.viewData = res.viewData || {};
       res.viewData.isAuth = req.isAuthenticated();
       res.viewData.user = req.user;
+      if (res.viewData.isAuth && role === 'any') {
+        return next();
+      }
       if (userRole === 'admin' || role === void 0) {
         return next();
       }

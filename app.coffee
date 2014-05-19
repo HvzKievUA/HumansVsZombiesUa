@@ -31,7 +31,7 @@ app.use(passport.session())
 
 app.phase(bootable.initializers('setup/initializers/'))
 
-app.all '/',  (req, res, next) ->
+app.all '/', (req, res, next) ->
 	res.header("Access-Control-Allow-Origin", "*")
 	res.header("Access-Control-Allow-Headers", "X-Requested-With")
 	next()
@@ -73,6 +73,17 @@ app.post '/admin/generatemedcine', authorize('admin'), (req, res, next) ->
 		console.log("generated #{codes.length} medicine codes")
 		res.redirect '/admin'
 
+app.post '/human/submitMedicine', authorize('human'), (req, res, next) ->
+	code = req.body.code
+	Medicine = mongoose.model 'medicine'
+	Medicine.findOneAndUpdate {'code': code}, {usedBy: req.user.vkontakteId , usedDate: new Date()}, (err, data) ->
+		console.log
+			code: code
+			err: err
+			data: data
+		res.viewData.error = err
+		res.viewData.data = data
+		res.render('profile', res.viewData)
 
 app.get '/auth/vkontakte',
 	passport.authenticate('vkontakte', { scope: ['friends'] }),
@@ -88,6 +99,10 @@ app.get '/teamHuman', authorize('human'), (req, res) ->
 	res.render('team', res.viewData)
 app.get '/teamZombie', authorize('zombie'), (req, res) ->
 	res.render('team', res.viewData)
+
+app.get '/profile', authorize('any'), (req, res) ->
+	res.viewData.timer = 3600 * 24;
+	res.render('profile', res.viewData)
 
 app.get '/rules', authorize(), (req, res) ->
 	res.render('rules', res.viewData)

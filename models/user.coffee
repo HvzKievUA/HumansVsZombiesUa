@@ -11,6 +11,10 @@ UserSchema = new mongoose.Schema
 		type: String
 	lastActionDate:
 		type: Date
+	registered:
+		type: Date
+	getZombie:
+		type: Date
 	hash:
 		type: String
 
