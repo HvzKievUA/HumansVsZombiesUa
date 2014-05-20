@@ -1,5 +1,3 @@
-var myIP = require('my-ip');
-
 module.exports = {
 	http: {
 		port: process.env.PORT || 5000,

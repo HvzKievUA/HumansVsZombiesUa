@@ -8,7 +8,8 @@
   },
   "scripts": {
     "start": "node app.js",
-    "test": "node_modules/mocha test"
+    "test": "node_modules/mocha test",
+    "watch": "nodemon --watch app.js --watch models --watch setup --watch views ."
   },
   "repository": {
     "type": "git",
@@ -44,9 +45,7 @@
     "passport-vkontakte": "^0.2.1",
     "moment": "^2.6.0",
     "node-uuid": "^1.4.1",
-    "async": "^0.9.0"
-  },
-  "devDependencies": {
-    "my-ip": "^1.1.1"
+    "async": "^0.9.0",
+    "connect-mongo": "^0.4.1"
   }
 }

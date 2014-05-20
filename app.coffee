@@ -3,7 +3,7 @@ http = require('http')
 passport = require('passport')
 cookieParser = require('cookie-parser')
 bodyParser = require('body-parser')
-expressSession = require('express-session')
+session = require('express-session')
 expressWinston = require('express-winston')
 log = require('winston-wrapper')(module)
 winston = require('winston')
@@ -15,6 +15,7 @@ authorize = require './middleware/authorizeRole'
 moment = require 'moment'
 uuid = require 'node-uuid'
 async = require 'async'
+MongoStore = require('connect-mongo')(session)
 
 app = bootable(express())
 server = http.createServer(app)
@@ -25,7 +26,10 @@ app.set('view engine', 'jade')
 app.use(express.static(__dirname + '/client'))
 app.use(cookieParser(config.cookieSecret))
 app.use(bodyParser())
-app.use(expressSession({ secret: config.sessionSecret }))
+app.use session
+	secret: config.sessionSecret
+	store: new MongoStore url: config.mongoUrl
+	maxAge: 3600 * 24 * 2
 app.use(passport.initialize())
 app.use(passport.session())
 

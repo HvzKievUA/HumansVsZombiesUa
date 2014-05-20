@@ -1,1 +1,9 @@
-/client/*
+/node_modules/*
+/public/*
+/views/*
+/.git/*
+/.idea/*
+/.gitignore
+/package.json
+/Profile
+/README.md
