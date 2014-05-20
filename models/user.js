@@ -33,5 +33,3 @@
   mongoose.model('user', UserSchema);
 
 }).call(this);
-
-//# sourceMappingURL=user.map

@@ -129,35 +129,54 @@
   });
 
   app.post('/human/submitMedicine', authorize('human'), function(req, res, next) {
-    var Medicine, code;
+    var Medicine, User, code;
     code = req.body.code;
     Medicine = mongoose.model('medicine');
+    User = mongoose.model('user');
     return Medicine.findOneAndUpdate({
-      'code': code
+      'code': code,
+      'usedBy': {
+        $exists: false
+      }
     }, {
       usedBy: req.user.vkontakteId,
-      usedDate: new Date()
+      usedTime: new Date()
     }, function(err, data) {
-      console.log({
-        code: code,
-        err: err,
-        data: data
-      });
-      res.viewData.error = err;
-      res.viewData.data = data;
-      return res.render('profile', res.viewData);
+      if (err) {
+        return next(err);
+      }
+      if (data) {
+        return User.findOneAndUpdate({
+          'vkontakteId': req.user.vkontakteId
+        }, {
+          lastActionDate: new Date()
+        }, function(err, data) {
+          if (err) {
+            return next(err);
+          }
+          res.viewData.data = "Все збс";
+          return res.render('profile', res.viewData);
+        });
+      } else {
+        res.viewData.err = "Миша, все хуйня";
+        return res.render('profile', res.viewData);
+      }
     });
   });
 
   app.get('/auth/vkontakte', passport.authenticate('vkontakte', {
     scope: ['friends']
-  }), function(req, res) {
+  }));
+
+  (function(req, res) {
     return res.redirect('/');
   });
 
   app.get('/auth/vkontakte/callback', passport.authenticate('vkontakte', {
     failureRedirect: '/login'
-  }), function(req, res) {
+  }));
+
+  (function(req, res) {
     return res.redirect('/');
   });
 
@@ -210,5 +229,3 @@
   });
 
 }).call(this);
-
-//# sourceMappingURL=app.map

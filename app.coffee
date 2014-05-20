@@ -47,16 +47,16 @@ app.get '/', authorize(), (req, res) ->
 		res.render('home', res.viewData)
 
 app.get '/admin', authorize('admin'),
-	(req, res, next) ->
-		User = mongoose.model 'user'
-		Medicine = mongoose.model 'medicine'
-		User.find (err, users) ->
+(req, res, next) ->
+	User = mongoose.model 'user'
+	Medicine = mongoose.model 'medicine'
+	User.find (err, users) ->
+		if err then return next(err)
+		res.viewData.users = users
+		Medicine.find (err, medicines) ->
 			if err then return next(err)
-			res.viewData.users = users
-			Medicine.find (err, medicines) ->
-				if err then return next(err)
-				res.viewData.medicines = medicines
-				res.render 'admin', res.viewData
+			res.viewData.medicines = medicines
+			res.render 'admin', res.viewData
 
 app.post '/admin/generatemedcine', authorize('admin'), (req, res, next) ->
 	count = parseInt(req.body.count) || 0
@@ -65,7 +65,7 @@ app.post '/admin/generatemedcine', authorize('admin'), (req, res, next) ->
 	Medicine = mongoose.model 'medicine'
 	createCode = (cb) ->
 		medicine = new Medicine
-			code: uuid.v4().substr(0,13)
+			code: uuid.v4().substr(0, 13)
 			generated: new Date()
 		medicine.save cb
 
@@ -80,24 +80,28 @@ app.post '/admin/generatemedcine', authorize('admin'), (req, res, next) ->
 app.post '/human/submitMedicine', authorize('human'), (req, res, next) ->
 	code = req.body.code
 	Medicine = mongoose.model 'medicine'
-	Medicine.findOneAndUpdate {'code': code}, {usedBy: req.user.vkontakteId , usedDate: new Date()}, (err, data) ->
-		console.log
-			code: code
-			err: err
-			data: data
-		res.viewData.error = err
-		res.viewData.data = data
-		res.render('profile', res.viewData)
+	User = mongoose.model 'user'
+	Medicine.findOneAndUpdate {'code': code, 'usedBy': { $exists: no }}, {usedBy: req.user.vkontakteId, usedTime: new Date()}, (err, data) ->
+		if err then return next(err)
+		if data
+			User.findOneAndUpdate { 'vkontakteId': req.user.vkontakteId }, { lastActionDate: new Date() }, (err, data) ->
+				if err then return next(err)
+				res.viewData.data = "Все збс"
+				res.render('profile', res.viewData)
+		else
+			res.viewData.err = "Миша, все хуйня"
+			res.render('profile', res.viewData)
+
 
 app.get '/auth/vkontakte',
 	passport.authenticate('vkontakte', { scope: ['friends'] }),
-	(req, res) ->
-		res.redirect('/')
+(req, res) ->
+	res.redirect('/')
 
 app.get '/auth/vkontakte/callback',
 	passport.authenticate('vkontakte', { failureRedirect: '/login' }),
-	(req, res) ->
-		res.redirect('/');
+(req, res) ->
+	res.redirect('/');
 
 app.get '/teamHuman', authorize('human'), (req, res) ->
 	res.render('team', res.viewData)
