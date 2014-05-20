@@ -6,7 +6,7 @@ block title
 block content
 	p.results
 		if err
-			| err
+			| err:
 			=err
 		| data:
 		=data
@@ -17,7 +17,7 @@ block content
 				legend Ввести код человека
 				input(type="text", name="hash", required="required")
 				input.pure-button.pure-button-primary(type="submit", value="Захвать")
-	if user.role === 'human'
+	if user.role === 'admin'
 		form.pure-form(action="/human/submitMedicine", method="POST")
 			fieldset
 				legend Ввести код лекарства
