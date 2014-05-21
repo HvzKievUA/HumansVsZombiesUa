@@ -133,6 +133,9 @@
     code = req.body.code;
     Medicine = mongoose.model('medicine');
     User = mongoose.model('user');
+    if (!code) {
+      return next(new Error('Code should be provided'));
+    }
     return Medicine.findOneAndUpdate({
       'code': code,
       'usedBy': {
@@ -164,19 +167,54 @@
     });
   });
 
+  app.post('/zombie/submitHuman', authorize('zombie'), function(req, res, next) {
+    var User, hash;
+    hash = req.body.hash;
+    User = mongoose.model('user');
+    if (!hash) {
+      return next(new Error('Hash should be provided'));
+    }
+    return User.findOneAndUpdate({
+      'hash': hash
+    }, {
+      getZombie: new Date()
+    }, function(err, data) {
+      if (err) {
+        return next(err);
+      }
+      if (data) {
+        return User.findOneAndUpdate({
+          'vkontakteId': req.user.vkontakteId
+        }, {
+          lastActionDate: new Date()
+        }, function(err, data) {
+          if (err) {
+            return next(err);
+          }
+          res.viewData.data = "Все збс";
+          return res.render('profile', res.viewData);
+        });
+      } else {
+        res.viewData.err = "Миша, все хуйня";
+        return res.render('profile', res.viewData);
+      }
+    });
+  });
+
   app.get('/auth/vkontakte', passport.authenticate('vkontakte', {
     scope: ['friends']
-  }));
-
-  (function(req, res) {
+  }), function(req, res) {
     return res.redirect('/');
   });
 
   app.get('/auth/vkontakte/callback', passport.authenticate('vkontakte', {
-    failureRedirect: '/login'
-  }));
+    failureRedirect: '/'
+  }), function(req, res) {
+    return res.redirect('/');
+  });
 
-  (function(req, res) {
+  app.get('/logout', function(req, res) {
+    req.logout();
     return res.redirect('/');
   });
 
@@ -229,3 +267,5 @@
   });
 
 }).call(this);
+
+//# sourceMappingURL=app.map

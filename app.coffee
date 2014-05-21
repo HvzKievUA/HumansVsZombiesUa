@@ -81,6 +81,7 @@ app.post '/human/submitMedicine', authorize('human'), (req, res, next) ->
 	code = req.body.code
 	Medicine = mongoose.model 'medicine'
 	User = mongoose.model 'user'
+	if !code then return next(new Error 'Code should be provided')
 	Medicine.findOneAndUpdate {'code': code, 'usedBy': { $exists: no }}, {usedBy: req.user.vkontakteId, usedTime: new Date()}, (err, data) ->
 		if err then return next(err)
 		if data
@@ -92,16 +93,34 @@ app.post '/human/submitMedicine', authorize('human'), (req, res, next) ->
 			res.viewData.err = "Миша, все хуйня"
 			res.render('profile', res.viewData)
 
+app.post '/zombie/submitHuman', authorize('zombie'), (req, res, next) ->
+	hash = req.body.hash
+	User = mongoose.model 'user'
+	if !hash then return next(new Error 'Hash should be provided')
+	User.findOneAndUpdate {'hash': hash}, {getZombie: new Date()}, (err, data) ->
+		if err then return next(err)
+		if data
+			User.findOneAndUpdate { 'vkontakteId': req.user.vkontakteId }, { lastActionDate: new Date() }, (err, data) ->
+				if err then return next(err)
+				res.viewData.data = "Все збс"
+				res.render('profile', res.viewData)
+		else
+			res.viewData.err = "Миша, все хуйня"
+			res.render('profile', res.viewData)
 
 app.get '/auth/vkontakte',
 	passport.authenticate('vkontakte', { scope: ['friends'] }),
-(req, res) ->
-	res.redirect('/')
+	(req, res) ->
+		res.redirect('/')
 
 app.get '/auth/vkontakte/callback',
-	passport.authenticate('vkontakte', { failureRedirect: '/login' }),
-(req, res) ->
-	res.redirect('/');
+	passport.authenticate('vkontakte', { failureRedirect: '/' }),
+	(req, res) ->
+		res.redirect('/')
+
+app.get '/logout', (req, res) ->
+	req.logout()
+	res.redirect('/')
 
 app.get '/teamHuman', authorize('human'), (req, res) ->
 	res.render('team', res.viewData)
