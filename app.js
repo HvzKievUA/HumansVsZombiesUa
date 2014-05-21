@@ -219,10 +219,14 @@
   });
 
   app.get('/teamHuman', authorize('human'), function(req, res) {
+    res.viewData.title = 'Команда зомби';
+    res.viewData.vkAppId = config.vk.appId;
     return res.render('team', res.viewData);
   });
 
   app.get('/teamZombie', authorize('zombie'), function(req, res) {
+    res.viewData.title = 'Команда людей';
+    res.viewData.vkAppId = config.vk.appId;
     return res.render('team', res.viewData);
   });
 

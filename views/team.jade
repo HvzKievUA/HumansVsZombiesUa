@@ -1,4 +1,15 @@
 extends layout
 
+block head
+	script(src='//vk.com/js/api/openapi.js?112')
+	script.
+		VK.init({apiId: #{vkAppId}, onlyWidgets: true});
+
+block title
+	=title
+
 block content
 	| Командная страница. Тут будет чат и последние новости
+	#vk_comments
+	script.
+		VK.Widgets.Comments("vk_comments", {limit: 10, width: "520", attach: "*"});

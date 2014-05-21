@@ -1,7 +1,7 @@
 module.exports = {
 	http: {
-		port: process.env.PORT || 5000,
-		siteUrl: process.env.SITE_URL || 'http://localhost:$(http.port)/'
+		port: process.env.PORT || 80,
+		siteUrl: process.env.SITE_URL || 'http://localhost/'
 	},
 	baseUrl: process.env.HVZ_BASE_URL,
 	mongoUrl: 'mongodb://localhost/hvz',

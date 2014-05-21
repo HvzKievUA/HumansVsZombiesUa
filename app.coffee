@@ -123,8 +123,12 @@ app.get '/logout', (req, res) ->
 	res.redirect('/')
 
 app.get '/teamHuman', authorize('human'), (req, res) ->
+	res.viewData.title = 'Команда зомби'
+	res.viewData.vkAppId = config.vk.appId
 	res.render('team', res.viewData)
 app.get '/teamZombie', authorize('zombie'), (req, res) ->
+	res.viewData.title = 'Команда людей'
+	res.viewData.vkAppId = config.vk.appId
 	res.render('team', res.viewData)
 
 app.get '/profile', authorize('any'), (req, res) ->
