@@ -32,7 +32,8 @@
           profile: profile,
           role: 'human',
           hash: uuid.v4().substr(0, 13),
-          registered: new Date()
+          registered: new Date(),
+          lastActionDate: new Date()
         });
         return newUser.save(function(err) {
           return callback(err, newUser);

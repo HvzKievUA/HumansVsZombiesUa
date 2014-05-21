@@ -97,7 +97,7 @@ app.post '/zombie/submitHuman', authorize('zombie'), (req, res, next) ->
 	hash = req.body.hash
 	User = mongoose.model 'user'
 	if !hash then return next(new Error 'Hash should be provided')
-	User.findOneAndUpdate {'hash': hash}, {getZombie: new Date()}, (err, data) ->
+	User.findOneAndUpdate {'hash': hash}, {getZombie: new Date(), lastActionDate: new Date()}, (err, data) ->
 		if err then return next(err)
 		if data
 			User.findOneAndUpdate { 'vkontakteId': req.user.vkontakteId }, { lastActionDate: new Date() }, (err, data) ->

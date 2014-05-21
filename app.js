@@ -177,7 +177,8 @@
     return User.findOneAndUpdate({
       'hash': hash
     }, {
-      getZombie: new Date()
+      getZombie: new Date(),
+      lastActionDate: new Date()
     }, function(err, data) {
       if (err) {
         return next(err);
