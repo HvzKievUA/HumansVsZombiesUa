@@ -4,10 +4,13 @@ block title
 	| Главная страница
 
 block content
-	p Список пользователей. Всего: #{users.length}
-	ol.list-group
-		each user in users
-			li.list-group-item.user-list
-				a(href=user.profile.profileUrl)
-					img.avatar(src=user.profile.photos[0].value)
-					=user.profile.displayName
+	h1 Здраствуйте
+
+	p
+		img(src="http://placehold.it/400x400", style="padding: 25px;")
+		img(src="http://placehold.it/600x400", style="padding: 25px;")
+	p
+		img(src="http://placehold.it/600x400", style="padding: 25px;")
+		img(src="http://placehold.it/400x400", style="padding: 25px;")
+
+	p Всего заригестрировано: #{users.length}

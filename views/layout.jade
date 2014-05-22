@@ -24,9 +24,11 @@ html
 				ul
 					li: a(href="/") Главная
 					li: a(href="/rules") Правила
-					li: a(href="/teamHuman") Команда людей
-					li: a(href="/teamZombie") Команда зомби
-					if isAuth && user.role == 'admin'
+					if isAuth && (user.role === 'human' || user.isAdmin)
+						li: a(href="/teamHuman") Команда людей
+					if isAuth && (user.role === 'zombie' || user.isAdmin)
+						li: a(href="/teamZombie") Команда зомби
+					if isAuth && user.isAdmin
 						li: a(href="/admin") Админка
 					li
 						if isAuth

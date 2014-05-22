@@ -4,23 +4,27 @@ block title
 	| Прифиль
 
 block content
-	p.results
-		if err
-			| err:
-			=err
-		| data:
-		=data
-	.timer(data-timer=timer)
-	if user.role === 'zombie' || user.role === 'admin'
-		form.pure-form(action="/zombie/submitHuman", method="POST")
-			fieldset
-				legend Ввести код человека
-				input(type="text", name="hash", required="required")
-				input.pure-button.pure-button-primary(type="submit", required="true", value="Захавать человека")
-	if user.role === 'admin' || user.role === 'human'
-		form.pure-form(action="/human/submitMedicine", method="POST")
-			fieldset
-				legend Ввести код лекарства
-				input(type="text", name="code", required="required")
-				input.pure-button.pure-button-primary(type="submit", required="true", value="Полечится")
+	if profileMessage
+		p.message=profileMessage
+	if user.isDead
+		p.message К сожелению, вы проирали. Ждите следующую игру
+	else
+		p Ваша роль #{user.role == 'zombie' ? 'Зомби' : 'Человек'}
+		if user.role == 'zombie'
+			p Вам нужно захвать человека на протяжении
+		if user.role == 'human'
+			p Вам нужно достать вакцину на протяжении
+		.timer(data-timer=user.timer)
+		if user.role === 'zombie' || user.isAdmin
+			form.pure-form(action="/zombie/submitHuman", method="POST")
+				fieldset
+					legend Ввести код человека
+					input(type="text", name="hash", required="required")
+					input.pure-button.pure-button-primary(type="submit", required="true", value="Захавать человека")
+		if user.isAdmin || user.role === 'human'
+			form.pure-form(action="/human/submitMedicine", method="POST")
+				fieldset
+					legend Ввести код лекарства
+					input(type="text", name="code", required="required")
+					input.pure-button.pure-button-primary(type="submit", required="true", value="Полечиться")
 	p: a(href="/logout") Выход

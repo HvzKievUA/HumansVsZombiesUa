@@ -6,7 +6,7 @@
       countdown: true,
       autoStart: false
     });
-    timer.setTime($('.timer').data('timer'));
+    timer.setTime($('.timer').data('timer') / 1000);
     return timer.start();
   });
 

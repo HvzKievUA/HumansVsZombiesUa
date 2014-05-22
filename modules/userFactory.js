@@ -4,32 +4,38 @@
 
   userFactory = function(user) {
     moment;
-    var isOut, izZombie;
-    izZombie = function() {
+    var getInfo;
+    getInfo = function() {
+      var timer;
       if (user.getZombie) {
-        return true;
+        user.timer = moment(user.lastActionDate).add(24, 'hours').diff(moment());
+        user.isDead = user.timer < 0;
+        user.role = 'zombie';
       } else {
-        return moment().subtract(moment(user.lastActionDate)).subtract(1, 'days') < 0;
+        timer = moment(user.lastActionDate).add(30, 'hours').diff(moment());
+        if (timer > 0) {
+          user.timer = timer;
+          user.role = 'human';
+          user.isDead = false;
+        } else {
+          user.role = 'zombie';
+          user.timer = moment(user.lastActionDate).add(54, 'hours').diff(moment());
+          user.isDead = user.timer < 0;
+        }
       }
-    };
-    isOut = function() {
-      if (user.getZombie) {
-        return moment().subtract(moment(user.lastActionDate)).subtract(1, 'days') < 0;
-      } else {
-        return moment().subtract(moment(user.lastActionDate)).subtract(2, 'days') < 0;
-      }
+      user.lastActionDateFormat = moment(user.lastActionDate).format("YYYY-MM-DD HH:mm");
+      user.getZombieFormat = moment(user.lastActionDate).format("YYYY-MM-DD HH:mm");
+      return user;
     };
     return {
-      izZombie: izZombie,
-      izOut: isOut
+      getInfo: getInfo
     };
   };
 
-  if (userFactory && userFactory.exports) {
+  if (module && module.exports) {
     moment = require('moment');
-    return userFactory.exports = userFactory;
+    return module.exports = userFactory;
   } else {
-    moment = window.moment;
     window.userFactory = userFactory;
   }
 

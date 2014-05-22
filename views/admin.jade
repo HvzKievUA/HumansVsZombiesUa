@@ -5,9 +5,27 @@ block title
 
 block content
 	p Всего юзверей: #{users.length}
-	ol
-		each user in users
-			li #{user.hash} #{user.profile.displayName}
+	table.users.pure-table
+		thead
+			td Код
+			td vkId
+			td Имя
+			td роль
+			td выбыл?
+			td Последняя активность
+			td Стал зомби
+			td Таймер
+		tbody
+			each user in users
+				tr
+					td=user.hash
+					td=user.vkontakteId
+					td=user.profile.displayName
+					td=user.role
+					td #{user.isDead?'да':'нет'}
+					td=user.lastActionDateFormat
+					td=user.getZombieFormat
+					td=user.timer
 	form.pure-form(action="/admin/generatemedcine", method="POST")
 		fieldset
 			legend Лекарстваа. Всего: #{medicines.length}

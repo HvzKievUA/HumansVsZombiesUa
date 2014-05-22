@@ -1,0 +1,13 @@
+extends layout
+
+block title
+	| Список учасников команды
+
+block content
+	p Список учасников команды
+	ul.list-group
+		each user in users
+			li.list-group-item.user-list
+				a(href=user.profile.profileUrl)
+					img.avatar(src=user.profile.photos[0].value)
+					=user.profile.displayName

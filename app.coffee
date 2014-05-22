@@ -16,6 +16,7 @@ moment = require 'moment'
 uuid = require 'node-uuid'
 async = require 'async'
 MongoStore = require('connect-mongo')(session)
+UserFactory = require './modules/userFactory'
 
 app = bootable(express())
 server = http.createServer(app)
@@ -52,6 +53,10 @@ app.get '/admin', authorize('admin'),
 	Medicine = mongoose.model 'medicine'
 	User.find (err, users) ->
 		if err then return next(err)
+		users = users.reduce (list, user) ->
+			list.push UserFactory(user.toObject()).getInfo()
+			list
+		, []
 		res.viewData.users = users
 		Medicine.find (err, medicines) ->
 			if err then return next(err)
@@ -87,10 +92,10 @@ app.post '/human/submitMedicine', authorize('human'), (req, res, next) ->
 		if data
 			User.findOneAndUpdate { 'vkontakteId': req.user.vkontakteId }, { lastActionDate: new Date() }, (err, data) ->
 				if err then return next(err)
-				res.viewData.data = "Все збс"
+				res.viewData.profileMessage = "Код сработал"
 				res.render('profile', res.viewData)
 		else
-			res.viewData.err = "Миша, все хуйня"
+			res.viewData.profileMessage = "Извините, код не работает"
 			res.render('profile', res.viewData)
 
 app.post '/zombie/submitHuman', authorize('zombie'), (req, res, next) ->
@@ -102,10 +107,10 @@ app.post '/zombie/submitHuman', authorize('zombie'), (req, res, next) ->
 		if data
 			User.findOneAndUpdate { 'vkontakteId': req.user.vkontakteId }, { lastActionDate: new Date() }, (err, data) ->
 				if err then return next(err)
-				res.viewData.data = "Все збс"
+				res.viewData.profileMessage = "Код сработал"
 				res.render('profile', res.viewData)
 		else
-			res.viewData.err = "Миша, все хуйня"
+			res.viewData.profileMessage = "Извините, код не работает"
 			res.render('profile', res.viewData)
 
 app.get '/auth/vkontakte',
@@ -131,8 +136,18 @@ app.get '/teamZombie', authorize('zombie'), (req, res) ->
 	res.viewData.vkAppId = config.vk.appId
 	res.render('team', res.viewData)
 
+app.get '/memberList', authorize('any'), (req, res) ->
+	User = mongoose.model('user')
+	User.find (err, users) ->
+		teamUsers = []
+		for user in users
+			user = UserFactory(user).getInfo()
+			if req.user.role is user.role
+				teamUsers.push user
+		res.viewData.users = teamUsers
+		res.render('memberList', res.viewData)
+
 app.get '/profile', authorize('any'), (req, res) ->
-	res.viewData.timer = 3600 * 24;
 	res.render('profile', res.viewData)
 
 app.get '/rules', authorize(), (req, res) ->

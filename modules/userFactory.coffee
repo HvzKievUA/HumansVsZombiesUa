@@ -1,26 +1,31 @@
 userFactory = (user) ->
 	moment
 
-	izZombie = ->
-		if user.getZombie
-			yes
+	getInfo = ->
+		if user.getZombie #normal zombie
+			user.timer = moment(user.lastActionDate).add(24, 'hours').diff(moment())
+			user.isDead = user.timer < 0
+			user.role = 'zombie'
 		else
-			moment().subtract(moment(user.lastActionDate)).subtract(1, 'days') < 0
-
-	isOut = ->
-		if user.getZombie
-			moment().subtract(moment(user.lastActionDate)).subtract(1, 'days') < 0
-		else
-			moment().subtract(moment(user.lastActionDate)).subtract(2, 'days') < 0
+			timer =  moment(user.lastActionDate).add(30, 'hours').diff(moment())
+			if timer > 0 #normalHuman
+				user.timer = timer
+				user.role = 'human'
+				user.isDead = no
+			else #zombie from hunger
+				user.role = 'zombie'
+				user.timer = moment(user.lastActionDate).add(54, 'hours').diff(moment())
+				user.isDead = user.timer < 0
+		user.lastActionDateFormat = moment(user.lastActionDate).format("YYYY-MM-DD HH:mm")
+		user.getZombieFormat = moment(user.lastActionDate).format("YYYY-MM-DD HH:mm")
+		user
 
 	return {
-		izZombie: izZombie
-		izOut: isOut
+		getInfo: getInfo
 	}
 
-if userFactory and userFactory.exports
-	moment = require 'moment'
-	return userFactory.exports = userFactory
+if module and module.exports
+	moment = require('moment')
+	return module.exports = userFactory
 else
-	moment = window.moment
 	window.userFactory = userFactory
