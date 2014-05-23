@@ -1,0 +1,527 @@
+/* normalize.css v3.0.1 | MIT License | git.io/normalize */
+/* line 9, ../scss/reset/_normalize.scss */
+html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* line 19, ../scss/reset/_normalize.scss */
+body {
+  margin: 0;
+}
+
+/* line 43, ../scss/reset/_normalize.scss */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary {
+  display: block;
+}
+
+/* line 55, ../scss/reset/_normalize.scss */
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+/* line 65, ../scss/reset/_normalize.scss */
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+/* line 76, ../scss/reset/_normalize.scss */
+[hidden],
+template {
+  display: none;
+}
+
+/* line 87, ../scss/reset/_normalize.scss */
+a {
+  background: transparent;
+}
+
+/* line 96, ../scss/reset/_normalize.scss */
+a:active,
+a:hover {
+  outline: 0;
+}
+
+/* line 107, ../scss/reset/_normalize.scss */
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+
+/* line 116, ../scss/reset/_normalize.scss */
+b,
+strong {
+  font-weight: bold;
+}
+
+/* line 124, ../scss/reset/_normalize.scss */
+dfn {
+  font-style: italic;
+}
+
+/* line 133, ../scss/reset/_normalize.scss */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+/* line 142, ../scss/reset/_normalize.scss */
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+/* line 151, ../scss/reset/_normalize.scss */
+small {
+  font-size: 80%;
+}
+
+/* line 160, ../scss/reset/_normalize.scss */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+/* line 167, ../scss/reset/_normalize.scss */
+sup {
+  top: -0.5em;
+}
+
+/* line 171, ../scss/reset/_normalize.scss */
+sub {
+  bottom: -0.25em;
+}
+
+/* line 182, ../scss/reset/_normalize.scss */
+img {
+  border: 0;
+}
+
+/* line 190, ../scss/reset/_normalize.scss */
+svg:not(:root) {
+  overflow: hidden;
+}
+
+/* line 201, ../scss/reset/_normalize.scss */
+figure {
+  margin: 1em 40px;
+}
+
+/* line 209, ../scss/reset/_normalize.scss */
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+
+/* line 219, ../scss/reset/_normalize.scss */
+pre {
+  overflow: auto;
+}
+
+/* line 230, ../scss/reset/_normalize.scss */
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+/* line 254, ../scss/reset/_normalize.scss */
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+
+/* line 264, ../scss/reset/_normalize.scss */
+button {
+  overflow: visible;
+}
+
+/* line 276, ../scss/reset/_normalize.scss */
+button,
+select {
+  text-transform: none;
+}
+
+/* line 291, ../scss/reset/_normalize.scss */
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+
+/* line 301, ../scss/reset/_normalize.scss */
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+
+/* line 310, ../scss/reset/_normalize.scss */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/* line 320, ../scss/reset/_normalize.scss */
+input {
+  line-height: normal;
+}
+
+/* line 333, ../scss/reset/_normalize.scss */
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+/* line 345, ../scss/reset/_normalize.scss */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/* line 355, ../scss/reset/_normalize.scss */
+input[type="search"] {
+  -webkit-appearance: textfield;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+/* line 369, ../scss/reset/_normalize.scss */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/* line 377, ../scss/reset/_normalize.scss */
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+
+/* line 388, ../scss/reset/_normalize.scss */
+legend {
+  border: 0;
+  padding: 0;
+}
+
+/* line 397, ../scss/reset/_normalize.scss */
+textarea {
+  overflow: auto;
+}
+
+/* line 406, ../scss/reset/_normalize.scss */
+optgroup {
+  font-weight: bold;
+}
+
+/* line 417, ../scss/reset/_normalize.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 423, ../scss/reset/_normalize.scss */
+td,
+th {
+  padding: 0;
+}
+
+@font-face {
+  font-family: 'capture_itregular';
+  src: url("/fonts/captureit_regular/Capture_it-webfont.eot");
+  src: url("/fonts/captureit_regular/Capture_it-webfont.eot?#iefix") format("embedded-opentype"), url("/fonts/captureit_regular/Capture_it-webfont.woff") format("woff"), url("/fonts/captureit_regular/Capture_it-webfont.ttf") format("truetype"), url("/fonts/captureit_regular/Capture_it-webfont.svg#capture_itregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* line 14, ../scss/base/_base.scss */
+*, :before, :after {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+/* line 20, ../scss/base/_base.scss */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+  background-image: url("/img/bg.jpg");
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-attachment: fixed;
+}
+
+/* line 37, ../scss/base/_base.scss */
+.clearfix {
+  *zoom: 1;
+}
+/* line 3, ../scss/base/functions/_clearfix.scss */
+.clearfix:before, .clearfix:after {
+  content: "";
+  display: table;
+}
+/* line 7, ../scss/base/functions/_clearfix.scss */
+.clearfix:after {
+  clear: both;
+}
+
+/* line 1, ../scss/project/_project.scss */
+.wrapper {
+  width: 1000px;
+  height: auto;
+  min-height: 100%;
+  margin: 0 auto;
+  margin-bottom: -50px;
+  background-image: url("/img/pageBg.jpg");
+  box-shadow: 0 17px 13px 5px #000000;
+  -moz-box-shadow: 0 17px 13px 5px #000000;
+  -webkit-box-shadow: 0 17px 13px 5px #000000;
+}
+/* line 14, ../scss/project/_project.scss */
+.wrapper:after {
+  height: 50px;
+}
+
+/* line 19, ../scss/project/_project.scss */
+.header {
+  position: relative;
+}
+/* line 22, ../scss/project/_project.scss */
+.header .header_abs {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+}
+/* line 28, ../scss/project/_project.scss */
+.header .header_inline-nav {
+  width: 1000px;
+  border: 1px solid #333333;
+  padding: 5px 10px;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #383838), color-stop(100%, #252525));
+  text-transform: uppercase;
+  font-size: 14px;
+}
+/* line 36, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_social {
+  float: left;
+  color: #aaaaaa;
+}
+/* line 40, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_social .social_heading {
+  float: left;
+}
+/* line 44, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_social .social_list {
+  float: left;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* line 50, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_social .social_list .social_list_item {
+  display: inline-block;
+  margin-left: 10px;
+}
+/* line 56, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_social .social_list .social_list_item .vk,
+.header .header_inline-nav .header_inline-nav_social .social_list .social_list_item .fb,
+.header .header_inline-nav .header_inline-nav_social .social_list .social_list_item .tw {
+  text-decoration: none;
+  text-transform: none;
+  text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.3);
+}
+/* line 62, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_social .social_list .social_list_item .vk {
+  color: #446992;
+}
+/* line 65, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_social .social_list .social_list_item .vk:hover {
+  color: #4C75A3;
+}
+/* line 70, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_social .social_list .social_list_item .fb {
+  color: #344e86;
+}
+/* line 73, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_social .social_list .social_list_item .fb:hover {
+  color: #3B5998;
+}
+/* line 78, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_social .social_list .social_list_item .tw {
+  color: #009dd3;
+}
+/* line 81, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_social .social_list .social_list_item .tw:hover {
+  color: #00B0ED;
+}
+/* line 89, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_auth {
+  float: right;
+}
+/* line 92, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_auth .auth_action {
+  color: #cc9933;
+  font-size: 14px;
+  text-decoration: none;
+}
+/* line 100, ../scss/project/_project.scss */
+.header .header_logo {
+  display: block;
+  padding: 20px 0;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+/* line 105, ../scss/project/_project.scss */
+.header .header_logo .header_logo_img {
+  display: block;
+  width: 500px;
+  height: 100%;
+  margin: 0 auto;
+}
+/* line 113, ../scss/project/_project.scss */
+.header .header_main-nav {
+  padding: 0 0 20px 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  text-align: center;
+}
+/* line 118, ../scss/project/_project.scss */
+.header .header_main-nav .header_nav_navbar {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* line 124, ../scss/project/_project.scss */
+.header .header_main-nav .header_nav_navbar .navbar_item {
+  display: inline-block;
+}
+/* line 127, ../scss/project/_project.scss */
+.header .header_main-nav .header_nav_navbar .navbar_item .navbar_item_link {
+  font-family: "capture_itregular";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: normal;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #eeeeee;
+}
+/* line 140, ../scss/project/_project.scss */
+.header .header_main-nav .header_nav_navbar .navbar_item:hover .navbar_item_link, .header .header_main-nav .header_nav_navbar .navbar_item.__active .navbar_item_link {
+  color: #cc9933;
+}
+/* line 145, ../scss/project/_project.scss */
+.header .header_main-nav .header_nav_navbar .navbar_item + .navbar_item {
+  margin-left: 26px;
+}
+/* line 151, ../scss/project/_project.scss */
+.header .header_banner {
+  position: relative;
+  width: 1000px;
+  min-height: 360px;
+  padding-top: 26px;
+  z-index: 1;
+}
+/* line 158, ../scss/project/_project.scss */
+.header .header_banner .header_banner_img {
+  width: 1000px;
+  height: auto;
+}
+/* line 163, ../scss/project/_project.scss */
+.header .header_banner .header_banner_title {
+  position: absolute;
+  width: 100%;
+  top: 170px;
+  left: 0;
+  padding: 100px 20px 118px;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+/* line 171, ../scss/project/_project.scss */
+.header .header_banner .header_banner_title .title_heading {
+  margin: 0;
+  font-family: "capture_itregular";
+  font-size: 140px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 100px;
+  color: #eeeeee;
+}
+/* line 183, ../scss/project/_project.scss */
+.header .header_banner .header_banner_title .title_text {
+  font-family: "capture_itregular";
+  font-size: 26px;
+  font-style: normal;
+  font-weight: normal;
+  color: #eeeeee;
+}
+/* line 194, ../scss/project/_project.scss */
+.header .header_banner.__big {
+  height: 517px;
+}
+/* line 198, ../scss/project/_project.scss */
+.header .header_banner.__small {
+  height: 386px;
+}
+/* line 201, ../scss/project/_project.scss */
+.header .header_banner.__small .header_banner_title {
+  padding: 62px 20px;
+}
+/* line 204, ../scss/project/_project.scss */
+.header .header_banner.__small .header_banner_title .title_heading {
+  font-size: 70px;
+  line-height: 70px;
+}
+/* line 209, ../scss/project/_project.scss */
+.header .header_banner.__small .header_banner_title .title_text {
+  font-size: 20px;
+}
+
+/* line 217, ../scss/project/_project.scss */
+.content {
+  padding: 20px 20px;
+}
+
+/* line 221, ../scss/project/_project.scss */
+.footer {
+  width: 1000px;
+  margin: 0 auto;
+  padding: 16px 0;
+  background: url("/img/footerBg.jpg");
+  height: 50px;
+  text-align: center;
+  color: #666666;
+}

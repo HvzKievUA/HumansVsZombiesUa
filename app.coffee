@@ -130,11 +130,12 @@ app.get '/logout', (req, res) ->
 app.get '/teamHuman', authorize('human'), (req, res) ->
 	res.viewData.title = 'Команда зомби'
 	res.viewData.vkAppId = config.vk.appId
-	res.render('team', res.viewData)
+	res.render('teamHuman', res.viewData)
+
 app.get '/teamZombie', authorize('zombie'), (req, res) ->
 	res.viewData.title = 'Команда людей'
 	res.viewData.vkAppId = config.vk.appId
-	res.render('team', res.viewData)
+	res.render('teamZombie', res.viewData)
 
 app.get '/memberList', authorize('any'), (req, res) ->
 	User = mongoose.model('user')
