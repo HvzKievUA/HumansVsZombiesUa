@@ -19,6 +19,9 @@ coverage
 # Sass temporary cache
 .sass-cache
 
+# IDE project files
+.idea
+
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 

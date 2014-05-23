@@ -13,8 +13,16 @@ block headerBanner
 				| - Каждый день может быть последним
 
 block content
-	h1 Здраствуйте
-
+	div.content_prm-video
+		iframe(
+			src="//player.vimeo.com/video/96230372?byline=0&amp;portrait=0&amp;color=cc9933&amp;",
+			width="1000",
+			height="562",
+			frameborder="0",
+			webkitallowfullscreen,
+			mozallowfullscreen,
+			allowfullscreen
+		)
 	p
 		img(src="http://placehold.it/400x400", style="padding: 25px;")
 		img(src="http://placehold.it/600x400", style="padding: 25px;")

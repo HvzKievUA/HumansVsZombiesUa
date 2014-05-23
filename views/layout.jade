@@ -8,7 +8,7 @@ html
 			block title
 			| | Humans vs Zombies KPI
 		link(rel="stylesheet" href='/css/style.css')
-		script(src='//code.jquery.com/jquery-2.1.1.min.js')
+		script(type="text/javascript", src='//code.jquery.com/jquery-2.1.1.min.js')
 		block head
 	body
 		div.wrapper.clearfix
@@ -43,10 +43,10 @@ html
 							li.navbar_item(class="#{section == 'rules' ? '__active' : ''}")
 								a.navbar_item_link(href="/rules") Правила
 							if isAuth && (user.role === 'human' || user.isAdmin)
-								li.navbar_item(class="#{section == 'teamHuman' || (section == 'memberList' && user.role == 'human') ? '__active' : ''}")
+								li.navbar_item(class="#{section == 'teamHuman' ? '__active' : ''}")
 									a.navbar_item_link(href="/teamHuman") Команда людей
 							if isAuth && (user.role === 'zombie' || user.isAdmin)
-								li.navbar_item(class="#{section == 'teamZombie' || (section == 'memberList' && user.role == 'zombie') ? '__active' : ''}")
+								li.navbar_item(class="#{section == 'teamZombie' ? '__active' : ''}")
 									a.navbar_item_link(href="/teamZombie") Команда зомби
 							if isAuth && user.isAdmin
 								li.navbar_item(class="#{section == 'admin' ? '__active' : ''}")
@@ -59,3 +59,8 @@ html
 
 		div.footer
 			| Humans vs Zombies KPI © 2014
+			br
+			small.footer_developers Сайт разработали за еду:
+				a.developer(href="http://vk.com/eagleeye_s", target="_blank") Андрей Шумада
+				|  и
+				a.developer(href="http://vk.com/geekiam", target="_blank") Антон Федулов

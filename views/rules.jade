@@ -2,6 +2,11 @@ extends layout
 block title
 	| Правила
 
+block head
+	script(type="text/javascript", src='http://maps.google.com/maps/api/js?sensor=true')
+	script(type="text/javascript", src='/js/vendor/gmaps.js')
+	script(type="text/javascript", src='/js/mapGamezone.js')
+
 block headerBanner
 	div.header_banner.__small
 		img.header_banner_img(src="/img/header_banners/banner_4.jpg", alt="Баннер")
@@ -22,7 +27,8 @@ block content
 		p Конец игры 03 июня в 18.00.
 		h3 Игровая Зона
 		p (корпуса, общежития, магазины и другие здания являются НЕ ИГРОВЫМИ зонами)
-		img(src='/img/gamezone.jpg')
+		//img(src='/img/gamezone.jpg')
+		div#map_gamezone
 		p Противостояния происходит между двумя командами: Люди и Зомби. Изначально почти все участники игры являются Людьми, в команду Зомби входит один человек.
 		p Цель игры: для команды Зомби – уничтожить команду Людей, для команды люди – продержаться «выжить» игровое время.
 		p Инвентарь Игрока: БЕЛАЯ повязка, Идентификационная карта (предоставляется организаторами),  Снаряды (делаются игроками).
