@@ -44,6 +44,7 @@ app.all '/', (req, res, next) ->
 app.get '/', authorize(), (req, res) ->
 	User = mongoose.model('user')
 	User.find (err, users) ->
+		res.viewData.section = 'home'
 		res.viewData.users = users
 		res.render('home', res.viewData)
 
@@ -61,6 +62,7 @@ app.get '/admin', authorize('admin'),
 		Medicine.find (err, medicines) ->
 			if err then return next(err)
 			res.viewData.medicines = medicines
+			res.viewData.section = 'admin'
 			res.render 'admin', res.viewData
 
 app.post '/admin/generatemedcine', authorize('admin'), (req, res, next) ->
@@ -130,11 +132,13 @@ app.get '/logout', (req, res) ->
 app.get '/teamHuman', authorize('human'), (req, res) ->
 	res.viewData.title = 'Команда зомби'
 	res.viewData.vkAppId = config.vk.appId
+	res.viewData.section = 'teamHuman';
 	res.render('teamHuman', res.viewData)
 
 app.get '/teamZombie', authorize('zombie'), (req, res) ->
 	res.viewData.title = 'Команда людей'
 	res.viewData.vkAppId = config.vk.appId
+	res.viewData.section = 'teamZombie';
 	res.render('teamZombie', res.viewData)
 
 app.get '/memberList', authorize('any'), (req, res) ->
@@ -146,12 +150,14 @@ app.get '/memberList', authorize('any'), (req, res) ->
 			if req.user.role is user.role
 				teamUsers.push user
 		res.viewData.users = teamUsers
+		res.viewData.section = 'memberList'
 		res.render('memberList', res.viewData)
 
 app.get '/profile', authorize('any'), (req, res) ->
 	res.render('profile', res.viewData)
 
 app.get '/rules', authorize(), (req, res) ->
+	res.viewData.section = 'rules'
 	res.render('rules', res.viewData)
 
 app.use (req, res) ->

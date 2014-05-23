@@ -1,61 +1,61 @@
 doctype html
 html
-    head
-        link(rel="stylesheet" href='css/style.css')
-        meta(charset="utf-8")
-        meta(http-equiv="X-UA-Compatible", content="IE=edge")
-        meta(name="viewport", content="width=device-width, initial-scale=1")
-        title
-            block title
-            |  | Humans vs Zombies KPI
-        script(src='//code.jquery.com/jquery-2.1.1.min.js')
-        block head
-    body
-        div.wrapper.clearfix
-            header.header
-                div.header_abs
-                    div.header_inline-nav.clearfix
-                        div.header_inline-nav_social
-                            div.social_heading
-                                | Мы в социальных сетях:
-                            ul.social_list
-                                li.social_list_item
-                                    a(href="http://vk.com/kpihumans.vszombie", target="_blank").vk Вконтакте
-                                li.social_list_item
-                                    a(href="/", target="_blank").fb Facebook
-                                li.social_list_item
-                                    a(href="/", target="_blank").tw Twitter
+	head
+		meta(charset="utf-8")
+		meta(http-equiv="X-UA-Compatible", content="IE=edge")
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+		title
+			block title
+			| | Humans vs Zombies KPI
+		link(rel="stylesheet" href='/css/style.css')
+		script(src='//code.jquery.com/jquery-2.1.1.min.js')
+		block head
+	body
+		div.wrapper.clearfix
+			header.header
+				div.header_abs
+					div.header_inline-nav.clearfix
+						div.header_inline-nav_social
+							div.social_heading
+								| Мы в социальных сетях:
+							ul.social_list
+								li.social_list_item
+									a(href="http://vk.com/kpihumans.vszombie", target="_blank").vk Вконтакте
+								li.social_list_item
+									a(href="/", target="_blank").fb Facebook
+								li.social_list_item
+									a(href="/", target="_blank").tw Twitter
 
-                        div.header_inline-nav_auth
-                            if isAuth
-                                a.auth_action(href="/profile")
-                                    | Здраствуйте, #{user.profile.displayName}
-                            else
-                                a.auth_action(href="/auth/vkontakte")
-                                    | Войти через Вконтакте
-                    a.header_logo(href="/")
-                        img.header_logo_img(src="/img/logo.png", alt="Humans vs Zombies KPI")
+						div.header_inline-nav_auth
+							if isAuth
+								a.auth_action(href="/profile")
+									| Здраствуйте, #{user.profile.displayName}
+							else
+								a.auth_action(href="/auth/vkontakte")
+									| Войти через Вконтакте
+					a.header_logo(href="/")
+						img.header_logo_img(src="/img/logo.png", alt="Humans vs Zombies KPI")
 
-                    div.header_main-nav
-                        ul.header_nav_navbar
-                            li.navbar_item.__active
-                                a.navbar_item_link(href="/") Главная
-                            li.navbar_item
-                                a.navbar_item_link(href="/rules") Правила
-                            if isAuth && (user.role === 'human' || user.isAdmin)
-                                li.navbar_item
-                                    a.navbar_item_link(href="/teamHuman") Команда людей
-                            if isAuth && (user.role === 'zombie' || user.isAdmin)
-                                li.navbar_item
-                                    a.navbar_item_link(href="/teamZombie") Команда зомби
-                            if isAuth && user.isAdmin
-                                li.navbar_item
-                                    a.navbar_item_link(href="/admin") Админ панель
+					div.header_main-nav
+						ul.header_nav_navbar
+							li.navbar_item(class="#{section == 'home' ? '__active' : ''}")
+								a.navbar_item_link(href="/") Главная
+							li.navbar_item(class="#{section == 'rules' ? '__active' : ''}")
+								a.navbar_item_link(href="/rules") Правила
+							if isAuth && (user.role === 'human' || user.isAdmin)
+								li.navbar_item(class="#{section == 'teamHuman' || (section == 'memberList' && user.role == 'human') ? '__active' : ''}")
+									a.navbar_item_link(href="/teamHuman") Команда людей
+							if isAuth && (user.role === 'zombie' || user.isAdmin)
+								li.navbar_item(class="#{section == 'teamZombie' || (section == 'memberList' && user.role == 'zombie') ? '__active' : ''}")
+									a.navbar_item_link(href="/teamZombie") Команда зомби
+							if isAuth && user.isAdmin
+								li.navbar_item(class="#{section == 'admin' ? '__active' : ''}")
+									a.navbar_item_link(href="/admin") Админ панель
 
-                block headerBanner
+				block headerBanner
 
-            div.content
-                block content
+			div.content
+				block content
 
-        div.footer
-            | Humans vs Zombies KPI © 2014
+		div.footer
+			| Humans vs Zombies KPI © 2014

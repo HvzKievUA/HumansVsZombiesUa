@@ -80,6 +80,7 @@
     var User;
     User = mongoose.model('user');
     return User.find(function(err, users) {
+      res.viewData.section = 'home';
       res.viewData.users = users;
       return res.render('home', res.viewData);
     });
@@ -103,6 +104,7 @@
           return next(err);
         }
         res.viewData.medicines = medicines;
+        res.viewData.section = 'admin';
         return res.render('admin', res.viewData);
       });
     });
@@ -228,12 +230,14 @@
   app.get('/teamHuman', authorize('human'), function(req, res) {
     res.viewData.title = 'Команда зомби';
     res.viewData.vkAppId = config.vk.appId;
+    res.viewData.section = 'teamHuman';
     return res.render('teamHuman', res.viewData);
   });
 
   app.get('/teamZombie', authorize('zombie'), function(req, res) {
     res.viewData.title = 'Команда людей';
     res.viewData.vkAppId = config.vk.appId;
+    res.viewData.section = 'teamZombie';
     return res.render('teamZombie', res.viewData);
   });
 
@@ -251,6 +255,7 @@
         }
       }
       res.viewData.users = teamUsers;
+      res.viewData.section = 'memberList';
       return res.render('memberList', res.viewData);
     });
   });
@@ -260,6 +265,7 @@
   });
 
   app.get('/rules', authorize(), function(req, res) {
+    res.viewData.section = 'rules';
     return res.render('rules', res.viewData);
   });
 

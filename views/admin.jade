@@ -1,55 +1,55 @@
 extends layout
 
 block title
-    | Админка
+	| Админка
 
 block headerBanner
-    div.header_banner.__small
-        img.header_banner_img(src="/img/header_banners/banner_5.jpg", alt="Баннер")
-        div.header_banner_title
-            h1.title_heading
-                | Панель администратора
-            div.title_text
-                | - Управляй апокалипсисом
+	div.header_banner.__small
+		img.header_banner_img(src="/img/header_banners/banner_5.jpg", alt="Баннер")
+		div.header_banner_title
+			h1.title_heading
+				| Панель администратора
+			div.title_text
+				| - Управляй апокалипсисом
 
 block content
-    p Всего юзверей: #{users.length}
-    table.users.pure-table
-        thead
-            td Код
-            td vkId
-            td Имя
-            td роль
-            td выбыл?
-            td Последняя активность
-            td Стал зомби
-            td Таймер
-        tbody
-            each user in users
-                tr
-                    td=user.hash
-                    td=user.vkontakteId
-                    td=user.profile.displayName
-                    td=user.role
-                    td #{user.isDead?'да':'нет'}
-                    td=user.lastActionDateFormat
-                    td=user.getZombieFormat
-                    td=user.timer
-    form.pure-form(action="/admin/generatemedcine", method="POST")
-        fieldset
-            legend Лекарстваа. Всего: #{medicines.length}
-            input(type="number", name="count", min="1", max="100", required="required")
-            input.pure-button.pure-button-primary(type="submit", value="Сгенерировать")
-    table.medicines.pure-table
-        thead
-            td Код
-            td Сгенерирован
-            td Использован
-            td Время использования
-        tbody
-            each medicine in medicines
-                tr.medicine(class="#{medicine.usedBy ? 'used' : ''}")
-                    td=medicine.code
-                    td=medicine.generated
-                    td=medicine.usedBy
-                    td=medicine.usedTime
+	p Всего юзверей: #{users.length}
+	table.users.pure-table
+		thead
+			td Код
+			td vkId
+			td Имя
+			td роль
+			td выбыл?
+			td Последняя активность
+			td Стал зомби
+			td Таймер
+		tbody
+			each user in users
+				tr
+					td=user.hash
+					td=user.vkontakteId
+					td=user.profile.displayName
+					td=user.role
+					td #{user.isDead?'да':'нет'}
+					td=user.lastActionDateFormat
+					td=user.getZombieFormat
+					td=user.timer
+	form.pure-form(action="/admin/generatemedcine", method="POST")
+		fieldset
+			legend Лекарстваа. Всего: #{medicines.length}
+			input(type="number", name="count", min="1", max="100", required="required")
+			input.pure-button.pure-button-primary(type="submit", value="Сгенерировать")
+	table.medicines.pure-table
+		thead
+			td Код
+			td Сгенерирован
+			td Использован
+			td Время использования
+		tbody
+			each medicine in medicines
+				tr.medicine(class="#{medicine.usedBy ? 'used' : ''}")
+					td=medicine.code
+					td=medicine.generated
+					td=medicine.usedBy
+					td=medicine.usedTime
