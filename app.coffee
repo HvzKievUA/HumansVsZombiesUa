@@ -132,26 +132,30 @@ app.get '/logout', (req, res) ->
 app.get '/teamHuman', authorize('human'), (req, res) ->
 	res.viewData.title = 'Команда зомби'
 	res.viewData.vkAppId = config.vk.appId
-	res.viewData.section = 'teamHuman';
-	res.render('teamHuman', res.viewData)
-
-app.get '/teamZombie', authorize('zombie'), (req, res) ->
-	res.viewData.title = 'Команда людей'
-	res.viewData.vkAppId = config.vk.appId
-	res.viewData.section = 'teamZombie';
-	res.render('teamZombie', res.viewData)
-
-app.get '/memberList', authorize('any'), (req, res) ->
+	res.viewData.section = 'teamHuman'
 	User = mongoose.model('user')
 	User.find (err, users) ->
 		teamUsers = []
 		for user in users
 			user = UserFactory(user).getInfo()
-			if req.user.role is user.role
+			if user.role is 'zombie'
 				teamUsers.push user
 		res.viewData.users = teamUsers
-		res.viewData.section = 'memberList'
-		res.render('memberList', res.viewData)
+		res.render('teamHuman', res.viewData)
+
+app.get '/teamZombie', authorize('zombie'), (req, res) ->
+	res.viewData.title = 'Команда людей'
+	res.viewData.vkAppId = config.vk.appId
+	res.viewData.section = 'teamZombie'
+	User = mongoose.model('user')
+	User.find (err, users) ->
+		teamUsers = []
+		for user in users
+			user = UserFactory(user).getInfo()
+			if user.role is 'human'
+				teamUsers.push user
+		res.viewData.users = teamUsers
+		res.render('teamZombie', res.viewData)
 
 app.get '/profile', authorize('any'), (req, res) ->
 	res.render('profile', res.viewData)

@@ -228,21 +228,10 @@
   });
 
   app.get('/teamHuman', authorize('human'), function(req, res) {
+    var User;
     res.viewData.title = 'Команда зомби';
     res.viewData.vkAppId = config.vk.appId;
     res.viewData.section = 'teamHuman';
-    return res.render('teamHuman', res.viewData);
-  });
-
-  app.get('/teamZombie', authorize('zombie'), function(req, res) {
-    res.viewData.title = 'Команда людей';
-    res.viewData.vkAppId = config.vk.appId;
-    res.viewData.section = 'teamZombie';
-    return res.render('teamZombie', res.viewData);
-  });
-
-  app.get('/memberList', authorize('any'), function(req, res) {
-    var User;
     User = mongoose.model('user');
     return User.find(function(err, users) {
       var teamUsers, user, _i, _len;
@@ -250,13 +239,33 @@
       for (_i = 0, _len = users.length; _i < _len; _i++) {
         user = users[_i];
         user = UserFactory(user).getInfo();
-        if (req.user.role === user.role) {
+        if (user.role === 'zombie') {
           teamUsers.push(user);
         }
       }
       res.viewData.users = teamUsers;
-      res.viewData.section = 'memberList';
-      return res.render('memberList', res.viewData);
+      return res.render('teamHuman', res.viewData);
+    });
+  });
+
+  app.get('/teamZombie', authorize('zombie'), function(req, res) {
+    var User;
+    res.viewData.title = 'Команда людей';
+    res.viewData.vkAppId = config.vk.appId;
+    res.viewData.section = 'teamZombie';
+    User = mongoose.model('user');
+    return User.find(function(err, users) {
+      var teamUsers, user, _i, _len;
+      teamUsers = [];
+      for (_i = 0, _len = users.length; _i < _len; _i++) {
+        user = users[_i];
+        user = UserFactory(user).getInfo();
+        if (user.role === 'human') {
+          teamUsers.push(user);
+        }
+      }
+      res.viewData.users = teamUsers;
+      return res.render('teamZombie', res.viewData);
     });
   });
 
