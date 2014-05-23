@@ -3,19 +3,28 @@ extends layout
 block title
 	| Прифиль
 
+block headerBanner
+	div.header_banner.__small
+		img.header_banner_img(src="/img/header_banners/banner_6.jpg", alt="Баннер")
+		div.header_banner_title
+			h1.title_heading
+				| Личный кабинет
+			div.title_text
+				| - Наверное, самое спокойное место на Земле
+
 block content
 	if profileMessage
 		p.message=profileMessage
 	if user.isDead
 		p.message К сожелению, вы проирали. Ждите следующую игру
 	else
-		p Ваша роль #{user.role == 'zombie' ? 'Зомби' : 'Человек'}
+		p Ваша роль - #{user.role == 'zombie' ? 'Зомби' : 'Человек'}
 		if user.role == 'zombie'
 			p Вам нужно захвать человека на протяжении
 		if user.role == 'human'
 			p Вам нужно достать вакцину на протяжении
 		.timer(data-timer=user.timer)
-		if user.role === 'zombie' || user.isAdmin
+		if user.isAdmin || user.role === 'zombie'
 			form.pure-form(action="/zombie/submitHuman", method="POST")
 				fieldset
 					legend Ввести код человека

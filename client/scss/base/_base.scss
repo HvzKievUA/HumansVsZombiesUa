@@ -1,0 +1,39 @@
+@import "functions/clearfix";
+
+@font-face {
+  font-family: 'capture_itregular';
+  src: url('/fonts/captureit_regular/Capture_it-webfont.eot');
+  src: url('/fonts/captureit_regular/Capture_it-webfont.eot?#iefix') format('embedded-opentype'),
+  url('/fonts/captureit_regular/Capture_it-webfont.woff') format('woff'),
+  url('/fonts/captureit_regular/Capture_it-webfont.ttf') format('truetype'),
+  url('/fonts/captureit_regular/Capture_it-webfont.svg#capture_itregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+*, :before, :after {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font: {
+    family: sans-serif;
+    size: 16px;
+    weight: normal;
+  };
+  background: {
+    image: url("/img/bg.jpg");
+    repeat: no-repeat;
+    position: top center;
+    attachment: fixed;
+  };
+}
+
+.clearfix {
+  @include clearfix();
+}

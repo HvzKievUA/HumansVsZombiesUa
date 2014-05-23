@@ -1,16 +1,25 @@
 extends layout
 
 block title
-	| Главная страница
+    | Главная страница
+
+block headerBanner
+    div.header_banner.__big
+        img.header_banner_img(src="/img/header_banners/banner_2.jpg", alt="Баннер")
+        div.header_banner_title
+            h1.title_heading
+                | #HVZKPI 2014
+            div.title_text
+                | - Каждый день может быть последним
 
 block content
-	h1 Здраствуйте
+    h1 Здраствуйте
 
-	p
-		img(src="http://placehold.it/400x400", style="padding: 25px;")
-		img(src="http://placehold.it/600x400", style="padding: 25px;")
-	p
-		img(src="http://placehold.it/600x400", style="padding: 25px;")
-		img(src="http://placehold.it/400x400", style="padding: 25px;")
+    p
+        img(src="http://placehold.it/400x400", style="padding: 25px;")
+        img(src="http://placehold.it/600x400", style="padding: 25px;")
+    p
+        img(src="http://placehold.it/600x400", style="padding: 25px;")
+        img(src="http://placehold.it/400x400", style="padding: 25px;")
 
-	p Всего заригестрировано: #{users.length}
+    p Всего заригестрировано: #{users.length}
