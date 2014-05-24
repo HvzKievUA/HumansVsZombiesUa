@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Russo+One&subset=latin,cyrillic);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,800italic,400,600,700,800&subset=latin,cyrillic);
 /* normalize.css v3.0.1 | MIT License | git.io/normalize */
 /* line 9, ../scss/reset/_normalize.scss */
 html {
@@ -266,28 +268,202 @@ th {
   font-style: normal;
 }
 
-/* line 14, ../scss/base/_base.scss */
+@font-face {
+  font-family: 'molot_regular_macroman';
+  src: url("/fonts/molot_regular_macroman/Molot-webfont.eot");
+  src: url("/fonts/molot_regular_macroman/Molot-webfont.eot?#iefix") format("embedded-opentype"), url("/fonts/molot_regular_macroman/Molot-webfont.woff") format("woff"), url("/fonts/molot_regular_macroman/Molot-webfont.ttf") format("truetype"), url("/fonts/molot_regular_macroman/Molot-webfont.svg#capture_itregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* line 22, ../scss/base/_base.scss */
 *, :before, :after {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
 }
 
-/* line 20, ../scss/base/_base.scss */
+/* line 28, ../scss/base/_base.scss */
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 16px;
   font-weight: normal;
-  background-image: url("/img/bg.jpg");
+  color: #333333;
+  background-image: url("/img/light-bg.jpg");
   background-repeat: no-repeat;
   background-position: top center;
   background-attachment: fixed;
 }
 
-/* line 37, ../scss/base/_base.scss */
+/* line 47, ../scss/base/_base.scss */
+.col {
+  float: left;
+  padding: 10px 0;
+}
+
+/* line 52, ../scss/base/_base.scss */
+.col-1000 {
+  width: 1000px;
+  margin: 0 -20px;
+}
+
+/* line 57, ../scss/base/_base.scss */
+.col-960 {
+  width: 960px;
+}
+
+/* line 61, ../scss/base/_base.scss */
+.col-640 {
+  width: 640px;
+}
+/* line 64, ../scss/base/_base.scss */
+.col-640 + .col-300 {
+  margin-left: 20px;
+}
+
+/* line 69, ../scss/base/_base.scss */
+.col-300 {
+  width: 300px;
+}
+
+/* line 73, ../scss/base/_base.scss */
+.widget {
+  text-align: center;
+  color: #eeeeee;
+  padding-bottom: 15px;
+}
+/* line 78, ../scss/base/_base.scss */
+.widget.widget-bg_1 {
+  background: url("/img/widget-footer-bg_1.png") no-repeat left bottom;
+}
+/* line 82, ../scss/base/_base.scss */
+.widget.widget-bg_2 {
+  background: url("/img/widget-footer-bg_2.png") no-repeat left bottom;
+}
+/* line 86, ../scss/base/_base.scss */
+.widget .widget_heading {
+  width: 100%;
+  height: 50px;
+  margin: 0;
+  padding: 8px 16px;
+  font-family: 'Russo One';
+  font-size: 24px;
+  font-style: normal;
+  font-weight: normal;
+  background: #2f2f2f url("/img/widget-title-bg.png") no-repeat;
+  text-align: left;
+}
+/* line 101, ../scss/base/_base.scss */
+.widget .widget_body {
+  width: 100%;
+  padding: 12px 16px;
+  font-family: "Russo One";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: normal;
+  background-color: #2f2f2f;
+}
+/* line 113, ../scss/base/_base.scss */
+.widget .widget_body.widget_body-list {
+  margin: 0;
+  list-style: none;
+  text-align: left;
+  font-size: 18px;
+}
+/* line 121, ../scss/base/_base.scss */
+.widget .widget_body.widget_body-list > .list_item .list_item_link {
+  text-decoration: none;
+  margin-left: 6px;
+  margin-bottom: 2px;
+  font-family: "Open Sans";
+  font-size: 13px;
+  font-style: italic;
+  font-weight: normal;
+  color: #888888;
+}
+/* line 133, ../scss/base/_base.scss */
+.widget .widget_body.widget_body-list > .list_item .list_item_link:hover {
+  color: #a2a2a2;
+}
+/* line 136, ../scss/base/_base.scss */
+.widget .widget_body.widget_body-list > .list_item .list_item_link:before {
+  content: "(";
+}
+/* line 139, ../scss/base/_base.scss */
+.widget .widget_body.widget_body-list > .list_item .list_item_link:after {
+  content: ")";
+}
+/* line 145, ../scss/base/_base.scss */
+.widget .widget_body.widget_body-list > .list_item + .list_item {
+  padding-top: 6px;
+}
+/* line 151, ../scss/base/_base.scss */
+.widget + .widget {
+  margin-top: 20px;
+}
+
+/* line 156, ../scss/base/_base.scss */
+.reveal-modal-bg {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background: #000;
+  opacity: 0.8;
+  z-index: 100;
+  display: none;
+  top: 0;
+  left: 0;
+}
+
+/* line 168, ../scss/base/_base.scss */
+.reveal-modal {
+  visibility: hidden;
+  top: 100px;
+  left: 50%;
+  margin-left: -300px;
+  width: 520px;
+  background-color: #eeeeee;
+  position: absolute;
+  z-index: 101;
+  padding: 30px 40px 34px;
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+  -box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+}
+
+/* line 183, ../scss/base/_base.scss */
+.reveal-modal.small {
+  width: 200px;
+  margin-left: -100px;
+}
+
+/* line 188, ../scss/base/_base.scss */
+.reveal-modal.medium {
+  width: 400px;
+  margin-left: -200px;
+}
+
+/* line 193, ../scss/base/_base.scss */
+.reveal-modal.large {
+  width: 600px;
+  margin-left: -300px;
+}
+
+/* line 198, ../scss/base/_base.scss */
+.reveal-modal.xlarge {
+  width: 800px;
+  margin-left: -400px;
+}
+
+/* line 203, ../scss/base/_base.scss */
+.reveal-modal .close-reveal-modal {
+  cursor: pointer;
+}
+
+/* line 207, ../scss/base/_base.scss */
 .clearfix {
   *zoom: 1;
 }
@@ -313,124 +489,147 @@ html, body {
   -moz-box-shadow: 0 17px 13px 5px #000000;
   -webkit-box-shadow: 0 17px 13px 5px #000000;
 }
-/* line 14, ../scss/project/_project.scss */
+/* line 15, ../scss/project/_project.scss */
 .wrapper:after {
   height: 50px;
 }
 
-/* line 19, ../scss/project/_project.scss */
+/* line 20, ../scss/project/_project.scss */
 .header {
   position: relative;
 }
-/* line 22, ../scss/project/_project.scss */
+/* line 25, ../scss/project/_project.scss */
+.header .header_separator:before {
+  content: "//";
+  display: inline-block;
+  margin: 0 6px;
+  font-size: 14px;
+  color: #5b5b5b;
+}
+/* line 34, ../scss/project/_project.scss */
 .header .header_abs {
   position: absolute;
   top: 0;
   z-index: 2;
 }
-/* line 28, ../scss/project/_project.scss */
+/* line 40, ../scss/project/_project.scss */
 .header .header_inline-nav {
   width: 1000px;
   border: 1px solid #333333;
   padding: 5px 10px;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #383838), color-stop(100%, #252525));
+  background: -webkit-linear-gradient(top, #383838, #252525);
+  background: -moz-linear-gradient(top, #383838, #252525);
+  background: -o-linear-gradient(top, #383838, #252525);
+  background: linear-gradient(top, #383838, #252525);
   text-transform: uppercase;
   font-size: 14px;
 }
-/* line 36, ../scss/project/_project.scss */
+/* line 52, ../scss/project/_project.scss */
 .header .header_inline-nav .header_inline-nav_social {
   float: left;
   color: #aaaaaa;
 }
-/* line 40, ../scss/project/_project.scss */
+/* line 56, ../scss/project/_project.scss */
 .header .header_inline-nav .header_inline-nav_social .social_heading {
   float: left;
 }
-/* line 44, ../scss/project/_project.scss */
+/* line 60, ../scss/project/_project.scss */
 .header .header_inline-nav .header_inline-nav_social .social_list {
   float: left;
   margin: 0;
   padding: 0;
   list-style: none;
 }
-/* line 50, ../scss/project/_project.scss */
-.header .header_inline-nav .header_inline-nav_social .social_list .social_list_item {
+/* line 66, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_social .social_list .list_item {
   display: inline-block;
   margin-left: 10px;
 }
-/* line 56, ../scss/project/_project.scss */
-.header .header_inline-nav .header_inline-nav_social .social_list .social_list_item .vk,
-.header .header_inline-nav .header_inline-nav_social .social_list .social_list_item .fb,
-.header .header_inline-nav .header_inline-nav_social .social_list .social_list_item .tw {
+/* line 72, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_social .social_list .list_item .vk,
+.header .header_inline-nav .header_inline-nav_social .social_list .list_item .fb,
+.header .header_inline-nav .header_inline-nav_social .social_list .list_item .tw {
   text-decoration: none;
   text-transform: none;
   text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.3);
 }
-/* line 62, ../scss/project/_project.scss */
-.header .header_inline-nav .header_inline-nav_social .social_list .social_list_item .vk {
+/* line 78, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_social .social_list .list_item .vk {
   color: #446992;
 }
-/* line 65, ../scss/project/_project.scss */
-.header .header_inline-nav .header_inline-nav_social .social_list .social_list_item .vk:hover {
+/* line 81, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_social .social_list .list_item .vk:hover {
   color: #4C75A3;
 }
-/* line 70, ../scss/project/_project.scss */
-.header .header_inline-nav .header_inline-nav_social .social_list .social_list_item .fb {
+/* line 86, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_social .social_list .list_item .fb {
   color: #344e86;
 }
-/* line 73, ../scss/project/_project.scss */
-.header .header_inline-nav .header_inline-nav_social .social_list .social_list_item .fb:hover {
+/* line 89, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_social .social_list .list_item .fb:hover {
   color: #3B5998;
 }
-/* line 78, ../scss/project/_project.scss */
-.header .header_inline-nav .header_inline-nav_social .social_list .social_list_item .tw {
+/* line 94, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_social .social_list .list_item .tw {
   color: #009dd3;
 }
-/* line 81, ../scss/project/_project.scss */
-.header .header_inline-nav .header_inline-nav_social .social_list .social_list_item .tw:hover {
+/* line 97, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_social .social_list .list_item .tw:hover {
   color: #00B0ED;
 }
-/* line 89, ../scss/project/_project.scss */
+/* line 105, ../scss/project/_project.scss */
 .header .header_inline-nav .header_inline-nav_auth {
   float: right;
 }
-/* line 92, ../scss/project/_project.scss */
+/* line 108, ../scss/project/_project.scss */
 .header .header_inline-nav .header_inline-nav_auth .auth_action {
+  display: inline-block;
   color: #cc9933;
   font-size: 14px;
   text-decoration: none;
 }
-/* line 100, ../scss/project/_project.scss */
+/* line 114, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_auth .auth_action.logout {
+  font-size: 12px;
+  text-transform: none;
+  color: #ababab;
+}
+/* line 120, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_auth .auth_action:hover {
+  color: #d6ad5c;
+}
+/* line 127, ../scss/project/_project.scss */
 .header .header_logo {
   display: block;
   padding: 20px 0;
   background-color: rgba(0, 0, 0, 0.8);
 }
-/* line 105, ../scss/project/_project.scss */
+/* line 132, ../scss/project/_project.scss */
 .header .header_logo .header_logo_img {
   display: block;
   width: 500px;
   height: 100%;
   margin: 0 auto;
 }
-/* line 113, ../scss/project/_project.scss */
+/* line 140, ../scss/project/_project.scss */
 .header .header_main-nav {
   padding: 0 0 20px 0;
   background-color: rgba(0, 0, 0, 0.8);
   text-align: center;
 }
-/* line 118, ../scss/project/_project.scss */
+/* line 145, ../scss/project/_project.scss */
 .header .header_main-nav .header_nav_navbar {
   display: inline-block;
   margin: 0;
   padding: 0;
   list-style: none;
 }
-/* line 124, ../scss/project/_project.scss */
+/* line 151, ../scss/project/_project.scss */
 .header .header_main-nav .header_nav_navbar .navbar_item {
   display: inline-block;
 }
-/* line 127, ../scss/project/_project.scss */
+/* line 154, ../scss/project/_project.scss */
 .header .header_main-nav .header_nav_navbar .navbar_item .navbar_item_link {
   font-family: "capture_itregular";
   font-size: 20px;
@@ -440,37 +639,37 @@ html, body {
   text-decoration: none;
   color: #eeeeee;
 }
-/* line 140, ../scss/project/_project.scss */
+/* line 168, ../scss/project/_project.scss */
 .header .header_main-nav .header_nav_navbar .navbar_item:hover .navbar_item_link, .header .header_main-nav .header_nav_navbar .navbar_item.__active .navbar_item_link {
   color: #cc9933;
 }
-/* line 145, ../scss/project/_project.scss */
+/* line 173, ../scss/project/_project.scss */
 .header .header_main-nav .header_nav_navbar .navbar_item + .navbar_item {
   margin-left: 26px;
 }
-/* line 151, ../scss/project/_project.scss */
+/* line 179, ../scss/project/_project.scss */
 .header .header_banner {
   position: relative;
   width: 1000px;
   min-height: 360px;
-  padding-top: 26px;
+  padding-top: 31px;
   z-index: 1;
 }
-/* line 158, ../scss/project/_project.scss */
+/* line 186, ../scss/project/_project.scss */
 .header .header_banner .header_banner_img {
   width: 1000px;
   height: auto;
 }
-/* line 163, ../scss/project/_project.scss */
+/* line 191, ../scss/project/_project.scss */
 .header .header_banner .header_banner_title {
   position: absolute;
   width: 100%;
-  top: 170px;
+  top: 174px;
   left: 0;
-  padding: 100px 20px 118px;
+  padding: 96px 20px 118px;
   background-color: rgba(0, 0, 0, 0.4);
 }
-/* line 171, ../scss/project/_project.scss */
+/* line 199, ../scss/project/_project.scss */
 .header .header_banner .header_banner_title .title_heading {
   margin: 0;
   font-family: "capture_itregular";
@@ -480,7 +679,7 @@ html, body {
   line-height: 100px;
   color: #eeeeee;
 }
-/* line 183, ../scss/project/_project.scss */
+/* line 212, ../scss/project/_project.scss */
 .header .header_banner .header_banner_title .title_text {
   font-family: "capture_itregular";
   font-size: 26px;
@@ -488,40 +687,114 @@ html, body {
   font-weight: normal;
   color: #eeeeee;
 }
-/* line 194, ../scss/project/_project.scss */
+/* line 224, ../scss/project/_project.scss */
 .header .header_banner.__big {
-  height: 517px;
+  height: 522px;
 }
-/* line 198, ../scss/project/_project.scss */
+/* line 228, ../scss/project/_project.scss */
 .header .header_banner.__small {
-  height: 386px;
+  height: 391px;
 }
-/* line 201, ../scss/project/_project.scss */
+/* line 231, ../scss/project/_project.scss */
 .header .header_banner.__small .header_banner_title {
-  padding: 62px 20px;
+  padding: 62px 20px 63px;
 }
-/* line 204, ../scss/project/_project.scss */
+/* line 234, ../scss/project/_project.scss */
 .header .header_banner.__small .header_banner_title .title_heading {
   font-size: 70px;
   line-height: 70px;
 }
-/* line 209, ../scss/project/_project.scss */
+/* line 239, ../scss/project/_project.scss */
 .header .header_banner.__small .header_banner_title .title_text {
   font-size: 20px;
 }
 
-/* line 217, ../scss/project/_project.scss */
+/* line 247, ../scss/project/_project.scss */
 .content {
   padding: 20px 20px;
 }
+/* line 252, ../scss/project/_project.scss */
+.content .content_text-box .content_text-box_heading {
+  font-family: "capture_itregular";
+  font-style: normal;
+  font-weight: normal;
+}
+/* line 262, ../scss/project/_project.scss */
+.content .content_prm-video {
+  position: relative;
+  margin-top: -20px;
+  padding-top: 0;
+}
+/* line 267, ../scss/project/_project.scss */
+.content .content_prm-video .content_prm-video_title {
+  width: calc(100% - 20px);
+  position: absolute;
+  top: -1px;
+  margin-left: 20px;
+  font-family: "capture_itregular";
+  font-size: 30px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 3px;
+  color: #eeeeee;
+  z-index: 3;
+}
+/* line 283, ../scss/project/_project.scss */
+.content .content_prm-video .content_prm-video_title:before {
+  content: "";
+  display: block;
+  width: 750px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 3px;
+  background-color: #eeeeee;
+}
+/* line 298, ../scss/project/_project.scss */
+.content .content_about .content_about_heading {
+  margin-top: 0;
+}
+/* line 303, ../scss/project/_project.scss */
+.content #map_gamezone {
+  height: 600px;
+}
+/* line 309, ../scss/project/_project.scss */
+.content .vkgroup iframe body {
+  background: #2f2f2f;
+}
 
-/* line 221, ../scss/project/_project.scss */
+/* line 315, ../scss/project/_project.scss */
 .footer {
   width: 1000px;
-  margin: 0 auto;
-  padding: 16px 0;
-  background: url("/img/footerBg.jpg");
   height: 50px;
+  margin: 0 auto;
+  padding: 6px 0;
+  line-height: 18px;
   text-align: center;
   color: #666666;
+  background: url("/img/dark-bg.jpg");
+}
+/* line 327, ../scss/project/_project.scss */
+.footer .footer_developers .developer {
+  margin: 0 6px;
+  text-decoration: none;
+  color: gray;
+}
+/* line 332, ../scss/project/_project.scss */
+.footer .footer_developers .developer:hover {
+  text-decoration: underline;
+}
+
+/* line 340, ../scss/project/_project.scss */
+.user-greement_modal ol > li {
+  display: block;
+}
+/* line 343, ../scss/project/_project.scss */
+.user-greement_modal ol > li:before {
+  content: counters(item, ".") ". ";
+  counter-increment: item;
+}
+/* line 347, ../scss/project/_project.scss */
+.user-greement_modal ol {
+  counter-reset: item;
 }

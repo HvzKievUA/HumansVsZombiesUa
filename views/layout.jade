@@ -8,8 +8,9 @@ html
 			block title
 			| | Humans vs Zombies KPI
 		link(rel="stylesheet" href='/css/style.css')
-		script(src='//code.jquery.com/jquery-2.1.1.min.js')
+		script(type="text/javascript", src='//code.jquery.com/jquery-2.1.1.min.js')
 		block head
+
 	body
 		div.wrapper.clearfix
 			header.header
@@ -19,20 +20,27 @@ html
 							div.social_heading
 								| Мы в социальных сетях:
 							ul.social_list
-								li.social_list_item
+								li.list_item
 									a(href="http://vk.com/kpihumans.vszombie", target="_blank").vk Вконтакте
-								li.social_list_item
+								li.list_item
 									a(href="/", target="_blank").fb Facebook
-								li.social_list_item
+								li.list_item
 									a(href="/", target="_blank").tw Twitter
 
 						div.header_inline-nav_auth
 							if isAuth
 								a.auth_action(href="/profile")
-									| Здраствуйте, #{user.profile.displayName}
+									| Личный кабинет
+								span.header_separator
+								a.auth_action.logout(href="/logout")
+									| Выйти
 							else
 								a.auth_action(href="/auth/vkontakte")
-									| Войти через Вконтакте
+									| Вход
+								span.header_separator
+								a.auth_action(href="#", data-reveal-id="user-greement_modal")
+									| Регистраиця
+
 					a.header_logo(href="/")
 						img.header_logo_img(src="/img/logo.png", alt="Humans vs Zombies KPI")
 
@@ -43,10 +51,10 @@ html
 							li.navbar_item(class="#{section == 'rules' ? '__active' : ''}")
 								a.navbar_item_link(href="/rules") Правила
 							if isAuth && (user.role === 'human' || user.isAdmin)
-								li.navbar_item(class="#{section == 'teamHuman' || (section == 'memberList' && user.role == 'human') ? '__active' : ''}")
+								li.navbar_item(class="#{section == 'teamHuman' ? '__active' : ''}")
 									a.navbar_item_link(href="/teamHuman") Команда людей
 							if isAuth && (user.role === 'zombie' || user.isAdmin)
-								li.navbar_item(class="#{section == 'teamZombie' || (section == 'memberList' && user.role == 'zombie') ? '__active' : ''}")
+								li.navbar_item(class="#{section == 'teamZombie' ? '__active' : ''}")
 									a.navbar_item_link(href="/teamZombie") Команда зомби
 							if isAuth && user.isAdmin
 								li.navbar_item(class="#{section == 'admin' ? '__active' : ''}")
@@ -54,8 +62,49 @@ html
 
 				block headerBanner
 
-			div.content
+			div.content.clearfix
 				block content
 
 		div.footer
 			| Humans vs Zombies KPI © 2014
+			br
+			small.footer_developers Сайт разработали за еду:
+				a.developer(href="http://vk.com/eagleeye_s", target="_blank") Андрей Шумада
+				| и
+				a.developer(href="http://vk.com/geekiam", target="_blank") Антон Федулов
+
+		div#user-greement_modal.user-greement_modal.reveal-modal.xlarge
+			h1 Соглашение участника HVZ 2014
+			p
+				| Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+				| Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+			p
+				| Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis
+				| pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.
+			p
+				| Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu,
+				| consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus
+			ol
+				li Lorem ipsum dolor sit amet
+					ol
+						li Lorem ipsum dolor sit amet
+						li Lorem ipsum dolor sit amet
+				li Lorem ipsum dolor sit amet
+					ol
+						li Lorem ipsum dolor sit amet
+						li Lorem ipsum dolor sit amet
+						li Lorem ipsum dolor sit amet
+						li Lorem ipsum dolor sit amet
+						li Lorem ipsum dolor sit amet
+				li Lorem ipsum dolor sit amet
+					ol
+						li Lorem ipsum dolor sit amet
+						li Lorem ipsum dolor sit amet
+						li Lorem ipsum dolor sit amet
+
+			a(href="/auth/vkontakte")
+				| Согласен
+
+			a.close-reveal-modal Не согласен
+
+		script(type="text/javascript", src='/js/vendor/jquery.reveal.js')

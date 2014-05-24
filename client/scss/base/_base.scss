@@ -3,13 +3,21 @@
 @font-face {
   font-family: 'capture_itregular';
   src: url('/fonts/captureit_regular/Capture_it-webfont.eot');
-  src: url('/fonts/captureit_regular/Capture_it-webfont.eot?#iefix') format('embedded-opentype'),
-  url('/fonts/captureit_regular/Capture_it-webfont.woff') format('woff'),
-  url('/fonts/captureit_regular/Capture_it-webfont.ttf') format('truetype'),
-  url('/fonts/captureit_regular/Capture_it-webfont.svg#capture_itregular') format('svg');
+  src: url('/fonts/captureit_regular/Capture_it-webfont.eot?#iefix') format('embedded-opentype'), url('/fonts/captureit_regular/Capture_it-webfont.woff') format('woff'), url('/fonts/captureit_regular/Capture_it-webfont.ttf') format('truetype'), url('/fonts/captureit_regular/Capture_it-webfont.svg#capture_itregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'molot_regular_macroman';
+  src: url('/fonts/molot_regular_macroman/Molot-webfont.eot');
+  src: url('/fonts/molot_regular_macroman/Molot-webfont.eot?#iefix') format('embedded-opentype'), url('/fonts/molot_regular_macroman/Molot-webfont.woff') format('woff'), url('/fonts/molot_regular_macroman/Molot-webfont.ttf') format('truetype'), url('/fonts/molot_regular_macroman/Molot-webfont.svg#capture_itregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@import url(http://fonts.googleapis.com/css?family=Russo+One&subset=latin,cyrillic);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,800italic,400,600,700,800&subset=latin,cyrillic);
 
 *, :before, :after {
   box-sizing: border-box;
@@ -22,16 +30,178 @@ html, body {
   margin: 0;
   padding: 0;
   font: {
-    family: sans-serif;
+    family: "Open Sans", sans-serif;
     size: 16px;
     weight: normal;
-  };
+  }
+  color: #333333;
   background: {
-    image: url("/img/bg.jpg");
+    image: url("/img/light-bg.jpg");
     repeat: no-repeat;
     position: top center;
     attachment: fixed;
-  };
+  }
+;
+}
+
+.col {
+  float: left;
+  padding: 10px 0;
+}
+
+.col-1000 {
+  width: 1000px;
+  margin: 0 -20px;
+}
+
+.col-960 {
+  width: 960px;
+}
+
+.col-640 {
+  width: 640px;
+
+  & + .col-300 {
+    margin-left: 20px;
+  }
+}
+
+.col-300 {
+  width: 300px;
+}
+
+.widget {
+  text-align: center;
+  color: #eeeeee;
+  padding-bottom: 15px;
+
+  &.widget-bg_1 {
+    background: url("/img/widget-footer-bg_1.png") no-repeat left bottom;
+  }
+
+  &.widget-bg_2 {
+    background: url("/img/widget-footer-bg_2.png") no-repeat left bottom;
+  }
+
+  .widget_heading {
+    width: 100%;
+    height: 50px;
+    margin: 0;
+    padding: 8px 16px;
+    font: {
+      family: 'Russo One';
+      size: 24px;
+      style: normal;
+      weight: normal;
+    }
+    background: #2f2f2f url("/img/widget-title-bg.png") no-repeat;
+    text-align: left;
+  }
+
+  .widget_body {
+    width: 100%;
+    padding: 12px 16px;
+    font: {
+      family: "Russo One";
+      size: 18px;
+      style: normal;
+      weight: normal;
+    }
+  ;
+    background-color: #2f2f2f;
+
+    &.widget_body-list {
+      margin: 0;
+      list-style: none;
+      text-align: left;
+      font-size: 18px;
+
+      & > .list_item {
+
+        .list_item_link {
+          text-decoration: none;
+          margin-left: 6px;
+          margin-bottom: 2px;
+          font: {
+            family: "Open Sans";
+            size: 13px;
+            style: italic;
+            weight: normal;
+          }
+          color: darken(#eeeeee, 40);
+
+          &:hover {
+            color: darken(#eeeeee, 30);
+          }
+          &:before {
+            content: "(";
+          }
+          &:after {
+            content: ")";
+          }
+        }
+      }
+
+      & > .list_item + .list_item {
+        padding-top: 6px;
+      }
+    }
+  }
+
+  & + & {
+    margin-top: 20px;
+  }
+}
+
+.reveal-modal-bg {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background: #000;
+  opacity: 0.8;
+  z-index: 100;
+  display: none;
+  top: 0;
+  left: 0;
+}
+
+.reveal-modal {
+  visibility: hidden;
+  top: 100px;
+  left: 50%;
+  margin-left: -300px;
+  width: 520px;
+  background-color: #eeeeee;
+  position: absolute;
+  z-index: 101;
+  padding: 30px 40px 34px;
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  -box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.reveal-modal.small {
+  width: 200px;
+  margin-left: -100px;
+}
+
+.reveal-modal.medium {
+  width: 400px;
+  margin-left: -200px;
+}
+
+.reveal-modal.large {
+  width: 600px;
+  margin-left: -300px;
+}
+
+.reveal-modal.xlarge {
+  width: 800px;
+  margin-left: -400px;
+}
+
+.reveal-modal .close-reveal-modal {
+  cursor: pointer;
 }
 
 .clearfix {
