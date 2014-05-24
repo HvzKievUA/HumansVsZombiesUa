@@ -154,7 +154,8 @@
       'code': code,
       'usedBy': {
         $exists: false
-      }
+      },
+      generated: {}
     }, {
       usedBy: req.user.vkontakteId,
       usedTime: new Date()
@@ -175,7 +176,7 @@
           return res.render('profile', res.viewData);
         });
       } else {
-        res.viewData.profileMessage = "Извините, код не работает";
+        res.viewData.profileMessage = "Извините, код не работает. Истек срок придатности или код уже использован";
         return res.render('profile', res.viewData);
       }
     });
@@ -188,29 +189,48 @@
     if (!hash) {
       return next(new Error('Hash should be provided'));
     }
-    return User.findOneAndUpdate({
+    return User.findOne({
       'hash': hash
-    }, {
-      getZombie: new Date(),
-      lastActionDate: new Date()
-    }, function(err, data) {
+    }, function(err, user) {
+      var userObj;
       if (err) {
         return next(err);
       }
-      if (data) {
-        return User.findOneAndUpdate({
-          'vkontakteId': req.user.vkontakteId
-        }, {
-          lastActionDate: new Date()
-        }, function(err, data) {
+      if (user) {
+        userObj = user.toObject();
+        UserFactory(userObj).getInfo();
+        if (userObj.role !== 'human' || userObj.isDead) {
+          res.viewData.profileMessage = "Нельзя сьесть зомби или труп";
+          return res.render('profile', res.viewData);
+        }
+        user.getZombie = new Date();
+        user.lastActionDate = new Date();
+        return user.save(function(err) {
           if (err) {
             return next(err);
           }
-          res.viewData.profileMessage = "Код сработал";
-          return res.render('profile', res.viewData);
+          return User.findOne({
+            'vkontakteId': req.user.vkontakteId
+          }, function(err, thisUser) {
+            if (err) {
+              return next(err);
+            }
+            thisUser.lastActionDate = new Date();
+            if (!thisUser.getZombie) {
+              thisUser.getZombie = new Date();
+            }
+            return thisUser.save(function(err, user) {
+              if (err) {
+                return next(err);
+              }
+              res.viewData.user = UserFactory(user.toObject()).getInfo();
+              res.viewData.profileMessage = "Код сработал";
+              return res.render('profile', res.viewData);
+            });
+          });
         });
       } else {
-        res.viewData.profileMessage = "Извините, код не работает";
+        res.viewData.profileMessage = "Извините, человек не найден";
         return res.render('profile', res.viewData);
       }
     });

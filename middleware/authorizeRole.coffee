@@ -5,6 +5,7 @@ module.exports = (role) ->
 	(req, res, next) ->
 		res.viewData = res.viewData or {}
 		res.viewData.moment = moment
+		res.viewData.formatDate = (date) -> moment(date).format('YYYY-MM-DD HH:mm:ss')
 		isAuth = req.isAuthenticated()
 		res.viewData.isAuth = isAuth
 		user = req.user || {}

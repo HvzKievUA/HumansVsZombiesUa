@@ -23,8 +23,6 @@
           user.isDead = user.timer < 0;
         }
       }
-      user.lastActionDateFormat = moment(user.lastActionDate).format("YYYY-MM-DD HH:mm");
-      user.getZombieFormat = moment(user.lastActionDate).format("YYYY-MM-DD HH:mm");
       return user;
     };
     return {

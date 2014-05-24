@@ -95,7 +95,7 @@ app.post '/human/submitMedicine', authorize('human'), (req, res, next) ->
 	Medicine = mongoose.model 'medicine'
 	User = mongoose.model 'user'
 	if !code then return next(new Error 'Code should be provided')
-	Medicine.findOneAndUpdate {'code': code, 'usedBy': { $exists: no }}, {usedBy: req.user.vkontakteId, usedTime: new Date()}, (err, data) ->
+	Medicine.findOneAndUpdate {'code': code, 'usedBy': { $exists: no }, generated: {}}, {usedBy: req.user.vkontakteId, usedTime: new Date()}, (err, data) ->
 		if err then return next(err)
 		if data
 			User.findOneAndUpdate { 'vkontakteId': req.user.vkontakteId }, { lastActionDate: new Date() }, (err, data) ->
@@ -103,22 +103,37 @@ app.post '/human/submitMedicine', authorize('human'), (req, res, next) ->
 				res.viewData.profileMessage = "Код сработал"
 				res.render('profile', res.viewData)
 		else
-			res.viewData.profileMessage = "Извините, код не работает"
+			res.viewData.profileMessage = "Извините, код не работает. Истек срок придатности или код уже использован"
 			res.render('profile', res.viewData)
 
 app.post '/zombie/submitHuman', authorize('zombie'), (req, res, next) ->
 	hash = req.body.hash
 	User = mongoose.model 'user'
 	if !hash then return next(new Error 'Hash should be provided')
-	User.findOneAndUpdate {'hash': hash}, {getZombie: new Date(), lastActionDate: new Date()}, (err, data) ->
+	User.findOne {'hash': hash}, (err, user) ->
 		if err then return next(err)
-		if data
-			User.findOneAndUpdate { 'vkontakteId': req.user.vkontakteId }, { lastActionDate: new Date() }, (err, data) ->
+		if user
+			userObj = user.toObject()
+			UserFactory(userObj).getInfo()
+			if userObj.role isnt 'human' or userObj.isDead
+				res.viewData.profileMessage = "Нельзя сьесть зомби или труп"
+				return res.render('profile', res.viewData)
+			user.getZombie = new Date()
+			user.lastActionDate = new Date()
+			user.save (err) ->
 				if err then return next(err)
-				res.viewData.profileMessage = "Код сработал"
-				res.render('profile', res.viewData)
+				User.findOne { 'vkontakteId': req.user.vkontakteId }, (err, thisUser) ->
+					if err then return next(err)
+					thisUser.lastActionDate =  new Date()
+					if !thisUser.getZombie
+						thisUser.getZombie = new Date()
+					thisUser.save (err, user) ->
+						if err then return next(err)
+						res.viewData.user = UserFactory(user.toObject()).getInfo()
+						res.viewData.profileMessage = "Код сработал"
+						res.render('profile', res.viewData)
 		else
-			res.viewData.profileMessage = "Извините, код не работает"
+			res.viewData.profileMessage = "Извините, человек не найден"
 			res.render('profile', res.viewData)
 
 app.get '/auth/vkontakte',

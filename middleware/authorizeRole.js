@@ -11,6 +11,9 @@
       var isAuth, user, userRole, _ref;
       res.viewData = res.viewData || {};
       res.viewData.moment = moment;
+      res.viewData.formatDate = function(date) {
+        return moment(date).format('YYYY-MM-DD HH:mm:ss');
+      };
       isAuth = req.isAuthenticated();
       res.viewData.isAuth = isAuth;
       user = req.user || {};

@@ -20,7 +20,7 @@ block content
 			td vkId
 			td Имя
 			td роль
-			td выбыл?
+			td умер?
 			td Последняя активность
 			td Стал зомби
 			td Таймер
@@ -32,8 +32,8 @@ block content
 					td=user.profile.displayName
 					td=user.role
 					td #{user.isDead?'да':'нет'}
-					td=user.lastActionDateFormat
-					td=user.getZombieFormat
+					td=formatDate(user.lastActionDateFormat)
+					td=formatDate(user.getZombie)
 					td=user.timer
 	form.pure-form(action="/admin/generatemedcine", method="POST")
 		fieldset
@@ -50,6 +50,6 @@ block content
 			each medicine in medicines
 				tr.medicine(class="#{medicine.usedBy ? 'used' : ''}")
 					td=medicine.code
-					td=medicine.generated
+					td=formatDate(medicine.generated)
 					td=medicine.usedBy
-					td=medicine.usedTime
+					td=formatDate(medicine.usedTime)
