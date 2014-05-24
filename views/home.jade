@@ -29,25 +29,57 @@ block content
 		allowfullscreen
 		)
 	div.col.col-640
+		div.content_text-box.content_about
+			h2.content_text-box_heading.content_about_heading Добро пожаловать в мир «Humans vs Zombies»
+			p
+				| - Любишь фильмы про зомби?
+				br
+				| - Всегда мечтал почувствовать себя героем?
+				br
+				| - Надоели серые будни?
+				br
+				b Тогда ты попал именно туда, куда нужно!
+			| Игра, популярная в университетских кампусах США добралась и до Украины!
+			| С 29 мая по 3 июня!
+			| На территории всего Киевского Политехнического Института!
+			| Для всех желающих (не только студентов КПИ)!
+
+			ol Для участия нужно всего лишь:
+				li Зарегистрироваться с помощью аккаунта в ВК;
+				li Получить идентификационную карточку;
+				li Найти белую повязку (платок, шарф, бинт и т.п.).
+
+			p Участвуй сам и приглашай друзей: чем нас больше, тем масштабнее будет игра.
 		div
 			img(src="http://placehold.it/640x300")
 		div
-			img(src="http://placehold.it/640x300")
+			img(src="http://placehold.it/157x160", style="margin-right: 4px")
+			img(src="http://placehold.it/157x160", style="margin-right: 4px")
+			img(src="http://placehold.it/157x160", style="margin-right: 4px")
+			img(src="http://placehold.it/157x160")
 
 	div.col.col-300
-		div.widget.timetostart
+		div.widget.widget-bg_1.short-info
+			h2.widget_heading
+				| Краткая информация
+			ul.widget_body.widget_body-list
+				li.list_item Дата: 29 мая - 3 июня
+				li.list_item Место: Всё НТУУ "КПИ"
+					a.list_item_link(href="/rules#gamezone") картa
+
+		div.widget.widget-bg_2.timetostart
 			h2.widget_heading
 				| До начала HVZ 2014
 			div.widget_body
 				| 3 дня 2 часа 7 минут
 
-		div.widget.gamerscount
+		div.widget.widget-bg_1.gamerscount
 			h2.widget_heading
 				| Кол-во игроков
 			div.widget_body
 				| #{users.length}
 
-		div.widget.vkgroup
+		div.widget.widget-bg_1.vkgroup
 			div#vk_groups
 				script(type="text/javascript").
 					VK.Widgets.Group("vk_groups", {

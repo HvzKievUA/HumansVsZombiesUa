@@ -20,22 +20,27 @@ html
 							div.social_heading
 								| Мы в социальных сетях:
 							ul.social_list
-								li.social_list_item
+								li.list_item
 									a(href="http://vk.com/kpihumans.vszombie", target="_blank").vk Вконтакте
-								li.social_list_item
+								li.list_item
 									a(href="/", target="_blank").fb Facebook
-								li.social_list_item
+								li.list_item
 									a(href="/", target="_blank").tw Twitter
 
 						div.header_inline-nav_auth
 							if isAuth
 								a.auth_action(href="/profile")
 									| Личный кабинет
+								span.header_separator
 								a.auth_action.logout(href="/logout")
 									| Выйти
 							else
+								a.auth_action(href="#", data-reveal-id="user-greement_modal")
+									| Регистраиця
+								span.header_separator
 								a.auth_action(href="/auth/vkontakte")
-									| Вход / Регистраиция
+									| Вход
+
 					a.header_logo(href="/")
 						img.header_logo_img(src="/img/logo.png", alt="Humans vs Zombies KPI")
 
@@ -67,3 +72,39 @@ html
 				a.developer(href="http://vk.com/eagleeye_s", target="_blank") Андрей Шумада
 				| и
 				a.developer(href="http://vk.com/geekiam", target="_blank") Антон Федулов
+
+		div#user-greement_modal.user-greement_modal.reveal-modal.xlarge
+			h1 Соглашение участника HVZ 2014
+			p
+				| Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+				| Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+			p
+				| Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis
+				| pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.
+			p
+				| Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu,
+				| consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus
+			ol
+				li Lorem ipsum dolor sit amet
+					ol
+						li Lorem ipsum dolor sit amet
+						li Lorem ipsum dolor sit amet
+				li Lorem ipsum dolor sit amet
+					ol
+						li Lorem ipsum dolor sit amet
+						li Lorem ipsum dolor sit amet
+						li Lorem ipsum dolor sit amet
+						li Lorem ipsum dolor sit amet
+						li Lorem ipsum dolor sit amet
+				li Lorem ipsum dolor sit amet
+					ol
+						li Lorem ipsum dolor sit amet
+						li Lorem ipsum dolor sit amet
+						li Lorem ipsum dolor sit amet
+
+			a(href="/auth/vkontakte")
+				| Согласен
+
+			a.close-reveal-modal Не согласен
+
+		script(type="text/javascript", src='/js/vendor/jquery.reveal.js')
