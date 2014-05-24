@@ -35,11 +35,11 @@ html
 								a.auth_action.logout(href="/logout")
 									| Выйти
 							else
-								a.auth_action(href="#", data-reveal-id="user-greement_modal")
-									| Регистраиця
-								span.header_separator
 								a.auth_action(href="/auth/vkontakte")
 									| Вход
+								span.header_separator
+								a.auth_action(href="#", data-reveal-id="user-greement_modal")
+									| Регистраиця
 
 					a.header_logo(href="/")
 						img.header_logo_img(src="/img/logo.png", alt="Humans vs Zombies KPI")

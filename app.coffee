@@ -165,7 +165,9 @@ app.get '/rules', authorize(), (req, res) ->
 	res.render('rules', res.viewData)
 
 app.use (req, res) ->
-	res.status(404).render('404', {title: '404: Page Not Found'})
+	authorize()(req, res, ->
+		res.status(404).render('404', res.viewData)
+	);
 
 app.use expressWinston.errorLogger
 	transports: [
@@ -175,7 +177,10 @@ app.use expressWinston.errorLogger
 	]
 
 app.use (err, req, res, next) ->
-	res.status(500).render('500', {title: '500: server error', message: err})
+	authorize()(req, res, ->
+		res.viewData.message = err;
+		res.status(500).render('500', res.viewData)
+	);
 
 app.boot (err) ->
 	if err

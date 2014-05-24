@@ -181,7 +181,7 @@ $(document).ready ->
 		[50.45007714431201, 30.452882645186037]
 	]
 
-	polygon = map.drawPolygon {
+	map.drawPolygon {
 		paths: path
 		strokeColor: '#FF0000'
 		strokeOpacity: 0.5

@@ -279,8 +279,8 @@
   });
 
   app.use(function(req, res) {
-    return res.status(404).render('404', {
-      title: '404: Page Not Found'
+    return authorize()(req, res, function() {
+      return res.status(404).render('404', res.viewData);
     });
   });
 
@@ -293,9 +293,9 @@
   }));
 
   app.use(function(err, req, res, next) {
-    return res.status(500).render('500', {
-      title: '500: server error',
-      message: err
+    return authorize()(req, res, function() {
+      res.viewData.message = err;
+      return res.status(500).render('500', res.viewData);
     });
   });
 
