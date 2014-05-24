@@ -68,10 +68,22 @@ block content
 					a.list_item_link(href="/rules#gamezone") картa
 
 		div.widget.widget-bg_2.timetostart
-			h2.widget_heading
-				| До начала HVZ 2014
-			div.widget_body
-				| 3 дня 2 часа 7 минут
+			if !hasStarted
+				h2.widget_heading
+					| До начала HVZ 2014
+				div.widget_body
+					=moment(toStart).format('DDд. HHч. mmм.')
+			else if !hasEnded
+				h2.widget_heading
+					| До конца HVZ 2014
+				div.widget_body
+					=moment(toEnd).format('DDд. HHч. mmм.')
+			else
+				h2.widget_heading
+					| HVZ 2014 окончено!
+				div.widget_body
+					| Следите за новостями в
+					a(href='http://vk.com/kpihumans.vszombie')  нашей группе
 
 		div.widget.widget-bg_1.gamerscount
 			h2.widget_heading

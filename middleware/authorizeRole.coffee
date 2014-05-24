@@ -1,8 +1,10 @@
 UserFactory = require '../modules/userFactory'
+moment = require 'moment'
 
 module.exports = (role) ->
 	(req, res, next) ->
 		res.viewData = res.viewData or {}
+		res.viewData.moment = moment
 		isAuth = req.isAuthenticated()
 		res.viewData.isAuth = isAuth
 		user = req.user || {}
