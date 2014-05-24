@@ -331,7 +331,7 @@ html, body {
 .widget {
   text-align: center;
   color: #eeeeee;
-  background: url("/img/widget-footer-bg.png") left bottom;
+  background: url("/img/widget-footer-bg.png") no-repeat left bottom;
   padding-bottom: 15px;
 }
 /* line 82, ../scss/base/_base.scss */
@@ -646,8 +646,12 @@ html, body {
 .content #map_gamezone {
   height: 600px;
 }
+/* line 281, ../scss/project/_project.scss */
+.content .vkgroup iframe body {
+  background: #2f2f2f;
+}
 
-/* line 280, ../scss/project/_project.scss */
+/* line 287, ../scss/project/_project.scss */
 .footer {
   width: 1000px;
   margin: 0 auto;
@@ -657,13 +661,13 @@ html, body {
   text-align: center;
   color: #666666;
 }
-/* line 291, ../scss/project/_project.scss */
+/* line 298, ../scss/project/_project.scss */
 .footer .footer_developers .developer {
   margin: 0 6px;
   text-decoration: none;
   color: gray;
 }
-/* line 296, ../scss/project/_project.scss */
+/* line 303, ../scss/project/_project.scss */
 .footer .footer_developers .developer:hover {
   text-decoration: underline;
 }
