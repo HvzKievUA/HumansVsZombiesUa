@@ -159,7 +159,7 @@ app.get '/teamHuman', authorize('human'), (req, res) ->
 		teamUsers = []
 		for user in users
 			user = UserFactory(user).getInfo()
-			if user.role is 'zombie'
+			if user.role is 'human'
 				teamUsers.push user
 		res.viewData.users = teamUsers
 		res.render('teamHuman', res.viewData)
@@ -173,7 +173,7 @@ app.get '/teamZombie', authorize('zombie'), (req, res) ->
 		teamUsers = []
 		for user in users
 			user = UserFactory(user).getInfo()
-			if user.role is 'human'
+			if user.role is 'zombie'
 				teamUsers.push user
 		res.viewData.users = teamUsers
 		res.render('teamZombie', res.viewData)

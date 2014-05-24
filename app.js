@@ -265,7 +265,7 @@
       for (_i = 0, _len = users.length; _i < _len; _i++) {
         user = users[_i];
         user = UserFactory(user).getInfo();
-        if (user.role === 'zombie') {
+        if (user.role === 'human') {
           teamUsers.push(user);
         }
       }
@@ -286,7 +286,7 @@
       for (_i = 0, _len = users.length; _i < _len; _i++) {
         user = users[_i];
         user = UserFactory(user).getInfo();
-        if (user.role === 'human') {
+        if (user.role === 'zombie') {
           teamUsers.push(user);
         }
       }
