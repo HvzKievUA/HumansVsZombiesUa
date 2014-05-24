@@ -94,9 +94,28 @@
       float: right;
 
       .auth_action {
+        display: inline-block;
         color: #cc9933;
         font-size: 14px;
         text-decoration: none;
+
+        &.logout {
+          font-size: 12px;
+          text-transform: none;
+          color: #ababab;
+
+          &:before {
+            content: "//";
+            display: inline-block;
+            margin: 0 6px;
+            font-size: 14px;
+            color: #5b5b5b;
+          }
+        }
+
+        &:hover {
+          color: lighten(#cc9933, 10)
+        }
       }
     }
   }
@@ -222,13 +241,39 @@
   padding: 20px 20px;
 
   .content_prm-video {
-    margin: -18px -20px;
+    position: relative;
+    margin-top: -30px;
+
+    .content_prm-video_title {
+      width: calc(100% - 20px);
+      position: absolute;
+      top: 9px;
+      margin-left: 20px;
+      font: {
+        family: "capture_itregular";
+        size: 30px;
+        style: normal;
+        weight: normal;
+      };
+      line-height: 3px;
+      color: #eeeeee;
+      z-index: 3;
+
+      &:before {
+        content: "";
+        display: block;
+        width: 750px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 3px;
+        background-color: #eeeeee;
+      }
+    }
   }
 
   #map_gamezone {
-    width: 1000px;
     height: 600px;
-    margin: 0 -20px;
   }
 }
 
@@ -236,7 +281,7 @@
   width: 1000px;
   margin: 0 auto;
   padding: 6px 0;
-  background: url('/img/footerBg.jpg');
+  background: url('/img/dark-bg.jpg');
   height: 50px;
   text-align: center;
   color: #666666;
@@ -244,7 +289,7 @@
   .footer_developers {
 
     .developer {
-      margin-left: 6px;
+      margin: 0 6px;
       text-decoration: none;
       color: lighten(#666666, 10);
 

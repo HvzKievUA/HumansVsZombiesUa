@@ -29,10 +29,12 @@ html
 						div.header_inline-nav_auth
 							if isAuth
 								a.auth_action(href="/profile")
-									| Здраствуйте, #{user.profile.displayName}
+									| Личный кабинет
+								a.auth_action.logout(href="/logout")
+									| Выйти
 							else
 								a.auth_action(href="/auth/vkontakte")
-									| Войти через Вконтакте
+									| Вход / Регистраиция
 					a.header_logo(href="/")
 						img.header_logo_img(src="/img/logo.png", alt="Humans vs Zombies KPI")
 
@@ -54,7 +56,7 @@ html
 
 				block headerBanner
 
-			div.content
+			div.content.clearfix
 				block content
 
 		div.footer
@@ -62,5 +64,5 @@ html
 			br
 			small.footer_developers Сайт разработали за еду:
 				a.developer(href="http://vk.com/eagleeye_s", target="_blank") Андрей Шумада
-				|  и
+				| и
 				a.developer(href="http://vk.com/geekiam", target="_blank") Антон Федулов

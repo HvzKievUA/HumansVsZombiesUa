@@ -13,9 +13,11 @@ block headerBanner
 				| - Каждый день может быть последним
 
 block content
-	div.content_prm-video
+	div.col.col-1000.content_prm-video
+		div.content_prm-video_title
+			| Промо ролик
 		iframe(
-			src="//player.vimeo.com/video/96230372?byline=0&amp;portrait=0&amp;color=cc9933&amp;",
+			src="//player.vimeo.com/video/96230372?title=0&amp;byline=0&amp;portrait=0&amp;color=cc9933",
 			width="1000",
 			height="562",
 			frameborder="0",
@@ -23,11 +25,21 @@ block content
 			mozallowfullscreen,
 			allowfullscreen
 		)
-	p
-		img(src="http://placehold.it/400x400", style="padding: 25px;")
-		img(src="http://placehold.it/600x400", style="padding: 25px;")
-	p
-		img(src="http://placehold.it/600x400", style="padding: 25px;")
-		img(src="http://placehold.it/400x400", style="padding: 25px;")
+	div.col.col-640
+		div
+			img(src="http://placehold.it/640x300")
+		div
+			img(src="http://placehold.it/640x300")
 
-	p Всего заригестрировано: #{users.length}
+	div.col.col-300
+		div.widget.timetostart
+			h2.widget_heading
+				| До начала HVZ 2014
+			div.widget_body
+				| 3 дня 2 часа 7 минут
+
+		div.widget.timetostart
+			h2.widget_heading
+				| Кол-во игроков
+			div.widget_body
+				| #{users.length}

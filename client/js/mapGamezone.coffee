@@ -1,14 +1,79 @@
 $(document).ready ->
 	map = new GMaps {
-		div: '#map_gamezone',
-		lat: 50.44885153,
+		div: '#map_gamezone'
+		lat: 50.44885153
 		lng: 30.45546781
+		styles:
+			[
+				{"featureType": "water", "elementType": "all", "stylers": [
+					{"visibility": "on"},
+					{"color": "#2D333C"},
+					{"weight": 0.1}
+				]},
+				{"featureType": "all", "elementType": "all", "stylers": [
+					{"invert_lightness": true},
+					{"hue": "#ff0000"},
+					{"saturation": -100},
+					{"lightness": 30},
+					{"gamma": 0.4}
+				]},
+				{"featureType": "water", "elementType": "geometry", "stylers": [
+					{"color": "#2D333C"}
+				]},
+				{"featureType": "water", "elementType": "labels.text", "stylers": [
+					{"visibility": "off"}
+				]},
+				{"featureType": "road", "elementType": "geometry.fill", "stylers": [
+					{"color": "#75551a"},
+					{"weight": 2},
+					{"lightness": 0}
+				]},
+				{"featureType": "road", "elementType": "geometry.stroke", "stylers": [
+					{"color": "#382602"},
+					{"weight": 1}
+				]},
+				{"featureType": "poi", "elementType": "all", "stylers": [
+					{"visibility": "off"}
+				]},
+				{"featureType": "poi", "elementType": "labels.text.fill", "stylers": [
+					{"visibility": "on"},
+					{"color": "#757575"},
+					{"weight": 0.1}
+				]},
+				{"featureType": "poi", "elementType": "labels.text.stroke", "stylers": [
+					{"visibility": "on"},
+					{"color": "#000000"},
+					{"weight": 0.5}
+				]},
+				{"featureType": "poi", "elementType": "labels.icon", "stylers": [
+					{"visibility": "on"}
+				]},
+				{"featureType": "poi", "elementType": "labels", "stylers": [
+					{"visibility": "on"}
+				]},
+				{"featureType": "road.highway", "elementType": "geometry.fill", "stylers": [
+					{"visibility": "on"},
+					{"weight": 4.51},
+					{"lightness": 4}
+				]},
+				{"featureType": "poi.school", "elementType": "geometry.fill", "stylers": [
+					{"visibility": "on"},
+					{"lightness": -10}
+				]},
+				{"featureType": "poi.business", "elementType": "geometry.fill", "stylers": [
+					{"visibility": "on"},
+					{"lightness": -20}
+				]}
+			]
 	}
 
 	path = [
 		[50.453213927513126, 30.45290000620298]
 		[50.451164969062354, 30.465558691648766]
 		[50.44997585788083, 30.464355050353333]
+		[50.44966621234324, 30.46504028234233]
+		[50.449542385674235, 30.465202563452067]
+		[50.44951676343453, 30.46526693576527]
 		[50.449320446303624, 30.466080381302163]
 		[50.44901643472439, 30.466016008285806]
 		[50.448931037861946, 30.465896649984643]
@@ -119,8 +184,8 @@ $(document).ready ->
 	polygon = map.drawPolygon {
 		paths: path
 		strokeColor: '#FF0000'
-		strokeOpacity: 0.8
-		strokeWeight: 3
+		strokeOpacity: 0.5
+		strokeWeight: 2
 		fillColor: '#FF0000'
-		fillOpacity: 0.3
+		fillOpacity: 0.1
 	}

@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Russo+One&subset=latin,cyrillic);
 /* normalize.css v3.0.1 | MIT License | git.io/normalize */
 /* line 9, ../scss/reset/_normalize.scss */
 html {
@@ -266,14 +267,22 @@ th {
   font-style: normal;
 }
 
-/* line 14, ../scss/base/_base.scss */
+@font-face {
+  font-family: 'molot_regular_macroman';
+  src: url("/fonts/molot_regular_macroman/Molot-webfont.eot");
+  src: url("/fonts/molot_regular_macroman/Molot-webfont.eot?#iefix") format("embedded-opentype"), url("/fonts/molot_regular_macroman/Molot-webfont.woff") format("woff"), url("/fonts/molot_regular_macroman/Molot-webfont.ttf") format("truetype"), url("/fonts/molot_regular_macroman/Molot-webfont.svg#capture_itregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* line 27, ../scss/base/_base.scss */
 *, :before, :after {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
 }
 
-/* line 20, ../scss/base/_base.scss */
+/* line 33, ../scss/base/_base.scss */
 html, body {
   height: 100%;
   margin: 0;
@@ -281,13 +290,79 @@ html, body {
   font-family: sans-serif;
   font-size: 16px;
   font-weight: normal;
-  background-image: url("/img/bg.jpg");
+  background-image: url("/img/light-bg.jpg");
   background-repeat: no-repeat;
   background-position: top center;
   background-attachment: fixed;
 }
 
-/* line 37, ../scss/base/_base.scss */
+/* line 50, ../scss/base/_base.scss */
+.col {
+  float: left;
+  padding: 10px 0;
+}
+
+/* line 55, ../scss/base/_base.scss */
+.col-1000 {
+  width: 1000px;
+  margin: 0 -20px;
+}
+
+/* line 60, ../scss/base/_base.scss */
+.col-960 {
+  width: 960px;
+}
+
+/* line 64, ../scss/base/_base.scss */
+.col-640 {
+  width: 640px;
+}
+/* line 67, ../scss/base/_base.scss */
+.col-640 + .col-300 {
+  margin-left: 20px;
+}
+
+/* line 72, ../scss/base/_base.scss */
+.col-300 {
+  width: 300px;
+}
+
+/* line 76, ../scss/base/_base.scss */
+.widget {
+  text-align: center;
+  color: #eeeeee;
+  background: url("/img/widget-footer-bg.png") left bottom;
+  padding-bottom: 15px;
+}
+/* line 82, ../scss/base/_base.scss */
+.widget .widget_heading {
+  width: 100%;
+  height: 50px;
+  margin: 0;
+  padding: 8px 10px;
+  font-family: 'Russo One';
+  font-size: 24px;
+  font-style: normal;
+  font-weight: normal;
+  background: #2f2f2f url("/img/widget-title-bg.png") no-repeat;
+  text-align: left;
+}
+/* line 97, ../scss/base/_base.scss */
+.widget .widget_body {
+  width: 100%;
+  padding: 12px 10px;
+  font-family: "capture_itregular";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: normal;
+  background-color: #2f2f2f;
+}
+/* line 109, ../scss/base/_base.scss */
+.widget + .widget {
+  margin-top: 20px;
+}
+
+/* line 114, ../scss/base/_base.scss */
 .clearfix {
   *zoom: 1;
 }
@@ -400,41 +475,60 @@ html, body {
 }
 /* line 96, ../scss/project/_project.scss */
 .header .header_inline-nav .header_inline-nav_auth .auth_action {
+  display: inline-block;
   color: #cc9933;
   font-size: 14px;
   text-decoration: none;
 }
-/* line 104, ../scss/project/_project.scss */
+/* line 102, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_auth .auth_action.logout {
+  font-size: 12px;
+  text-transform: none;
+  color: #ababab;
+}
+/* line 107, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_auth .auth_action.logout:before {
+  content: "//";
+  display: inline-block;
+  margin: 0 6px;
+  font-size: 14px;
+  color: #5b5b5b;
+}
+/* line 116, ../scss/project/_project.scss */
+.header .header_inline-nav .header_inline-nav_auth .auth_action:hover {
+  color: #d6ad5c;
+}
+/* line 123, ../scss/project/_project.scss */
 .header .header_logo {
   display: block;
   padding: 20px 0;
   background-color: rgba(0, 0, 0, 0.8);
 }
-/* line 109, ../scss/project/_project.scss */
+/* line 128, ../scss/project/_project.scss */
 .header .header_logo .header_logo_img {
   display: block;
   width: 500px;
   height: 100%;
   margin: 0 auto;
 }
-/* line 117, ../scss/project/_project.scss */
+/* line 136, ../scss/project/_project.scss */
 .header .header_main-nav {
   padding: 0 0 20px 0;
   background-color: rgba(0, 0, 0, 0.8);
   text-align: center;
 }
-/* line 122, ../scss/project/_project.scss */
+/* line 141, ../scss/project/_project.scss */
 .header .header_main-nav .header_nav_navbar {
   display: inline-block;
   margin: 0;
   padding: 0;
   list-style: none;
 }
-/* line 128, ../scss/project/_project.scss */
+/* line 147, ../scss/project/_project.scss */
 .header .header_main-nav .header_nav_navbar .navbar_item {
   display: inline-block;
 }
-/* line 131, ../scss/project/_project.scss */
+/* line 150, ../scss/project/_project.scss */
 .header .header_main-nav .header_nav_navbar .navbar_item .navbar_item_link {
   font-family: "capture_itregular";
   font-size: 20px;
@@ -444,15 +538,15 @@ html, body {
   text-decoration: none;
   color: #eeeeee;
 }
-/* line 144, ../scss/project/_project.scss */
+/* line 163, ../scss/project/_project.scss */
 .header .header_main-nav .header_nav_navbar .navbar_item:hover .navbar_item_link, .header .header_main-nav .header_nav_navbar .navbar_item.__active .navbar_item_link {
   color: #cc9933;
 }
-/* line 149, ../scss/project/_project.scss */
+/* line 168, ../scss/project/_project.scss */
 .header .header_main-nav .header_nav_navbar .navbar_item + .navbar_item {
   margin-left: 26px;
 }
-/* line 155, ../scss/project/_project.scss */
+/* line 174, ../scss/project/_project.scss */
 .header .header_banner {
   position: relative;
   width: 1000px;
@@ -460,12 +554,12 @@ html, body {
   padding-top: 26px;
   z-index: 1;
 }
-/* line 162, ../scss/project/_project.scss */
+/* line 181, ../scss/project/_project.scss */
 .header .header_banner .header_banner_img {
   width: 1000px;
   height: auto;
 }
-/* line 167, ../scss/project/_project.scss */
+/* line 186, ../scss/project/_project.scss */
 .header .header_banner .header_banner_title {
   position: absolute;
   width: 100%;
@@ -474,7 +568,7 @@ html, body {
   padding: 100px 20px 118px;
   background-color: rgba(0, 0, 0, 0.4);
 }
-/* line 175, ../scss/project/_project.scss */
+/* line 194, ../scss/project/_project.scss */
 .header .header_banner .header_banner_title .title_heading {
   margin: 0;
   font-family: "capture_itregular";
@@ -484,7 +578,7 @@ html, body {
   line-height: 100px;
   color: #eeeeee;
 }
-/* line 187, ../scss/project/_project.scss */
+/* line 206, ../scss/project/_project.scss */
 .header .header_banner .header_banner_title .title_text {
   font-family: "capture_itregular";
   font-size: 26px;
@@ -492,60 +586,84 @@ html, body {
   font-weight: normal;
   color: #eeeeee;
 }
-/* line 198, ../scss/project/_project.scss */
+/* line 217, ../scss/project/_project.scss */
 .header .header_banner.__big {
   height: 517px;
 }
-/* line 202, ../scss/project/_project.scss */
+/* line 221, ../scss/project/_project.scss */
 .header .header_banner.__small {
   height: 386px;
 }
-/* line 205, ../scss/project/_project.scss */
+/* line 224, ../scss/project/_project.scss */
 .header .header_banner.__small .header_banner_title {
   padding: 62px 20px;
 }
-/* line 208, ../scss/project/_project.scss */
+/* line 227, ../scss/project/_project.scss */
 .header .header_banner.__small .header_banner_title .title_heading {
   font-size: 70px;
   line-height: 70px;
 }
-/* line 213, ../scss/project/_project.scss */
+/* line 232, ../scss/project/_project.scss */
 .header .header_banner.__small .header_banner_title .title_text {
   font-size: 20px;
 }
 
-/* line 221, ../scss/project/_project.scss */
+/* line 240, ../scss/project/_project.scss */
 .content {
   padding: 20px 20px;
 }
-/* line 224, ../scss/project/_project.scss */
+/* line 243, ../scss/project/_project.scss */
 .content .content_prm-video {
-  margin: -18px -20px;
+  position: relative;
+  margin-top: -30px;
 }
-/* line 228, ../scss/project/_project.scss */
+/* line 247, ../scss/project/_project.scss */
+.content .content_prm-video .content_prm-video_title {
+  width: calc(100% - 20px);
+  position: absolute;
+  top: 9px;
+  margin-left: 20px;
+  font-family: "capture_itregular";
+  font-size: 30px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 3px;
+  color: #eeeeee;
+  z-index: 3;
+}
+/* line 262, ../scss/project/_project.scss */
+.content .content_prm-video .content_prm-video_title:before {
+  content: "";
+  display: block;
+  width: 750px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 3px;
+  background-color: #eeeeee;
+}
+/* line 275, ../scss/project/_project.scss */
 .content #map_gamezone {
-  width: 1000px;
   height: 600px;
-  margin: 0 -20px;
 }
 
-/* line 235, ../scss/project/_project.scss */
+/* line 280, ../scss/project/_project.scss */
 .footer {
   width: 1000px;
   margin: 0 auto;
   padding: 6px 0;
-  background: url("/img/footerBg.jpg");
+  background: url("/img/dark-bg.jpg");
   height: 50px;
   text-align: center;
   color: #666666;
 }
-/* line 246, ../scss/project/_project.scss */
+/* line 291, ../scss/project/_project.scss */
 .footer .footer_developers .developer {
-  margin-left: 6px;
+  margin: 0 6px;
   text-decoration: none;
   color: gray;
 }
-/* line 251, ../scss/project/_project.scss */
+/* line 296, ../scss/project/_project.scss */
 .footer .footer_developers .developer:hover {
   text-decoration: underline;
 }
