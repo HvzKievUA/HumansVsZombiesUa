@@ -2,6 +2,8 @@
 (function() {
   var MongoStore, UserFactory, app, async, authorize, bodyParser, bootable, config, cookieParser, express, expressWinston, favicon, http, log, moment, mongoose, passport, server, session, uuid, winston;
 
+  process.env.APP_ENV === 'production' && require('newrelic');
+
   express = require('express');
 
   http = require('http');
