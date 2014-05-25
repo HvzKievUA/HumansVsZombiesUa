@@ -1,0 +1,21 @@
+.home-photos-bottom span {
+	display: inline-block;
+	height: 160px;
+	width: 157px;
+	overflow: hidden;
+}
+
+.home-photos-bottom img {
+	height: 160px;
+}
+
+.home-photos-top span {
+	display: inline-block;
+	height: 300px;
+	width: 640px;
+	overflow: hidden;
+}
+
+.home-photos-top img {
+	width: 640px;
+}
