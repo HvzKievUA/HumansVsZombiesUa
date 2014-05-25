@@ -1,3 +1,6 @@
+moment = require('moment')
+config = require 'cnf'
+
 userFactory = (user) ->
 	moment
 
@@ -7,7 +10,12 @@ userFactory = (user) ->
 			user.isDead = user.timer < 0
 			user.role = 'zombie'
 		else
-			timer =  moment(user.lastActionDate).add(30, 'hours').diff(moment())
+			start = moment(config.startDate, "YYYY-MM-DD HH-mm")
+			hasStarted = start.diff(moment()) < 0
+			if hasStarted
+				timer = moment(user.lastActionDate).add(30, 'hours').diff(moment())
+			else
+				timer = moment.duration(30, 'hours').asMilliseconds()
 			if timer > 0 #normalHuman
 				user.timer = timer
 				user.role = 'human'
@@ -22,8 +30,4 @@ userFactory = (user) ->
 		getInfo: getInfo
 	}
 
-if module and module.exports
-	moment = require('moment')
-	return module.exports = userFactory
-else
-	window.userFactory = userFactory
+module.exports = userFactory

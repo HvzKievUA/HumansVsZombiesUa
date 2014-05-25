@@ -21,7 +21,7 @@
       res.viewData.hasEnded = end.diff(moment) < 0;
       res.viewData.formatDate = function(date) {
         if (date) {
-          return moment(date).format('YYYY-MM-DD HH:mm:ss');
+          return moment(date).format('YYYY-MM-DD HH:mm:ss Z');
         } else {
           return '';
         }

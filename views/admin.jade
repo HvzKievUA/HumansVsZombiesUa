@@ -14,7 +14,7 @@ block headerBanner
 
 block content
 	p Всего юзверей: #{users.length}
-	table.users.pure-table
+	table.users.pure-table(border=1)
 		thead
 			td Код
 			td vkId
@@ -40,7 +40,7 @@ block content
 			legend Лекарстваа. Всего: #{medicines.length}
 			input(type="number", name="count", min="1", max="100", required="required")
 			input.pure-button.pure-button-primary(type="submit", value="Сгенерировать")
-	table.medicines.pure-table
+	table.medicines.pure-table(border=1)
 		thead
 			td Код
 			td Сгенерирован
