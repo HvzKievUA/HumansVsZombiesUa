@@ -15,7 +15,9 @@ block headerBanner
 block content
 	if profileMessage
 		p.message=profileMessage
-	if user.isDead
+	if !hasStarted
+		| После старта игры здесь будет таймер, который покажет, сколько вам нужно времени, для того чтоб сьесть лекарство или человека, если вы зомби.
+	else if user.isDead
 		p.message К сожелению, вы проирали. Ждите следующую игру
 	else
 		p Ваша роль - #{user.role == 'zombie' ? 'Зомби' : 'Человек'}

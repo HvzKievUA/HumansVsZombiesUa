@@ -1,10 +1,17 @@
 UserFactory = require '../modules/userFactory'
 moment = require 'moment'
+config = require 'cnf'
 
 module.exports = (role) ->
 	(req, res, next) ->
 		res.viewData = res.viewData or {}
 		res.viewData.moment = moment
+		start = moment(config.startDate, "YYYY-MM-DD HH-mm")
+		end = moment(config.endDate, "YYYY-MM-DD HH-mm")
+		res.viewData.toStart = start.diff(moment())
+		res.viewData.toEnd = end.diff(moment())
+		res.viewData.hasStarted = start.diff(moment()) < 0
+		res.viewData.hasEnded = end.diff(moment) < 0
 		res.viewData.formatDate = (date) -> moment(date).format('YYYY-MM-DD HH:mm:ss')
 		isAuth = req.isAuthenticated()
 		res.viewData.isAuth = isAuth

@@ -77,14 +77,8 @@
   });
 
   app.get('/', authorize(), function(req, res) {
-    var User, end, start;
+    var User;
     User = mongoose.model('user');
-    start = moment(config.startDate, "YYYY-MM-DD HH-mm");
-    end = moment(config.endDate, "YYYY-MM-DD HH-mm");
-    res.viewData.toStart = start.diff(moment());
-    res.viewData.toEnd = end.diff(moment());
-    res.viewData.hasStarted = start.diff(moment()) < 0;
-    res.viewData.hasEnded = end.diff(moment) < 0;
     return User.find(function(err, users) {
       res.viewData.section = 'home';
       res.viewData.users = users;

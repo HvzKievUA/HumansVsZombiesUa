@@ -8,7 +8,7 @@ html
 			block title
 			| | Humans vs Zombies KPI
 		link(rel="stylesheet" href='/css/style.css')
-		link(rel="stylesheet" href='/css/home-photos.css')
+		link(rel="stylesheet" href='/css/style-2.css')
 		script(type="text/javascript", src='//code.jquery.com/jquery-2.1.1.min.js')
 		block head
 
@@ -22,11 +22,11 @@ html
 								| Мы в социальных сетях:
 							ul.social_list
 								li.list_item
-									a(href="http://vk.com/kpihumans.vszombie", target="_blank").vk Вконтакте
-								li.list_item
-									a(href="/", target="_blank").fb Facebook
-								li.list_item
-									a(href="/", target="_blank").tw Twitter
+									a.vk(href="http://vk.com/kpihumans.vszombie", target="_blank") Вконтакте
+								//li.list_item
+								//	a.fb(href="/", target="_blank") Facebook
+								//li.list_item
+								//	a.tw(href="/", target="_blank") Twitter
 
 						div.header_inline-nav_auth
 							if isAuth
@@ -69,7 +69,7 @@ html
 		div.footer
 			| Humans vs Zombies KPI © 2014
 			br
-			small.footer_developers Сайт разработали за еду:
+			small.footer_developers Сайт разработали:
 				a.developer(href="http://vk.com/eagleeye_s", target="_blank") Андрей Шумада
 				| и
 				a.developer(href="http://vk.com/geekiam", target="_blank") Антон Федулов

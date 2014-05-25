@@ -19,3 +19,22 @@
 .home-photos-top img {
 	width: 640px;
 }
+
+.group-list-wrapper {
+	margin-left: 525px;
+}
+
+#vk_comments {
+	float: left;
+	padding-top: 20px;
+}
+
+ul.list-group {
+	list-style-type: none;
+	padding-left: 10px;
+}
+
+ul.list-group li a img {
+	vertical-align: middle;
+	margin: 5px;
+}

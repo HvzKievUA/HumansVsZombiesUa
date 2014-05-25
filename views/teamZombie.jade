@@ -16,14 +16,15 @@ block headerBanner
 				| - Уничтожь всех людей как можно скорее
 
 block content
-	| Командная страница. Тут будет чат и последние новости
+	| Последние новости касательно команды Зомби будут здесь
 	#vk_comments
 	script.
 		VK.Widgets.Comments("vk_comments", {limit: 10, width: "520", attach: "*"});
-	p Список учасников команды. Всего: #{users.length}
-	ul.list-group
-		each user in users
-			li.list-group-item.user-list
-				a(href=user.profile.profileUrl)
-					img.avatar(src=user.profile.photos[0].value)
-					=user.profile.displayName
+	.group-list-wrapper
+		p Список учасников команды. Всего: #{users.length}
+		ul.list-group
+			each user in users
+				li.list-group-item.user-list
+					a(href=user.profile.profileUrl)
+						img.avatar(src=user.profile.photos[0].value)
+						=user.profile.displayName
