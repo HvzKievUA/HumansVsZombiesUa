@@ -20,7 +20,11 @@
       res.viewData.hasStarted = start.diff(moment()) < 0;
       res.viewData.hasEnded = end.diff(moment) < 0;
       res.viewData.formatDate = function(date) {
-        return moment(date).format('YYYY-MM-DD HH:mm:ss');
+        if (date) {
+          return moment(date).format('YYYY-MM-DD HH:mm:ss');
+        } else {
+          return '';
+        }
       };
       isAuth = req.isAuthenticated();
       res.viewData.isAuth = isAuth;
