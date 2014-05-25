@@ -1,4 +1,4 @@
-process.env.APP_ENV is 'production' and require('newrelic')
+#process.env.APP_ENV is 'production' and require('newrelic')
 express = require('express')
 http = require('http')
 passport = require('passport')
