@@ -76,12 +76,12 @@ block content
 				h2.widget_heading
 					| До начала HVZ 2014
 				div.widget_body
-					=moment(toStart).format('DDд. HHч. mmм.')
+					=formatDuration(toStart)
 			else if !hasEnded
 				h2.widget_heading
 					| До конца HVZ 2014
 				div.widget_body
-					=moment(toEnd).format('DDд. HHч. mmм.')
+					=formatDuration(toEnd)
 			else
 				h2.widget_heading
 					| HVZ 2014 окончено!

@@ -13,8 +13,8 @@
       var end, isAuth, start, user, userRole, _ref;
       res.viewData = res.viewData || {};
       res.viewData.moment = moment;
-      start = moment(config.startDate, "YYYY-MM-DD HH-mm");
-      end = moment(config.endDate, "YYYY-MM-DD HH-mm");
+      start = moment(config.startDate, "YYYY-MM-DD HH-mm Z");
+      end = moment(config.endDate, "YYYY-MM-DD HH-mm Z");
       res.viewData.toStart = start.diff(moment());
       res.viewData.toEnd = end.diff(moment());
       res.viewData.hasStarted = start.diff(moment()) < 0;
@@ -22,6 +22,15 @@
       res.viewData.formatDate = function(date) {
         if (date) {
           return moment(date).format('YYYY-MM-DD HH:mm:ss Z');
+        } else {
+          return '';
+        }
+      };
+      res.viewData.formatDuration = function(duration) {
+        var d;
+        if (duration) {
+          d = moment.duration(duration);
+          return "" + d._data.days + "д. " + d._data.hours + "ч. " + d._data.minutes + "м. ";
         } else {
           return '';
         }
