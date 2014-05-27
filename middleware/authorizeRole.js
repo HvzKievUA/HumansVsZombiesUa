@@ -18,7 +18,7 @@
       res.viewData.toStart = start.diff(moment());
       res.viewData.toEnd = end.diff(moment());
       res.viewData.hasStarted = start.diff(moment()) < 0;
-      res.viewData.hasEnded = end.diff(moment) < 0;
+      res.viewData.hasEnded = end.diff(moment()) < 0;
       res.viewData.formatDate = function(date) {
         if (date) {
           return moment(date).format('YYYY-MM-DD HH:mm:ss Z');

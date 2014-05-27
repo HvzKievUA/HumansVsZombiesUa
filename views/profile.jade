@@ -16,16 +16,18 @@ block content
 	if profileMessage
 		p.message=profileMessage
 	if !hasStarted
-		| После старта игры здесь будет таймер, который покажет, сколько вам нужно времени, для того чтоб сьесть лекарство или человека, если вы зомби.
+		| После старта игры здесь будет таймер, который покажет, сколько вам нужно времени, для того чтоб сьесть лекарство или человека, если вы зомби. Сьесть сьедобное тоже можна будет здесь.
 	else if user.isDead
 		p.message К сожелению, вы проирали. Ждите следующую игру
 	else
+		if user.isAdmin
+			p Привіт, адміни. Чисто технічно ви і зомбі і люди одночасно, того не дивуйтесь, чого в вас є можливість захавати таблетку, людину і бачити сторінки обох команд)
 		p Ваша роль - #{user.role == 'zombie' ? 'Зомби' : 'Человек'}
 		if user.role == 'zombie'
-			p Вам нужно захвать человека на протяжении
+			p Вам нужно захвать человека на протяжении #{formatDuration(user.timer)}
 		if user.role == 'human'
-			p Вам нужно достать вакцину на протяжении
-		.timer(data-timer=user.timer)
+			p Вам нужно достать вакцину на протяжении #{formatDuration(user.timer)}
+		//.timer(data-timer=user.timer)
 		if user.isAdmin || user.role === 'zombie'
 			form.pure-form(action="/zombie/submitHuman", method="POST")
 				fieldset

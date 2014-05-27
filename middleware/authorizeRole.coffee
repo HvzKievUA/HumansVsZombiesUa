@@ -11,7 +11,7 @@ module.exports = (role) ->
 		res.viewData.toStart = start.diff(moment())
 		res.viewData.toEnd = end.diff(moment())
 		res.viewData.hasStarted = start.diff(moment()) < 0
-		res.viewData.hasEnded = end.diff(moment) < 0
+		res.viewData.hasEnded = end.diff(moment()) < 0
 		res.viewData.formatDate = (date) -> if date then moment(date).format('YYYY-MM-DD HH:mm:ss Z') else ''
 		res.viewData.formatDuration = (duration) ->
 			if duration

@@ -34,7 +34,7 @@ block content
 					td #{user.isDead?'да':'нет'}
 					td=formatDate(user.lastActionDateFormat)
 					td=formatDate(user.getZombie)
-					td=user.timer
+					td=formatDuration(user.timer)
 	form.pure-form(action="/admin/generatemedcine", method="POST")
 		fieldset
 			legend Лекарстваа. Всего: #{medicines.length}

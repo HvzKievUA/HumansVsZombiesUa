@@ -14,6 +14,8 @@ userFactory = (user) ->
 			hasStarted = start.diff(moment()) < 0
 			if hasStarted
 				timer = moment(user.lastActionDate).add(30, 'hours').diff(moment())
+				if moment(user.lastActionDate).diff(start) < 0
+					timer = moment(start).add(30, 'hours').diff(moment())
 			else
 				timer = moment.duration(30, 'hours').asMilliseconds()
 			if timer > 0 #normalHuman
