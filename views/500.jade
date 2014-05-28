@@ -3,6 +3,15 @@ extends layout
 block title
 	| 500: Ошибка сайта
 
+block headerBanner
+	div.header_banner.__small
+		img.header_banner_img(src="/img/header_banners/banner_1.png", alt="Баннер")
+		div.header_banner_title
+			h1.title_heading
+				| Ошибка сайта
+			div.title_text
+				| - Сообщи админу!
+
 block content
 	h2 Непредвидeнная ошибка
 	p Ой, что-то пошло не так. Пожайлуста, сообщите мне на почту об ошибке. Укажите ваши последние действия.
