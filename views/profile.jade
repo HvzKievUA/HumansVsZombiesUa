@@ -3,6 +3,11 @@ extends layout
 block title
 	| Профиль
 
+block head
+	link(rel="stylesheet" href='/css/vendor/flipclock.css')
+	script(src='/js/vendor/flipclock.min.js')
+	script(src="/js/profile.js")
+
 block headerBanner
 	div.header_banner.__small
 		img.header_banner_img(src="/img/header_banners/banner_6.jpg", alt="Баннер")
@@ -24,10 +29,10 @@ block content
 			p Привіт, адміни. Чисто технічно ви і зомбі і люди одночасно, того не дивуйтесь, чого в вас є можливість захавати таблетку, людину і бачити сторінки обох команд)
 		p Ваша роль - #{user.role == 'zombie' ? 'Зомби' : 'Человек'}
 		if user.role == 'zombie'
-			p Вам нужно захвать человека на протяжении #{formatDuration(user.timer)}
+			p Вам нужно захвать человека на протяжении
 		if user.role == 'human'
-			p Вам нужно достать вакцину на протяжении #{formatDuration(user.timer)}
-		//.timer(data-timer=user.timer)
+			p Вам нужно достать вакцину на протяжении
+		.timer(data-timer=user.timer)
 		if user.isAdmin || user.role === 'zombie'
 			form.pure-form(action="/zombie/submitHuman", method="POST")
 				fieldset
