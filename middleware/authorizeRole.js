@@ -16,8 +16,10 @@
       start = moment(config.startDate, "YYYY-MM-DD HH-mm Z");
       end = moment(config.endDate, "YYYY-MM-DD HH-mm Z");
       res.viewData.toStart = start.diff(moment());
+      res.viewData.toStartHome = start.diff(moment()) - 5 * 3600 * 1000;
       res.viewData.toEnd = end.diff(moment());
       res.viewData.hasStarted = start.diff(moment()) < 0;
+      res.viewData.hasStartedHome = start.diff(moment()) - 5 * 3600 * 1000 < 0;
       res.viewData.hasEnded = end.diff(moment()) < 0;
       res.viewData.formatDate = function(date) {
         if (date) {

@@ -72,11 +72,11 @@ block content
 					a.list_item_link(href="/rules#gamezone") картa
 
 		div.widget.widget-bg_2.timetostart
-			if !hasStarted
+			if !hasStartedHome
 				h2.widget_heading
 					| До начала HVZ 2014
 				div.widget_body
-					=formatDuration(toStart)
+					=formatDuration(toStartHome)
 			else if !hasEnded
 				h2.widget_heading
 					| До конца HVZ 2014
