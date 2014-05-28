@@ -19,6 +19,12 @@
     },
     usedTime: {
       type: Date
+    },
+    unlimited: {
+      type: Boolean
+    },
+    description: {
+      type: String
     }
   });
 

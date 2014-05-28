@@ -12,5 +12,9 @@ Medicine = new mongoose.Schema
 		type: String
 	usedTime:
 		type: Date
+	unlimited:
+		type: Boolean
+	description:
+		type: String
 
 mongoose.model('medicine', Medicine)

@@ -74,7 +74,9 @@ app.post '/admin/generatemedcine', authorize('admin'), (req, res, next) ->
 	createCode = (cb) ->
 		medicine = new Medicine
 			code: uuid.v4().substr(0, 13)
-			generated: new Date()
+			generated: new Date(),
+			description: req.body.description
+			unlimited: !!req.body.unlimited
 		medicine.save cb
 
 	async.times count, (n, next) ->
@@ -90,15 +92,23 @@ app.post '/human/submitMedicine', authorize('human'), (req, res, next) ->
 	Medicine = mongoose.model 'medicine'
 	User = mongoose.model 'user'
 	if !code then return next(new Error 'Code should be provided')
-	Medicine.findOneAndUpdate {'code': code, 'usedBy': { $exists: no }, generated: {}}, {usedBy: req.user.vkontakteId, usedTime: new Date()}, (err, data) ->
+	Medicine.findOne {'code': code, 'usedBy': { $exists: no }}, (err, medicine) ->
 		if err then return next(err)
-		if data
-			User.findOneAndUpdate { 'vkontakteId': req.user.vkontakteId }, { lastActionDate: new Date() }, (err, data) ->
+		if medicine
+			if !medicine.unlimited and moment().diff(moment(medicine.generated)) > 24 * 3600 * 1000
+				res.viewData.profileMessage = "Извините, код просрочен"
+				return res.render('profile', res.viewData)
+			medicine.usedBy = req.user.vkontakteId
+			medicine.usedTime =  new Date()
+			medicine.save (err) ->
 				if err then return next(err)
-				res.viewData.profileMessage = "Код сработал"
-				res.render('profile', res.viewData)
+				User.findOneAndUpdate { 'vkontakteId': req.user.vkontakteId }, { lastActionDate: new Date() }, (err, user) ->
+					if err then return next(err)
+					res.viewData.user = UserFactory(user.toObject()).getInfo()
+					res.viewData.profileMessage = "Код сработал!"
+					res.render('profile', res.viewData)
 		else
-			res.viewData.profileMessage = "Извините, код не работает. Истек срок придатности или код уже использован"
+			res.viewData.profileMessage = "Извините, код уже использован."
 			res.render('profile', res.viewData)
 
 app.post '/zombie/submitHuman', authorize('zombie'), (req, res, next) ->
@@ -146,7 +156,6 @@ app.get '/logout', (req, res) ->
 	res.redirect('/')
 
 app.get '/teamHuman', authorize('human'), (req, res) ->
-	res.viewData.title = 'Команда зомби'
 	res.viewData.vkAppId = config.vk.appId
 	res.viewData.section = 'teamHuman'
 	User = mongoose.model('user')
@@ -160,7 +169,6 @@ app.get '/teamHuman', authorize('human'), (req, res) ->
 		res.render('teamHuman', res.viewData)
 
 app.get '/teamZombie', authorize('zombie'), (req, res) ->
-	res.viewData.title = 'Команда людей'
 	res.viewData.vkAppId = config.vk.appId
 	res.viewData.section = 'teamZombie'
 	User = mongoose.model('user')

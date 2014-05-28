@@ -123,7 +123,9 @@
       var medicine;
       medicine = new Medicine({
         code: uuid.v4().substr(0, 13),
-        generated: new Date()
+        generated: new Date(),
+        description: req.body.description,
+        unlimited: !!req.body.unlimited
       });
       return medicine.save(cb);
     };
@@ -146,33 +148,41 @@
     if (!code) {
       return next(new Error('Code should be provided'));
     }
-    return Medicine.findOneAndUpdate({
+    return Medicine.findOne({
       'code': code,
       'usedBy': {
         $exists: false
-      },
-      generated: {}
-    }, {
-      usedBy: req.user.vkontakteId,
-      usedTime: new Date()
-    }, function(err, data) {
+      }
+    }, function(err, medicine) {
       if (err) {
         return next(err);
       }
-      if (data) {
-        return User.findOneAndUpdate({
-          'vkontakteId': req.user.vkontakteId
-        }, {
-          lastActionDate: new Date()
-        }, function(err, data) {
+      if (medicine) {
+        if (!medicine.unlimited && moment().diff(moment(medicine.generated)) > 24 * 3600 * 1000) {
+          res.viewData.profileMessage = "Извините, код просрочен";
+          return res.render('profile', res.viewData);
+        }
+        medicine.usedBy = req.user.vkontakteId;
+        medicine.usedTime = new Date();
+        return medicine.save(function(err) {
           if (err) {
             return next(err);
           }
-          res.viewData.profileMessage = "Код сработал";
-          return res.render('profile', res.viewData);
+          return User.findOneAndUpdate({
+            'vkontakteId': req.user.vkontakteId
+          }, {
+            lastActionDate: new Date()
+          }, function(err, user) {
+            if (err) {
+              return next(err);
+            }
+            res.viewData.user = UserFactory(user.toObject()).getInfo();
+            res.viewData.profileMessage = "Код сработал!";
+            return res.render('profile', res.viewData);
+          });
         });
       } else {
-        res.viewData.profileMessage = "Извините, код не работает. Истек срок придатности или код уже использован";
+        res.viewData.profileMessage = "Извините, код уже использован.";
         return res.render('profile', res.viewData);
       }
     });
@@ -251,7 +261,6 @@
 
   app.get('/teamHuman', authorize('human'), function(req, res) {
     var User;
-    res.viewData.title = 'Команда зомби';
     res.viewData.vkAppId = config.vk.appId;
     res.viewData.section = 'teamHuman';
     User = mongoose.model('user');
@@ -272,7 +281,6 @@
 
   app.get('/teamZombie', authorize('zombie'), function(req, res) {
     var User;
-    res.viewData.title = 'Команда людей';
     res.viewData.vkAppId = config.vk.appId;
     res.viewData.section = 'teamZombie';
     User = mongoose.model('user');

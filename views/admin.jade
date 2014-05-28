@@ -35,14 +35,24 @@ block content
 					td=formatDate(user.lastActionDateFormat)
 					td=formatDate(user.getZombie)
 					td=formatDuration(user.timer)
-	form.pure-form(action="/admin/generatemedcine", method="POST")
+	form.pure-form.submitMedicine(action="/admin/generatemedcine", method="POST")
 		fieldset
-			legend Лекарстваа. Всего: #{medicines.length}
-			input(type="number", name="count", min="1", max="100", required="required")
-			input.pure-button.pure-button-primary(type="submit", value="Сгенерировать")
+			legend Сгенерировать лекарства. Всего существует: #{medicines.length}
+			p
+				label(for="medicineCount") Количество <= 100
+				input#medicineCount(type="number", name="count", min="1", max="100", required="required")
+			p
+				label(for="medicineDescription") Описание
+				input#medicineCount(type="text", name="description", min="1", max="100", required="required")
+			p
+				label(for="medicineUnlimited") Безлимит по времини?
+				input(type="checkbox", name="unlimited", value="true")
+			input(type="submit", value="Сгенерировать")
 	table.medicines.pure-table(border=1)
 		thead
 			td Код
+			td Безлимит?
+			td Описание
 			td Сгенерирован
 			td Использован
 			td Время использования
@@ -50,6 +60,8 @@ block content
 			each medicine in medicines
 				tr.medicine(class="#{medicine.usedBy ? 'used' : ''}")
 					td=medicine.code
+					td=(medicine.unlimited ? 'Да' : 'Нет')
+					td=medicine.description
 					td=formatDate(medicine.generated)
 					td=medicine.usedBy
 					td=formatDate(medicine.usedTime)

@@ -41,3 +41,8 @@ ul.list-group li a img {
 .widget_body a {
 	color: white;
 }
+
+.submitMedicine label {
+	display: inline-block;
+	width: 190px;
+}

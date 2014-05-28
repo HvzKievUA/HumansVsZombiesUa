@@ -3,6 +3,15 @@ extends layout
 block title
 	| 404: Страница не найдена
 
+block headerBanner
+	div.header_banner.__small
+		img.header_banner_img(src="/img/header_banners/banner_1.png", alt="Баннер")
+		div.header_banner_title
+			h1.title_heading
+				| 404
+			div.title_text
+				| - Здесь ничего нет! Возвращайся в бой!
+
 block content
 	p Ошибка 404
 	p Простите, запрашиваемая страница не найдена
