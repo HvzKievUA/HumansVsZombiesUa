@@ -32,7 +32,7 @@ block content
 					td=user.profile.displayName
 					td=user.role
 					td #{user.isDead?'да':'нет'}
-					td=formatDate(user.lastActionDateFormat)
+					td=formatDate(user.lastActionDate)
 					td=formatDate(user.getZombie)
 					td=formatDuration(user.timer)
 	form.pure-form.submitMedicine(action="/admin/generatemedcine", method="POST")

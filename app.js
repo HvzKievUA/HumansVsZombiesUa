@@ -248,6 +248,14 @@
     return res.redirect('/');
   });
 
+  app.get('/login/mobile', passport.authenticate('vkontakte', {
+    scope: ['friends'],
+    successRedirect: '/m',
+    failureRedirect: '/m'
+  }), function(req, res) {
+    return res.redirect('/m');
+  });
+
   app.get('/auth/vkontakte/callback', passport.authenticate('vkontakte', {
     failureRedirect: '/'
   }), function(req, res) {
@@ -306,6 +314,10 @@
   app.get('/rules', authorize(), function(req, res) {
     res.viewData.section = 'rules';
     return res.render('rules', res.viewData);
+  });
+
+  app.get('/m', authorize(), function(req, res) {
+    return res.render('mobile', res.viewData);
   });
 
   app.use(function(req, res) {

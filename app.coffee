@@ -146,6 +146,11 @@ app.get '/auth/vkontakte',
 	(req, res) ->
 		res.redirect('/')
 
+app.get '/login/mobile',
+	passport.authenticate('vkontakte', { scope: ['friends'], successRedirect: '/m', failureRedirect: '/m' }),
+	(req, res) ->
+		res.redirect('/m')
+
 app.get '/auth/vkontakte/callback',
 	passport.authenticate('vkontakte', { failureRedirect: '/' }),
 	(req, res) ->
@@ -187,6 +192,9 @@ app.get '/profile', authorize('any'), (req, res) ->
 app.get '/rules', authorize(), (req, res) ->
 	res.viewData.section = 'rules'
 	res.render('rules', res.viewData)
+
+app.get '/m', authorize(), (req, res) ->
+	res.render 'mobile', res.viewData
 
 app.use (req, res) ->
 	authorize()(req, res, ->
