@@ -10,7 +10,7 @@ userFactory = (user) ->
 			user.isDead = user.timer < 0
 			user.role = 'zombie'
 		else
-			start = moment(config.startDate, "YYYY-MM-DD HH-mm")
+			start = moment(config.startDate, "YYYY-MM-DD HH-mm Z")
 			hasStarted = start.diff(moment()) < 0
 			if hasStarted
 				timer = moment(user.lastActionDate).add(30, 'hours').diff(moment())
