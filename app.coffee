@@ -108,7 +108,7 @@ app.post '/human/submitMedicine', authorize('human'), (req, res, next) ->
 					res.viewData.profileMessage = "Код сработал!"
 					res.render('profile', res.viewData)
 		else
-			res.viewData.profileMessage = "Извините, код уже использован."
+			res.viewData.profileMessage = "Извините, код уже использован или не существует."
 			res.render('profile', res.viewData)
 
 app.post '/zombie/submitHuman', authorize('zombie'), (req, res, next) ->

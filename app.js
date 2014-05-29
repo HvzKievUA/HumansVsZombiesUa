@@ -182,7 +182,7 @@
           });
         });
       } else {
-        res.viewData.profileMessage = "Извините, код уже использован.";
+        res.viewData.profileMessage = "Извините, код уже использован или не существует.";
         return res.render('profile', res.viewData);
       }
     });
