@@ -206,7 +206,7 @@
         userObj = user.toObject();
         UserFactory(userObj).getInfo();
         if (userObj.role !== 'human' || userObj.isDead) {
-          res.viewData.profileMessage = "Нельзя сьесть зомби или труп";
+          res.viewData.profileMessage = "Нельзя съесть зомби или труп";
           return res.render('profile', res.viewData);
         }
         user.getZombie = new Date();

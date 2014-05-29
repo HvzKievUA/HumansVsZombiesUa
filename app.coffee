@@ -121,7 +121,7 @@ app.post '/zombie/submitHuman', authorize('zombie'), (req, res, next) ->
 			userObj = user.toObject()
 			UserFactory(userObj).getInfo()
 			if userObj.role isnt 'human' or userObj.isDead
-				res.viewData.profileMessage = "Нельзя сьесть зомби или труп"
+				res.viewData.profileMessage = "Нельзя съесть зомби или труп"
 				return res.render('profile', res.viewData)
 			user.getZombie = new Date()
 			user.lastActionDate = new Date()
