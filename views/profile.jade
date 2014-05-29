@@ -25,7 +25,7 @@ block content
 	else if user.isDead
 		p.message К сожелению, вы проирали. Ждите следующую игру
 	else
-		p Ваша роль - #{user.role == 'zombie' ? 'Зомби' : 'Человек'}
+		p Здраствуйте, #{user.profile.displayName}! Ваша роль - #{user.role == 'zombie' ? 'ЗОМБИ' : 'ЧЕЛОВЕК'}
 		if user.role == 'zombie'
 			p Вам нужно захвать человека на протяжении
 		if user.role == 'human'
