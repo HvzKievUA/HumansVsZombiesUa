@@ -158,7 +158,7 @@
         return next(err);
       }
       if (medicine) {
-        if (!medicine.unlimited && moment().diff(moment(medicine.generated)) > 24 * 3600 * 1000) {
+        if (!medicine.unlimited && moment().diff(moment(medicine.generated)) > 26 * 3600 * 1000) {
           res.viewData.profileMessage = "Извините, код просрочен";
           return res.render('profile', res.viewData);
         }

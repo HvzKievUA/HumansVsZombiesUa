@@ -95,7 +95,7 @@ app.post '/human/submitMedicine', authorize('human'), (req, res, next) ->
 	Medicine.findOne {'code': code, 'usedBy': { $exists: no }}, (err, medicine) ->
 		if err then return next(err)
 		if medicine
-			if !medicine.unlimited and moment().diff(moment(medicine.generated)) > 24 * 3600 * 1000
+			if !medicine.unlimited and moment().diff(moment(medicine.generated)) > 26 * 3600 * 1000
 				res.viewData.profileMessage = "Извините, код просрочен"
 				return res.render('profile', res.viewData)
 			medicine.usedBy = req.user.vkontakteId
