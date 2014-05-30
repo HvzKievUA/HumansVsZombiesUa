@@ -206,10 +206,6 @@
       if (user) {
         userObj = user.toObject();
         UserFactory(userObj).getInfo();
-        if (userObj.isDead) {
-          res.viewData.profileMessage = "Нельзя съесть труп";
-          return res.render((req.cookies.mobile ? 'mobile' : 'profile'), res.viewData);
-        }
         if (userObj.getZombie || (userObj.role === 'zombie' && !userObj.selfZombie)) {
           res.viewData.profileMessage = "Нельзя съесть зомби";
           return res.render((req.cookies.mobile ? 'mobile' : 'profile'), res.viewData);

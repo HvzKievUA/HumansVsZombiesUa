@@ -121,9 +121,9 @@ app.post '/zombie/submitHuman', authorize('zombie'), (req, res, next) ->
 		if user
 			userObj = user.toObject()
 			UserFactory(userObj).getInfo()
-			if userObj.isDead
-				res.viewData.profileMessage = "Нельзя съесть труп"
-				return res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
+#			if userObj.isDead
+#				res.viewData.profileMessage = "Нельзя съесть труп"
+#				return res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
 			if userObj.getZombie or (userObj.role is 'zombie' and !userObj.selfZombie)
 				res.viewData.profileMessage = "Нельзя съесть зомби"
 				return res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
