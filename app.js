@@ -258,7 +258,7 @@
   });
 
   app.get('/auth/vkontakte/callback', passport.authenticate('vkontakte', {
-    failureRedirect: (req.cookies.mobile ? '/m' : '/')
+    failureRedirect: '/'
   }), function(req, res) {
     console.log('req.cookies.mobile', req.cookies.mobile);
     return res.redirect(req.cookies.mobile ? '/m' : '/');
