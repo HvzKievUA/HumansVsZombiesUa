@@ -15,6 +15,8 @@ UserSchema = new mongoose.Schema
 		type: Date
 	getZombie:
 		type: Date
+	selfZombie:
+		type: Date
 	hash:
 		type: String
 

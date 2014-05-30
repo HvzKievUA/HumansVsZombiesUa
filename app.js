@@ -63,7 +63,7 @@
     store: new MongoStore({
       url: config.mongoUrl
     }),
-    maxAge: 3600 * 24 * 2
+    maxAge: 3600000 * 24 * 2
   }));
 
   app.use(passport.initialize());
@@ -206,8 +206,12 @@
       if (user) {
         userObj = user.toObject();
         UserFactory(userObj).getInfo();
-        if (userObj.role !== 'human' || userObj.isDead) {
-          res.viewData.profileMessage = "Нельзя съесть зомби или труп";
+        if (userObj.isDead) {
+          res.viewData.profileMessage = "Нельзя съесть труп";
+          return res.render((req.cookies.mobile ? 'mobile' : 'profile'), res.viewData);
+        }
+        if (userObj.getZombie || (userObj.role === 'zombie' && !userObj.selfZombie)) {
+          res.viewData.profileMessage = "Нельзя съесть зомби";
           return res.render((req.cookies.mobile ? 'mobile' : 'profile'), res.viewData);
         }
         user.getZombie = new Date();
@@ -224,7 +228,7 @@
             }
             thisUser.lastActionDate = new Date();
             if (!thisUser.getZombie) {
-              thisUser.getZombie = new Date();
+              thisUser.selfZombie = new Date();
             }
             return thisUser.save(function(err, user) {
               if (err) {
@@ -240,6 +244,23 @@
         res.viewData.profileMessage = "Извините, человек не найден";
         return res.render((req.cookies.mobile ? 'mobile' : 'profile'), res.viewData);
       }
+    });
+  });
+
+  app.post('/human/selfzombie', authorize('human'), function(req, res, next) {
+    var User;
+    User = mongoose.model('user');
+    return User.findOneAndUpdate({
+      'vkontakteId': req.user.vkontakteId
+    }, {
+      selfZombie: new Date(),
+      lastActionDate: new Date()
+    }, function(err, user) {
+      if (err) {
+        return next(err);
+      }
+      res.viewData.user = UserFactory(user.toObject()).getInfo();
+      return res.render((req.cookies.mobile ? 'mobile' : 'profile'), res.viewData);
     });
   });
 
@@ -260,7 +281,6 @@
   app.get('/auth/vkontakte/callback', passport.authenticate('vkontakte', {
     failureRedirect: '/'
   }), function(req, res) {
-    console.log('req.cookies.mobile', req.cookies.mobile);
     return res.redirect(req.cookies.mobile ? '/m' : '/');
   });
 
@@ -345,7 +365,7 @@
     return authorize()(req, res, function() {
       if (req.cookies.mobile) {
         return res.status(500).render('messageMobile', {
-          message: 'Непредвиденная ошибка на сайте, сообщите об етой ошибке администратору сайта ' + err
+          message: 'Непредвиденная ошибка на сайте, сообщите об этой ошибке администратору сайта' + err
         });
       }
       res.viewData.message = err;

@@ -5,7 +5,7 @@ userFactory = (user) ->
 	moment
 
 	getInfo = ->
-		if user.getZombie #normal zombie
+		if user.getZombie or user.selfZombie #normal zombie
 			user.timer = moment(user.lastActionDate).add(24, 'hours').diff(moment())
 			user.isDead = user.timer < 0
 			user.role = 'zombie'

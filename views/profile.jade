@@ -32,14 +32,18 @@ block content
 			p Вам нужно достать вакцину на протяжении
 		.timer(data-timer=user.timer)
 		if user.isAdmin || user.role === 'zombie'
-			form.pure-form(action="/zombie/submitHuman", method="POST")
+			form(action="/zombie/submitHuman", method="POST")
 				fieldset
 					legend Ввести код человека
 					input(type="text", name="hash", required="required")
-					input.pure-button.pure-button-primary(type="submit", required="true", value="Захавать человека")
+					input(type="submit", value="Захавать человека")
 		if user.isAdmin || user.role === 'human'
-			form.pure-form(action="/human/submitMedicine", method="POST")
+			form(action="/human/submitMedicine", method="POST")
 				fieldset
 					legend Ввести код лекарства
 					input(type="text", name="code", required="required")
-					input.pure-button.pure-button-primary(type="submit", required="true", value="Полечиться")
+					input(type="submit", value="Полечиться")
+			form(action="/human/selfzombie", method="POST", onsubmit="return confirm('Вас точно поймали?');")
+				fieldset
+					legend Меня поймали!
+					input(type="submit", value="Стать зомби")

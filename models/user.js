@@ -25,6 +25,9 @@
     getZombie: {
       type: Date
     },
+    selfZombie: {
+      type: Date
+    },
     hash: {
       type: String
     }
@@ -33,3 +36,5 @@
   mongoose.model('user', UserSchema);
 
 }).call(this);
+
+//# sourceMappingURL=user.map

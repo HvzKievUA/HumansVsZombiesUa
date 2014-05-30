@@ -1,5 +1,5 @@
 UserFactory = require '../modules/userFactory'
-moment = require 'moment'
+moment = require 'moment-timezone'
 config = require 'cnf'
 
 module.exports = (role) ->
@@ -14,7 +14,7 @@ module.exports = (role) ->
 		res.viewData.hasStarted = start.diff(moment()) < 0
 		res.viewData.hasStartedHome = start.diff(moment()) - 5 * 3600 * 1000 < 0
 		res.viewData.hasEnded = end.diff(moment()) < 0
-		res.viewData.formatDate = (date) -> if date then moment(date).format('YYYY-MM-DD HH:mm:ss Z') else ''
+		res.viewData.formatDate = (date) -> if date then moment(date).tz("Europe/Kiev").format('MM-DD HH:mm') else ''
 		res.viewData.formatDuration = (duration) ->
 			if duration
 				d = moment.duration(duration)

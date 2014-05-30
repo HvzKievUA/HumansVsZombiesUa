@@ -14,7 +14,9 @@ block content
 					.ui-input-text
 						input#inputMedicine(type="text", name="code")
 				button.ui-btn(type="submit") Полечиться
-			button.ui-btn(type="submit", style="display:none;") Меня поймали
+			form(action="/human/selfzombie", method="POST", onsubmit="return confirm('Вас точно поймали?');")
+				.ui-field-contain
+					button.ui-btn(type="submit") Меня поймал зомби
 		if user.role == 'zombie' || user.isAdmin
 			form(action="/zombie/submitHuman", method="POST")
 				.ui-field-contain

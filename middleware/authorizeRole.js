@@ -4,7 +4,7 @@
 
   UserFactory = require('../modules/userFactory');
 
-  moment = require('moment');
+  moment = require('moment-timezone');
 
   config = require('cnf');
 
@@ -23,7 +23,7 @@
       res.viewData.hasEnded = end.diff(moment()) < 0;
       res.viewData.formatDate = function(date) {
         if (date) {
-          return moment(date).format('YYYY-MM-DD HH:mm:ss Z');
+          return moment(date).tz("Europe/Kiev").format('MM-DD HH:mm');
         } else {
           return '';
         }

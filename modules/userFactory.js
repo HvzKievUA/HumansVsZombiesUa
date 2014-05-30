@@ -11,7 +11,7 @@
     var getInfo;
     getInfo = function() {
       var hasStarted, start, timer;
-      if (user.getZombie) {
+      if (user.getZombie || user.selfZombie) {
         user.timer = moment(user.lastActionDate).add(24, 'hours').diff(moment());
         user.isDead = user.timer < 0;
         user.role = 'zombie';
