@@ -75,6 +75,7 @@
   app.all('/', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Cache-Control", "no-transform");
     return next();
   });
 
@@ -160,7 +161,7 @@
       if (medicine) {
         if (!medicine.unlimited && moment().diff(moment(medicine.generated)) > 26 * 3600 * 1000) {
           res.viewData.profileMessage = "Извините, код просрочен";
-          return res.render('profile', res.viewData);
+          return res.render((req.cookies.mobile ? 'mobile' : 'profile'), res.viewData);
         }
         medicine.usedBy = req.user.vkontakteId;
         medicine.usedTime = new Date();
@@ -178,12 +179,12 @@
             }
             res.viewData.user = UserFactory(user.toObject()).getInfo();
             res.viewData.profileMessage = "Код сработал!";
-            return res.render('profile', res.viewData);
+            return res.render((req.cookies.mobile ? 'mobile' : 'profile'), res.viewData);
           });
         });
       } else {
         res.viewData.profileMessage = "Извините, код уже использован или не существует.";
-        return res.render('profile', res.viewData);
+        return res.render((req.cookies.mobile ? 'mobile' : 'profile'), res.viewData);
       }
     });
   });
@@ -207,7 +208,7 @@
         UserFactory(userObj).getInfo();
         if (userObj.role !== 'human' || userObj.isDead) {
           res.viewData.profileMessage = "Нельзя съесть зомби или труп";
-          return res.render('profile', res.viewData);
+          return res.render((req.cookies.mobile ? 'mobile' : 'profile'), res.viewData);
         }
         user.getZombie = new Date();
         user.lastActionDate = new Date();
@@ -231,13 +232,13 @@
               }
               res.viewData.user = UserFactory(user.toObject()).getInfo();
               res.viewData.profileMessage = "Код сработал";
-              return res.render('profile', res.viewData);
+              return res.render((req.cookies.mobile ? 'mobile' : 'profile'), res.viewData);
             });
           });
         });
       } else {
         res.viewData.profileMessage = "Извините, человек не найден";
-        return res.render('profile', res.viewData);
+        return res.render((req.cookies.mobile ? 'mobile' : 'profile'), res.viewData);
       }
     });
   });
@@ -259,12 +260,13 @@
   app.get('/auth/vkontakte/callback', passport.authenticate('vkontakte', {
     failureRedirect: '/'
   }), function(req, res) {
-    return res.redirect(req.cookies.mobile ? '/m' : '/');
+    console.log('req.cookies.mobile', req.cookies.mobile);
+    return res.redirect(req.cookies.mobile ? 'mobile' : '/');
   });
 
   app.get('/logout', function(req, res) {
     req.logout();
-    return res.redirect('/');
+    return res.redirect(req.cookies.mobile ? 'mobile' : '/');
   });
 
   app.get('/teamHuman', authorize('human'), function(req, res) {
@@ -322,6 +324,11 @@
 
   app.use(function(req, res) {
     return authorize()(req, res, function() {
+      if (req.cookies.mobile) {
+        return res.status(404).render('messageMobile', {
+          message: '404, страница не найдена'
+        });
+      }
       return res.status(404).render('404', res.viewData);
     });
   });
@@ -336,6 +343,11 @@
 
   app.use(function(err, req, res, next) {
     return authorize()(req, res, function() {
+      if (req.cookies.mobile) {
+        return res.status(500).render('messageMobile', {
+          message: 'Непредвиденная ошибка на сайте, сообщите об етой ошибке администратору сайта ' + err
+        });
+      }
       res.viewData.message = err;
       return res.status(500).render('500', res.viewData);
     });

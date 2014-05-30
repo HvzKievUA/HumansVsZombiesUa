@@ -40,6 +40,7 @@ app.phase(bootable.initializers('setup/initializers/'))
 app.all '/', (req, res, next) ->
 	res.header("Access-Control-Allow-Origin", "*")
 	res.header("Access-Control-Allow-Headers", "X-Requested-With")
+	res.header("Cache-Control", "no-transform")
 	next()
 
 app.get '/', authorize(), (req, res) ->
@@ -97,7 +98,7 @@ app.post '/human/submitMedicine', authorize('human'), (req, res, next) ->
 		if medicine
 			if !medicine.unlimited and moment().diff(moment(medicine.generated)) > 26 * 3600 * 1000
 				res.viewData.profileMessage = "Извините, код просрочен"
-				return res.render('profile', res.viewData)
+				return res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
 			medicine.usedBy = req.user.vkontakteId
 			medicine.usedTime =  new Date()
 			medicine.save (err) ->
@@ -106,10 +107,10 @@ app.post '/human/submitMedicine', authorize('human'), (req, res, next) ->
 					if err then return next(err)
 					res.viewData.user = UserFactory(user.toObject()).getInfo()
 					res.viewData.profileMessage = "Код сработал!"
-					res.render('profile', res.viewData)
+					res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
 		else
 			res.viewData.profileMessage = "Извините, код уже использован или не существует."
-			res.render('profile', res.viewData)
+			res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
 
 app.post '/zombie/submitHuman', authorize('zombie'), (req, res, next) ->
 	hash = req.body.hash
@@ -122,7 +123,7 @@ app.post '/zombie/submitHuman', authorize('zombie'), (req, res, next) ->
 			UserFactory(userObj).getInfo()
 			if userObj.role isnt 'human' or userObj.isDead
 				res.viewData.profileMessage = "Нельзя съесть зомби или труп"
-				return res.render('profile', res.viewData)
+				return res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
 			user.getZombie = new Date()
 			user.lastActionDate = new Date()
 			user.save (err) ->
@@ -136,10 +137,10 @@ app.post '/zombie/submitHuman', authorize('zombie'), (req, res, next) ->
 						if err then return next(err)
 						res.viewData.user = UserFactory(user.toObject()).getInfo()
 						res.viewData.profileMessage = "Код сработал"
-						res.render('profile', res.viewData)
+						res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
 		else
 			res.viewData.profileMessage = "Извините, человек не найден"
-			res.render('profile', res.viewData)
+			res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
 
 app.get '/auth/vkontakte',
 	passport.authenticate('vkontakte', { scope: ['friends'] }),
@@ -154,11 +155,12 @@ app.get '/login/mobile',
 app.get '/auth/vkontakte/callback',
 	passport.authenticate('vkontakte', { failureRedirect: '/' }),
 	(req, res) ->
-		res.redirect(if req.cookies.mobile then '/m' else '/')
+		console.log 'req.cookies.mobile', req.cookies.mobile
+		res.redirect(if req.cookies.mobile then 'mobile' else '/')
 
 app.get '/logout', (req, res) ->
 	req.logout()
-	res.redirect('/')
+	res.redirect(if req.cookies.mobile then 'mobile' else '/')
 
 app.get '/teamHuman', authorize('human'), (req, res) ->
 	res.viewData.vkAppId = config.vk.appId
@@ -198,6 +200,8 @@ app.get '/m', authorize(), (req, res) ->
 
 app.use (req, res) ->
 	authorize()(req, res, ->
+		if req.cookies.mobile
+			return res.status(404).render('messageMobile', message: '404, страница не найдена' )
 		res.status(404).render('404', res.viewData)
 	);
 
@@ -210,6 +214,8 @@ app.use expressWinston.errorLogger
 
 app.use (err, req, res, next) ->
 	authorize()(req, res, ->
+		if req.cookies.mobile
+			return res.status(500).render('messageMobile', message: 'Непредвиденная ошибка на сайте, сообщите об етой ошибке администратору сайта ' + err )
 		res.viewData.message = err;
 		res.status(500).render('500', res.viewData)
 	);
