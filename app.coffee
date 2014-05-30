@@ -153,10 +153,10 @@ app.get '/login/mobile',
 		res.redirect('/m')
 
 app.get '/auth/vkontakte/callback',
-	passport.authenticate('vkontakte', { failureRedirect: '/' }),
+	passport.authenticate('vkontakte', { failureRedirect: (if req.cookies.mobile then '/m' else '/') }),
 	(req, res) ->
 		console.log 'req.cookies.mobile', req.cookies.mobile
-		res.redirect(if req.cookies.mobile then 'mobile' else '/')
+		res.redirect(if req.cookies.mobile then '/m' else '/')
 
 app.get '/logout', (req, res) ->
 	req.logout()

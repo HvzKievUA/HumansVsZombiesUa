@@ -258,10 +258,10 @@
   });
 
   app.get('/auth/vkontakte/callback', passport.authenticate('vkontakte', {
-    failureRedirect: '/'
+    failureRedirect: (req.cookies.mobile ? '/m' : '/')
   }), function(req, res) {
     console.log('req.cookies.mobile', req.cookies.mobile);
-    return res.redirect(req.cookies.mobile ? 'mobile' : '/');
+    return res.redirect(req.cookies.mobile ? '/m' : '/');
   });
 
   app.get('/logout', function(req, res) {
