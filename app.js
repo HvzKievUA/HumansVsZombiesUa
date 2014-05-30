@@ -211,7 +211,9 @@
           return res.render((req.cookies.mobile ? 'mobile' : 'profile'), res.viewData);
         }
         user.getZombie = new Date();
-        user.lastActionDate = new Date();
+        if (!userObj.isDead) {
+          user.lastActionDate = new Date();
+        }
         return user.save(function(err) {
           if (err) {
             return next(err);
