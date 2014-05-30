@@ -27,7 +27,7 @@ block content
 	else
 		p Здраствуйте, #{user.profile.displayName}! Ваша роль - #{user.role == 'zombie' ? 'ЗОМБИ' : 'ЧЕЛОВЕК'}
 		if user.role == 'zombie'
-			p Вам нужно захвать человека на протяжении
+			p Вам нужно захавать человека на протяжении
 		if user.role == 'human'
 			p Вам нужно достать вакцину на протяжении
 		.timer(data-timer=user.timer)
