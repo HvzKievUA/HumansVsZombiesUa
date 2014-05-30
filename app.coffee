@@ -160,7 +160,7 @@ app.get '/auth/vkontakte/callback',
 
 app.get '/logout', (req, res) ->
 	req.logout()
-	res.redirect(if req.cookies.mobile then 'mobile' else '/')
+	res.redirect(if req.cookies.mobile then '/m' else '/')
 
 app.get '/teamHuman', authorize('human'), (req, res) ->
 	res.viewData.vkAppId = config.vk.appId

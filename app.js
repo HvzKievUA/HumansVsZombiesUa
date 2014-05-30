@@ -266,7 +266,7 @@
 
   app.get('/logout', function(req, res) {
     req.logout();
-    return res.redirect(req.cookies.mobile ? 'mobile' : '/');
+    return res.redirect(req.cookies.mobile ? '/m' : '/');
   });
 
   app.get('/teamHuman', authorize('human'), function(req, res) {
