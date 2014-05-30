@@ -129,7 +129,10 @@ app.post '/zombie/submitHuman', authorize('zombie'), (req, res, next) ->
 				return res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
 			user.getZombie = new Date()
 			if !userObj.isDead
-				user.lastActionDate = new Date()
+				if userObj.selfZombie
+					user.lastActionDate = userObj.selfZombie
+				else
+					user.lastActionDate = new Date()
 			user.save (err) ->
 				if err then return next(err)
 				User.findOne { 'vkontakteId': req.user.vkontakteId }, (err, thisUser) ->

@@ -212,7 +212,11 @@
         }
         user.getZombie = new Date();
         if (!userObj.isDead) {
-          user.lastActionDate = new Date();
+          if (userObj.selfZombie) {
+            user.lastActionDate = userObj.selfZombie;
+          } else {
+            user.lastActionDate = new Date();
+          }
         }
         return user.save(function(err) {
           if (err) {
