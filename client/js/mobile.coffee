@@ -1,4 +1,4 @@
-$.cookie 'mobile', true, { path: '/' }
+$.cookie 'mobile', true, { path: '/', expires: 365 }
 
 $ ->
 	$('#desktopVersion').on "click touchend", ->
