@@ -46,3 +46,7 @@ ul.list-group li a img {
 	display: inline-block;
 	width: 190px;
 }
+
+.full-width {
+	width: 960px;
+}

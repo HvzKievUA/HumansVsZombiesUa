@@ -259,7 +259,7 @@
   app.get('/auth/vkontakte/callback', passport.authenticate('vkontakte', {
     failureRedirect: '/'
   }), function(req, res) {
-    return res.redirect('/');
+    return res.redirect(req.cookies.mobile ? '/m' : '/');
   });
 
   app.get('/logout', function(req, res) {

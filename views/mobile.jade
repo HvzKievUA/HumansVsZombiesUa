@@ -5,26 +5,31 @@ html.ui-mobile
 		link(rel="stylesheet" href='/mobile/jquery.mobile.custom.theme.min.css')
 		script(type="text/javascript", src='//code.jquery.com/jquery-2.1.1.min.js')
 		script(type="text/javascript", src='/mobile/jquery.mobile.custom.min.js')
+		script(type="text/javascript", src='/js/vendor/jquery.cookie.js')
+		script(type="text/javascript", src='/js/mobile.js')
 	body.ui-mobile-viewport
-		if isAuth
-			.ui-bar
-				p Здраствуйте, #{user.profile.displayName}. Ваша роль - #{user.role == 'human' ? 'Человек' : 'Зомби'}
-				p Вам нужно съесть #{user.role == 'human' ? 'лекарство' : 'человека'} на протяжении #{formatDuration(user.timer)}
-			if user.role == 'human'
-				form
-					.ui-field-contain
-						label(for="inputHuman") Ввести код лекарства
-						.ui-input-text
-							input#inputHuman(type="text", name="code")
-					button.ui-btn(type="submit") Полечиться
-			if user.role == 'zombie'
-				form
-					.ui-field-contain
-						label(for="inputHuman") Код человека
-						.ui-input-text
-							input#inputHuman(type="text" name="hash")
-					button.ui-btn(type="submit") Захавать человека
-		else
-			.ui-field-contain
-				.ui-bar Мобильная версия HVZ
-				a.ui-btn.ui-corner-all(href="/login/mobile") Войти через Вконтакте
+		.ui-content
+			if isAuth
+				.ui-bar
+					p Здраствуйте, #{user.profile.displayName}. Ваша роль - #{user.role == 'human' ? 'Человек' : 'Зомби'}
+					p Вам нужно съесть #{user.role == 'human' ? 'лекарство' : 'человека'} на протяжении #{formatDuration(user.timer)}
+				if user.role == 'human'
+					form
+						.ui-field-contain
+							label(for="inputMedicine") Ввести код лекарства
+							.ui-input-text
+								input#inputMedicine(type="text", name="code")
+						button.ui-btn(type="submit") Полечиться
+					button.ui-btn(type="submit") Меня поймали
+				if user.role == 'zombie'
+					form
+						.ui-field-contain
+							label(for="inputHuman") Код человека
+							.ui-input-text
+								input#inputHuman(type="text" name="hash")
+						button.ui-btn(type="submit") Захавать человека
+			else
+				.ui-field-contain
+					.ui-bar Мобильная версия HVZ
+					a.ui-btn.ui-corner-all(href="/login/mobile") Войти через Вконтакте
+		a.ui-btn.ui-corner-all Полная версия сайта
