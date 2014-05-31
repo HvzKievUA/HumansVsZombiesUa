@@ -11,5 +11,5 @@ module.exports = {
 	cookieSecret: process.env.HVZ_COOKIE_SECRET || 'this is super duper secret string',
 	sessionSecret: process.env.HVZ_SESSION_SECRET || 'keyboard cat ololo twice',
 	startDate: "2014-05-29 17-00 +03:00",
-	endDate: "2014-06-03 18-00 +03:00"
+	endDate: "2014-06-01 16-00 +03:00"
 };
