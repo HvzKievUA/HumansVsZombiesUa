@@ -12,7 +12,7 @@
     getInfo = function() {
       var hasStarted, start, timer;
       if (user.getZombie || user.selfZombie) {
-        user.timer = moment(user.lastActionDate).add(90, 'hours').diff(moment());
+        user.timer = moment(user.lastActionDate).add(120, 'hours').diff(moment());
         user.isDead = user.timer < 0;
         user.role = 'zombie';
       } else {
@@ -32,7 +32,7 @@
           user.isDead = false;
         } else {
           user.role = 'zombie';
-          user.timer = moment(user.lastActionDate).add(120, 'hours').diff(moment());
+          user.timer = moment(user.lastActionDate).add(150, 'hours').diff(moment());
           user.isDead = user.timer < 0;
         }
       }
