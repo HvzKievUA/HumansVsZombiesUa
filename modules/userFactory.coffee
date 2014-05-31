@@ -26,6 +26,7 @@ userFactory = (user) ->
 				user.role = 'zombie'
 				user.timer = moment(user.lastActionDate).add(54, 'hours').diff(moment())
 				user.isDead = user.timer < 0
+		if user.isDead then user.role = 'dead'
 		user
 
 	return {

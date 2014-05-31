@@ -91,9 +91,12 @@ block content
 
 		div.widget.widget-bg_1.gamerscount
 			h2.widget_heading
-				| Кол-во игроков
+				| Кол-во игроков: #{users.length}
 			div.widget_body
-				| #{users.length}
+				p
+					| Людей: #{teams.human.length}&nbsp;
+					| Зомби: #{teams.zombie.length}&nbsp;
+				p Выбыло: #{teams.dead.length}
 
 		div.widget.widget-bg_1.vkgroup
 			div#vk_groups

@@ -36,6 +36,9 @@
           user.isDead = user.timer < 0;
         }
       }
+      if (user.isDead) {
+        user.role = 'dead';
+      }
       return user;
     };
     return {

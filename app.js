@@ -83,8 +83,20 @@
     var User;
     User = mongoose.model('user');
     return User.find(function(err, users) {
+      var teams, u, user, _i, _len;
       res.viewData.section = 'home';
       res.viewData.users = users;
+      teams = {
+        zombie: [],
+        human: [],
+        dead: []
+      };
+      for (_i = 0, _len = users.length; _i < _len; _i++) {
+        user = users[_i];
+        u = UserFactory(user.toObject()).getInfo();
+        teams[u.role].push(u);
+      }
+      res.viewData.teams = teams;
       return res.render('home', res.viewData);
     });
   });

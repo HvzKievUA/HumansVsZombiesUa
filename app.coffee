@@ -48,6 +48,11 @@ app.get '/', authorize(), (req, res) ->
 	User.find (err, users) ->
 		res.viewData.section = 'home'
 		res.viewData.users = users
+		teams = {zombie: [], human: [], dead: []}
+		for user in users
+			u = UserFactory(user.toObject()).getInfo()
+			teams[u.role].push u
+		res.viewData.teams = teams
 		res.render('home', res.viewData)
 
 app.get '/admin', authorize('admin'),
