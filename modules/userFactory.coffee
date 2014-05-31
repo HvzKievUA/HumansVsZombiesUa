@@ -6,7 +6,7 @@ userFactory = (user) ->
 
 	getInfo = ->
 		if user.getZombie or user.selfZombie #normal zombie
-			user.timer = moment(user.lastActionDate).add(24, 'hours').diff(moment())
+			user.timer = moment(user.lastActionDate).add(30, 'hours').diff(moment())
 			user.isDead = user.timer < 0
 			user.role = 'zombie'
 		else
@@ -24,7 +24,7 @@ userFactory = (user) ->
 				user.isDead = no
 			else #zombie from hunger
 				user.role = 'zombie'
-				user.timer = moment(user.lastActionDate).add(54, 'hours').diff(moment())
+				user.timer = moment(user.lastActionDate).add(60, 'hours').diff(moment())
 				user.isDead = user.timer < 0
 		if user.isDead then user.role = 'dead'
 		user
