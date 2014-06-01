@@ -303,7 +303,7 @@
     return res.redirect(req.cookies.mobile ? '/m' : '/');
   });
 
-  app.get('/teamHuman', authorize('human'), function(req, res) {
+  app.get('/teamHuman', authorize(), function(req, res) {
     var User;
     res.viewData.vkAppId = config.vk.appId;
     res.viewData.section = 'teamHuman';
@@ -323,7 +323,7 @@
     });
   });
 
-  app.get('/teamZombie', authorize('zombie'), function(req, res) {
+  app.get('/teamZombie', authorize(), function(req, res) {
     var User;
     res.viewData.vkAppId = config.vk.appId;
     res.viewData.section = 'teamZombie';

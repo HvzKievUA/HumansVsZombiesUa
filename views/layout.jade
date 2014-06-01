@@ -51,12 +51,12 @@ html
 								a.navbar_item_link(href="/") Главная
 							li.navbar_item(class="#{section == 'rules' ? '__active' : ''}")
 								a.navbar_item_link(href="/rules") Правила
-							if isAuth && (user.role === 'human' || user.isAdmin)
-								li.navbar_item(class="#{section == 'teamHuman' ? '__active' : ''}")
-									a.navbar_item_link(href="/teamHuman") Команда людей
-							if isAuth && (user.role === 'zombie' || user.isAdmin)
-								li.navbar_item(class="#{section == 'teamZombie' ? '__active' : ''}")
-									a.navbar_item_link(href="/teamZombie") Команда зомби
+							//if isAuth && (user.role === 'human' || user.isAdmin)
+							li.navbar_item(class="#{section == 'teamHuman' ? '__active' : ''}")
+								a.navbar_item_link(href="/teamHuman") Команда людей
+							//if isAuth && (user.role === 'zombie' || user.isAdmin)
+							li.navbar_item(class="#{section == 'teamZombie' ? '__active' : ''}")
+								a.navbar_item_link(href="/teamZombie") Команда зомби
 							if isAuth && user.isAdmin
 								li.navbar_item(class="#{section == 'admin' ? '__active' : ''}")
 									a.navbar_item_link(href="/admin") Админ панель

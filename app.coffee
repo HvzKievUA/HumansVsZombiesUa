@@ -180,7 +180,7 @@ app.get '/logout', (req, res) ->
 	req.logout()
 	res.redirect(if req.cookies.mobile then '/m' else '/')
 
-app.get '/teamHuman', authorize('human'), (req, res) ->
+app.get '/teamHuman', authorize(), (req, res) ->
 	res.viewData.vkAppId = config.vk.appId
 	res.viewData.section = 'teamHuman'
 	User = mongoose.model('user')
@@ -193,7 +193,7 @@ app.get '/teamHuman', authorize('human'), (req, res) ->
 		res.viewData.users = teamUsers
 		res.render('teamHuman', res.viewData)
 
-app.get '/teamZombie', authorize('zombie'), (req, res) ->
+app.get '/teamZombie', authorize(), (req, res) ->
 	res.viewData.vkAppId = config.vk.appId
 	res.viewData.section = 'teamZombie'
 	User = mongoose.model('user')
