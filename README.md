@@ -9,7 +9,11 @@ Installation
 Install [Node.js](http://nodejs.org/), [MongoDB](http://www.mongodb.com/).
 Clone this repo
 `git clone https://github.com/eagleeye/HumansVsZombiesUa.git`
-Install dependencies
+Install dependencies from project root
 `npm install`
-Enjoy)
-P.S. VK secret will be added to dev conf soon
+Start application
+`npm start`*
+Open HVZ locally
+[http://localhost.e-conomic.ws/](http://localhost.e-conomic.ws/)
+
+Enjoy!)
