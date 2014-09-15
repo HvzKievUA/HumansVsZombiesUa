@@ -7,13 +7,21 @@ inspired by http://humansvszombies.org/
 Installation
 =================
 Install [Node.js](http://nodejs.org/), [MongoDB](http://www.mongodb.com/).
+
 Clone this repo
+
 `git clone https://github.com/eagleeye/HumansVsZombiesUa.git`
+
 Install dependencies from project root
+
 `npm install`
+
 Start application
-`npm start`*
+
+`npm start`
+
 Open HVZ locally
+
 [http://localhost.e-conomic.ws/](http://localhost.e-conomic.ws/)
 
 Enjoy!)
