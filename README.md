@@ -1,4 +1,4 @@
-[![Stories in Ready](https://badge.waffle.io/eagleeye/HumansVsZombiesUa.png?label=ready&title=Ready)](https://waffle.io/eagleeye/HumansVsZombiesUa)
+[![Stories in Progress](https://badge.waffle.io/eagleeye/HumansVsZombiesUa.png?label=in%20progress&title=In Progress)](https://waffle.io/eagleeye/HumansVsZombiesUa)
 HumansVsZombiesUa
 =================
 
