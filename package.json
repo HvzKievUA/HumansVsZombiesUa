@@ -7,7 +7,7 @@
     "node": "0.10.x"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "node ./node_modules/coffee-script/bin/coffee app.coffee",
     "test": "node_modules/mocha test",
     "watch": "nodemon --watch app.js --watch models --watch setup --watch views ."
   },
@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/eagleeye/HumansVsZombiesUa",
   "dependencies": {
+    "coffee-script": "^1.7.1",
     "express": "^4.1.1",
     "passport": "^0.2.0",
     "cookie-parser": "^1.0.1",
