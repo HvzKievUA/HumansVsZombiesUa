@@ -15,10 +15,15 @@ Clone this repo
 Install dependencies from project root
 
 `npm install`
+`npm install -g coffee-script`
 
 Start application
 
 `npm start`
+
+Start application in dev mode
+
+`npm run dev`
 
 Open HVZ locally
 
