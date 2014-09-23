@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node ./node_modules/coffee-script/bin/coffee app.coffee",
     "test": "node_modules/mocha test",
-    "postinstall": "node ./node_modules/gulp/bin/gulp coffee-client",
+    "postinstall": "node ./node_modules/gulp/bin/gulp build",
     "dev": "node ./node_modules/gulp/bin/gulp dev"
   },
   "repository": {
@@ -41,6 +41,7 @@
     "gulp": "^3.8.8",
     "gulp-coffee": "^2.2.0",
     "gulp-nodemon": "^1.0.4",
+    "gulp-sass": "^0.7.3",
     "gulp-sourcemaps": "^1.2.2",
     "gulp-util": "^3.0.1",
     "jade": "^1.3.1",

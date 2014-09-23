@@ -20,3 +20,4 @@ pids
 node_modules
 
 client/js/build/*
+client/css/build/*
