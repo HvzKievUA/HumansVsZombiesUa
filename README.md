@@ -14,8 +14,11 @@ Clone this repo
 
 Install dependencies from project root
 
-`npm install`
-`npm install -g coffee-script`
+`npm install && sudo npm install -g coffee-script`
+
+Optionally set custom port (don't forget to  append it to the URL later)
+
+`export PORT=9999`
 
 Start application
 
