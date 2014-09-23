@@ -10,6 +10,6 @@ module.exports = {
 	},
 	cookieSecret: process.env.HVZ_COOKIE_SECRET,
 	sessionSecret: process.env.HVZ_SESSION_SECRET,
-	startDate: "2014-05-29 17-00 +03:00",
-	endDate: "2014-06-01 16-00 +03:00"
+	startDate: "2014-10-2 17-00 +03:00",
+	endDate: "2014-10-8 16-00 +03:00"
 };

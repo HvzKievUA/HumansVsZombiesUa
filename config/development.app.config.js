@@ -1,7 +1,7 @@
 module.exports = {
 	http: {
 		port: process.env.PORT || 80,
-		siteUrl: process.env.SITE_URL || 'http://localhost.e-conomic.ws'
+		siteUrl: process.env.SITE_URL || 'http://localhost.e-conomic.ws/'
 	},
 	mongoUrl: 'mongodb://localhost/hvz',
 	vk: {
@@ -10,6 +10,6 @@ module.exports = {
 	},
 	cookieSecret: process.env.HVZ_COOKIE_SECRET || 'this is super duper secret string',
 	sessionSecret: process.env.HVZ_SESSION_SECRET || 'keyboard cat ololo twice',
-	startDate: "2014-05-29 17-00 +03:00",
-	endDate: "2014-06-01 16-00 +03:00"
+	startDate: "2014-10-2 17-00 +03:00",
+	endDate: "2014-10-8 16-00 +03:00"
 };

@@ -234,7 +234,7 @@ app.use (err, req, res, next) ->
 	authorize()(req, res, ->
 		if req.cookies.mobile
 			return res.status(500).render('messageMobile', message: 'Непредвиденная ошибка на сайте, сообщите об этой ошибке администратору сайта' + err )
-		res.viewData.message = err;
+		res.viewData.message = err
 		res.status(500).render('500', res.viewData)
 	);
 
@@ -243,4 +243,4 @@ app.boot (err) ->
 		console.error err
 	port = config.http.port
 	server.listen port
-	console.info('server started at ' + config.http.siteUrl + ' '.green)
+	console.info('Server started at ' + config.http.siteUrl + ' '.green)

@@ -28,7 +28,7 @@ gulp.task('clean', function(cb) {
 
 gulp.task('nodemon', function () {
 	nodemon({ script: "app.coffee",
-		ext: 'coffee',
+		ext: 'coffee js',
 		watch: ['setup/', 'modules/', 'models/', 'middleware/', 'config/', 'app.coffee']
 	}).on('restart', function () {
 		gutil.log('app restarted');
