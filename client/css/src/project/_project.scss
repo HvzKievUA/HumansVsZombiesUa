@@ -267,7 +267,7 @@
     .content_prm-video_title {
       width: calc(100% - 20px);
       position: absolute;
-      top: -1px;
+      top: 16px;
       margin-left: 20px;
       font: {
         family: "capture_itregular";
@@ -279,17 +279,6 @@
       line-height: 3px;
       color: #eeeeee;
       z-index: 3;
-
-      &:before {
-        content: "";
-        display: block;
-        width: 750px;
-        position: absolute;
-        top: 0;
-        right: 0;
-        height: 3px;
-        background-color: #eeeeee;
-      }
     }
   }
 
