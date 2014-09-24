@@ -54,7 +54,7 @@ html
 							//if isAuth && (user.role === 'human' || user.isAdmin)
 							if isAuth && user.isAdmin
 								li.navbar_item(class="#{section == 'teamHuman' ? '__active' : ''}")
-								a.navbar_item_link(href="/teamHuman") Команда людей
+									a.navbar_item_link(href="/teamHuman") Команда людей
 							//if isAuth && (user.role === 'zombie' || user.isAdmin)
 							if isAuth && user.isAdmin
 								li.navbar_item(class="#{section == 'teamZombie' ? '__active' : ''}")
