@@ -7,7 +7,7 @@
   background: {
     image: url("/img/pageBg.jpg");
   }
-;
+
   box-shadow: 0 17px 13px 5px #000000;
   -moz-box-shadow: 0 17px 13px 5px #000000;
   -webkit-box-shadow: 0 17px 13px 5px #000000;
@@ -282,15 +282,26 @@
     }
   }
 
-  .content_about {
-
-    .content_about_heading {
-      margin-top: 0;
-    }
-  }
-
   #map_gamezone {
     height: 600px;
+  }
+
+  #slider_home_container {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 600px;
+    height: 400px;
+
+    .slides {
+      cursor: move;
+      position: absolute;
+      overflow: hidden;
+      left: 0px;
+      top: 0px;
+      width: 600px;
+      height: 400px;
+    }
   }
 
   .vkgroup {
