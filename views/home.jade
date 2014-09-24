@@ -19,8 +19,8 @@ block headerBanner
 
 block content
 	.col.col-640
-		#slider1_container(style="position: relative; top: 0px; left: 0px; width: 600px; height: 300px;")
-			div(u="slides", style="cursor: move; position: absolute; overflow: hidden; left: 0px; top: 0px; width: 600px; height: 300px;")
+		#slider1_container(style="position: relative; top: 0px; left: 0px; width: 600px; height: 400px;")
+			div(u="slides", style="cursor: move; position: absolute; overflow: hidden; left: 0px; top: 0px; width: 600px; height: 400px;")
 				- for (var x = 1; x <= 22; x++)
 					div
 						img(u="image" src="/img/home/home#{x}.jpg")
@@ -39,7 +39,8 @@ block content
 			| На территории всего Киевского Политехнического Института!
 			| Для всех желающих (не только студентов КПИ)!
 
-			ol Почему это круто?
+			h2.content_text-box_heading.content_about_heading Почему это круто?
+			ol
 				li Постоянный экшн
 				| Всегда оглядывайтесь и будьте начеку, ведь Зомби могут быть за каждым углом! Будьте готовы прорываться боем к себе домой.
 				li Команда
