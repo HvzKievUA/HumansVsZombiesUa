@@ -58,5 +58,11 @@
     "serve-favicon": "^2.0.0",
     "winston": "^0.7.3",
     "winston-wrapper": "^1.0.1"
+  },
+  "devDevendencies": {
+    "mocha": "^1.21.4",
+    "request": "^2.37.0",
+    "chai": "^1.9.1",
+    "chai-subset": "^0.3.0"
   }
 }
