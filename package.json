@@ -59,7 +59,7 @@
     "winston": "^0.7.3",
     "winston-wrapper": "^1.0.1"
   },
-  "devDevendencies": {
+  "devDependencies": {
     "mocha": "^1.21.4",
     "request": "^2.37.0",
     "chai": "^1.9.1",
