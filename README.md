@@ -1,4 +1,4 @@
-[![Stories in Progress](https://badge.waffle.io/eagleeye/HumansVsZombiesUa.png?label=in%20progress&title=In Progress)](https://waffle.io/eagleeye/HumansVsZombiesUa)
+[![Stories in Progress](https://badge.waffle.io/eagleeye/HumansVsZombiesUa.png?label=in%20progress&title=In Progress)](https://waffle.io/eagleeye/HumansVsZombiesUa)[![Build Status](https://travis-ci.org/eagleeye/HumansVsZombiesUa.svg)](https://travis-ci.org/eagleeye/HumansVsZombiesUa)
 HumansVsZombiesUa
 =================
 
