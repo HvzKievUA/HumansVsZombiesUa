@@ -18,6 +18,20 @@ block headerBanner
 				| - Каждый день может быть последним
 
 block content
+	div.col.col-1000.content_prm-video
+		div.content_prm-video_title
+			| Промо ролик
+		iframe(
+		src="//www.youtube.com/embed/4-R31zST46g?rel=0",
+		width="1000",
+		height="563",
+		frameborder="0",
+		webkitallowfullscreen,
+		mozallowfullscreen,
+		allowfullscreen
+		)
+
+
 	.col.col-640
 		#slider_home_container
 			div.slides(u="slides")
@@ -97,17 +111,3 @@ block content
 						color3: '#2f2f2f'
 					}, 70889229);
 	div.col.col-640
-
-
-	div.col.col-1000.content_prm-video
-		div.content_prm-video_title
-			| Промо ролик
-		iframe(
-		src="//www.youtube.com/embed/4-R31zST46g?rel=0",
-		width="1000",
-		height="563",
-		frameborder="0",
-		webkitallowfullscreen,
-		mozallowfullscreen,
-		allowfullscreen
-		)
