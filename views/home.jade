@@ -66,6 +66,20 @@ block content
 			p Вы заняты утром, а вечером свободны? А может наоборот? Не беда, ведь в Игру можно “заходить” именно тогда, когда вам удобно.
 			p Стоимость участия 20 грн.
 			p Участвуй сам и приглашай друзей: чем нас больше, тем масштабнее будет игра.
+
+			h2.content_text-box_heading.content_about_heading Батлы предыдущего сезона
+			div.col.col-1000.content_prm-video
+				- for video_id, i in ['hgwiEvPTl8g','m-ZTFb9-Yo8','B2wT-kWH_gU']
+					iframe(
+					src="//www.youtube.com/embed/#{video_id}?rel=0",
+					width=i % 2 ? '334' : '333',
+					height="188",
+					frameborder="0",
+					webkitallowfullscreen,
+					mozallowfullscreen,
+					allowfullscreen
+					)
+
 	.col.col-300
 		.widget.widget-bg_1.short-info
 			h2.widget_heading
