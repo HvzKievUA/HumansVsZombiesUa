@@ -22,9 +22,9 @@ UserFactory = require './modules/userFactory'
 app = bootable(express())
 server = http.createServer(app)
 
-if process.env.APP_ENV is 'production'
-	raven = require 'raven'
-	server.error(raven.middleware.express(config.sentryURL));
+#if process.env.APP_ENV is 'production'
+#	raven = require 'raven'
+#	server.error(raven.middleware.express(config.sentryURL));
 
 app.use(favicon(__dirname + '/client/img/favicon.png'))
 app.set('views', __dirname + '/views')
