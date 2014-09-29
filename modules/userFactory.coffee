@@ -1,6 +1,7 @@
 moment = require 'moment'
 config = require 'cnf'
 mongoose = require 'mongoose'
+uuid = require 'node-uuid'
 
 userFactory = (user) ->
 	moment
