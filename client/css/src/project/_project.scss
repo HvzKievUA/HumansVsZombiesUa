@@ -257,6 +257,27 @@
       }
     ;
     }
+
+    .regbutton {
+      text-align: center;
+
+      a {
+        font: {
+          family: "capture_itregular";
+          style: normal;
+          weight: normal;
+          size: 26px;
+        }
+        ;
+        color: red;
+        background: black;
+        border: none;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
   }
 
   .content_prm-video {
