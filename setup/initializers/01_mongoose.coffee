@@ -2,7 +2,6 @@ mongoose = require 'mongoose'
 requireTree = require('require-tree')
 config = require 'cnf'
 mongoUrl = config.mongoUrl
-log = require('winston-wrapper')(module)
 requireTree('../../models/')
 
 module.exports = (done) ->
@@ -16,7 +15,7 @@ module.exports = (done) ->
 
 	try
 		mongoose.connect(mongoUrl)
-		log.info('Started connection on ' + (mongoUrl).cyan + ', waiting for it to open...'.grey);
+		console.info('Started connection on ' + mongoUrl +  ' waiting for it to open...');
 	catch e
-		log.error(('Setting up failed to connect to ' + mongoUrl).red, err.message);
+		console.error('Setting up failed to connect to ' + mongoUrl, e);
 

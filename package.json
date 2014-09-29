@@ -37,7 +37,6 @@
     "express": "^4.1.1",
     "express-error-handler": "^0.5.4",
     "express-session": "^1.0.4",
-    "express-winston": "^0.2.5",
     "gulp": "^3.8.8",
     "gulp-coffee": "^2.2.0",
     "gulp-nodemon": "^1.0.4",
@@ -54,11 +53,8 @@
     "passport-oauth2": "^1.1.2",
     "passport-vkontakte": "^0.2.1",
     "pkginfo": "^0.3.0",
-    "raven": "^0.7.2",
     "require-tree": "^0.3.3",
-    "serve-favicon": "^2.0.0",
-    "winston": "^0.7.3",
-    "winston-wrapper": "^1.0.1"
+    "serve-favicon": "^2.0.0"
   },
   "devDependencies": {
     "mocha": "^1.21.4",

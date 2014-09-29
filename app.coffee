@@ -5,9 +5,6 @@ passport = require('passport')
 cookieParser = require('cookie-parser')
 bodyParser = require('body-parser')
 session = require('express-session')
-expressWinston = require('express-winston')
-log = require('winston-wrapper')(module)
-winston = require('winston')
 config = require('cnf')
 bootable = require 'bootable'
 favicon = require('serve-favicon')
@@ -21,10 +18,6 @@ UserFactory = require './modules/userFactory'
 
 app = bootable(express())
 server = http.createServer(app)
-
-#if process.env.APP_ENV is 'production'
-#	raven = require 'raven'
-#	server.error(raven.middleware.express(config.sentryURL));
 
 app.use(favicon(__dirname + '/client/img/favicon.png'))
 app.set('views', __dirname + '/views')
@@ -226,13 +219,6 @@ app.use (req, res) ->
 			return res.status(404).render('messageMobile', message: '404, страница не найдена' )
 		res.status(404).render('404', res.viewData)
 	);
-
-app.use expressWinston.errorLogger
-	transports: [
-		new winston.transports.Console({
-			colorize: true
-		})
-	]
 
 app.use (err, req, res, next) ->
 	authorize()(req, res, ->
