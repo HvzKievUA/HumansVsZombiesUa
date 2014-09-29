@@ -8,6 +8,7 @@ module.exports = {
 		appId: process.env.HVZ_VK_APP_ID,
 		appSecret: process.env.HVZ_VK_SECRET
 	},
+    sentryURL: process.env.HVZ_SENTRY_URL,
 	cookieSecret: process.env.HVZ_COOKIE_SECRET,
 	sessionSecret: process.env.HVZ_SESSION_SECRET,
 	startDate: "2014-10-2 17-00 +03:00",
