@@ -1,11 +1,12 @@
 request = require 'request'
+baseUrl = config.baseUrl
 
 describe 'availability of home page', ->
 	for path in ['', 'rules']
 		describe "load page for path /#{path}", ->
 			resp = null
 			before (done) ->
-				request.get 'http://localhost/' + path, (err, _resp) ->
+				request.get baseUrl + path, (err, _resp) ->
 					resp = _resp
 					done err
 			it "should return status code 200", ->
