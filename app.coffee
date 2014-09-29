@@ -15,6 +15,7 @@ uuid = require 'node-uuid'
 async = require 'async'
 MongoStore = require('connect-mongo')(session)
 UserFactory = require './modules/userFactory'
+_ = require 'lodash'
 
 app = bootable(express())
 server = http.createServer(app)
@@ -54,20 +55,27 @@ app.get '/', authorize(), (req, res) ->
 
 app.get '/admin', authorize('admin'),
 (req, res, next) ->
-	User = mongoose.model 'user'
-	Medicine = mongoose.model 'medicine'
-	User.find (err, users) ->
+	async.parallel
+		users: (callback) ->
+			User = mongoose.model 'user'
+			User.find (err, users) ->
+				if err then return callback err
+				users = users.reduce (list, user) ->
+					list.push UserFactory(user.toObject()).getInfo()
+					list
+				, []
+				callback null, users
+		medicines: (callback) ->
+			Medicine = mongoose.model 'medicine'
+			Medicine.find callback
+		usercodes: (callback) ->
+			UserCode = mongoose.model 'usercode'
+			UserCode.find callback
+	, (err, results) ->
 		if err then return next(err)
-		users = users.reduce (list, user) ->
-			list.push UserFactory(user.toObject()).getInfo()
-			list
-		, []
-		res.viewData.users = users
-		Medicine.find (err, medicines) ->
-			if err then return next(err)
-			res.viewData.medicines = medicines
-			res.viewData.section = 'admin'
-			res.render 'admin', res.viewData
+		_.extend res.viewData, results
+		res.viewData.section = 'admin'
+		res.render 'admin', res.viewData
 
 app.post '/admin/generatemedcine', authorize('admin'), (req, res, next) ->
 	count = parseInt(req.body.count) || 0
@@ -85,9 +93,26 @@ app.post '/admin/generatemedcine', authorize('admin'), (req, res, next) ->
 	async.times count, (n, next) ->
 		createCode(next)
 	, (err, codes) ->
-		if err
-			return next(err)
+		if err then return next(err)
 		console.log("generated #{codes.length} medicine codes")
+		res.redirect '/admin'
+
+app.post '/admin/generateusercodes', authorize('admin'), (req, res, next) ->
+	count = parseInt(req.body.count) || 0
+	from = parseInt(req.body.from) || 0
+	unless 0 < count < 501
+		return next(new Error("Сірьожа, '#{count}' не канає, не більше 1000, не менше 1"))
+	UserCode = mongoose.model 'usercode'
+	createCode = (number, cb) ->
+		usercode = new UserCode
+			number: number
+			hash: uuid.v4().substr(0, 13)
+		usercode.save cb
+	async.times count, (n, next) ->
+			createCode(from + n, next)
+	, (err, codes) ->
+		if err then return next(err)
+		console.log("generated #{codes.length} usercodes")
 		res.redirect '/admin'
 
 app.post '/human/submitMedicine', authorize('human'), (req, res, next) ->

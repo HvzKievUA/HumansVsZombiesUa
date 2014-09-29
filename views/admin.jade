@@ -16,6 +16,7 @@ block content
 	p Всего юзверей: #{users.length}
 	table.users.pure-table(border=1)
 		thead
+			td Номер
 			td Код
 			td vkId
 			td Имя
@@ -28,7 +29,8 @@ block content
 		tbody
 			each user in users
 				tr
-					td=user.hash
+					td=user.number
+					td=(user.number ? user.hash : '')
 					td=user.vkontakteId
 					td=user.profile.displayName
 					td=user.role
@@ -45,7 +47,7 @@ block content
 				input#medicineCount(type="number", name="count", min="1", max="100", required="required")
 			p
 				label(for="medicineDescription") Описание
-				input#medicineCount(type="text", name="description", min="1", max="100", required="required")
+				input#medicineDescription(type="text", name="description", min="1", max="100", required="required")
 			p
 				label(for="medicineUnlimited") Безлимит по времини?
 				input(type="checkbox", name="unlimited", value="true")
@@ -67,3 +69,23 @@ block content
 					td=formatDate(medicine.generated)
 					td=medicine.usedBy
 					td=formatDate(medicine.usedTime)
+	form.pure-form.generateUsercodes(action="/admin/generateusercodes", method="POST")
+		fieldset
+			legend Сгенерировать id пользователей. Всего существует: #{usercodes.length}
+			p
+				label(for="usercodesCount") Количество <= 500
+				input#usercodesCount(type="number", name="count", min="1", max="500", required="required")
+				label(for="usercodesFrom") Начиная с
+				input#usercodesFrom(type="number", name="from", min="1", required="required")
+			input(type="submit", value="Сгенерировать")
+	table.usercodes.pure-table(border=1)
+		thead
+			td Номер
+			td Код
+			td Присвоен
+		tbody
+			each usercode in usercodes
+				tr
+					td=usercode.number
+					td=usercode.hash
+					td=usercode.usedBy

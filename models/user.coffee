@@ -19,5 +19,7 @@ UserSchema = new mongoose.Schema
 		type: Date
 	hash:
 		type: String
+	number:
+		type: Number
 
 mongoose.model('user', UserSchema)
