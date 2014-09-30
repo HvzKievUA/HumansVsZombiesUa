@@ -5,7 +5,7 @@ style.
 	@media print {table {page-break-after: always;}}
 	span {font-weight: bold;}
 - for (var page = 0; page < Math.ceil(codes.length/8); page++)
-	p Сторінка #{page + 1} з #{Math.ceil(codes.length/8) + 1}
+	p Сторінка #{page + 1} з #{Math.ceil(codes.length/8)}
 	table
 		- for (var row = 0; row < 4; row++)
 			tr
