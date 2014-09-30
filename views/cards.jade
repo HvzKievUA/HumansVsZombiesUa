@@ -1,0 +1,11 @@
+table(border=1)
+	- for (var row = 0; row < Math.ceil(codes.length/2); row++)
+		tr
+			for index in [row*2, row*2 + 1]
+				-var code = codes[index]
+				td(width="347px", style="position: relative;")
+					if code
+						img(src="/img/card.png", width="347px")
+						span(style="position: absolute; top: 142px; left: 142px;")=code.hash
+						span(style="position: absolute; top: 106px; left: 180px;")=code.number
+						img(src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=http://www.hvz.kiev.ua/eat/#{code.hash}", style="position: absolute; top: 100px; left: 17px;")

@@ -77,6 +77,13 @@ app.get '/admin', authorize('admin'),
 		res.viewData.section = 'admin'
 		res.render 'admin', res.viewData
 
+app.get '/admin/cards', authorize('admin'),
+(req, res, next) ->
+	UserCode = mongoose.model 'usercode'
+	UserCode.find (err, codes) ->
+		if err then return next err
+		res.render 'cards', codes: codes
+
 app.post '/admin/generatemedcine', authorize('admin'), (req, res, next) ->
 	count = parseInt(req.body.count) || 0
 	unless 0 < count < 101
