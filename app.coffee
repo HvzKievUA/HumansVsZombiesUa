@@ -108,7 +108,7 @@ app.post '/admin/generateusercodes', authorize('admin'), (req, res, next) ->
 	count = parseInt(req.body.count) || 0
 	from = parseInt(req.body.from) || 0
 	unless 0 < count < 501
-		return next(new Error("Сірьожа, '#{count}' не канає, не більше 1000, не менше 1"))
+		return next(new Error("Сірьожа, '#{count}' не канає, не більше 500, не менше 1"))
 	UserCode = mongoose.model 'usercode'
 	createCode = (number, cb) ->
 		usercode = new UserCode
