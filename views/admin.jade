@@ -25,6 +25,7 @@ block content
 			td Посл. активность
 			td Стал зомби
 			td Таймер
+			td Присвоить№
 		tbody
 			each user in users
 				tr
@@ -37,6 +38,12 @@ block content
 					td=formatDate(user.lastActionDate)
 					td=formatDate(user.getZombie)
 					td=formatDuration(user.timer)
+					td
+						if !user.number
+							form.setNumber(action="/admin/setnumber", method="POST")
+								input(type="hidden", name="vkId", value=user.vkontakteId)
+								input(type="text", name="number", required="required")
+								button(type="submit") Сохр.
 	form.pure-form.submitMedicine(action="/admin/generatemedcine", method="POST")
 		fieldset
 			legend Сгенерировать лекарства. Всего существует: #{medicines.length}

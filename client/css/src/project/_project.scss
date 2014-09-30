@@ -369,3 +369,12 @@
     counter-reset: item
   }
 }
+
+form.setNumber {
+  input, button {
+    height: 25px;
+  }
+  input {
+    width: 50px;
+  }
+}

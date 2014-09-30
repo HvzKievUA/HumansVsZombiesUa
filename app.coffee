@@ -122,6 +122,30 @@ app.post '/admin/generateusercodes', authorize('admin'), (req, res, next) ->
 		console.log("generated #{codes.length} usercodes")
 		res.redirect '/admin'
 
+app.post '/admin/setnumber', authorize('admin'), (req, res, next) ->
+	number = parseInt(req.body.number)
+	vkId = req.body.vkId
+	async.parallel
+		usercode: (cb) ->
+			UserCode = mongoose.model 'usercode'
+			UserCode.findOne {number: number, usedBy: {$exists: no}}, cb
+		user: (cb) ->
+			User = mongoose.model 'user'
+			User.findOne {vkontakteId: vkId, number: {$exists: no}}, cb
+	, (err, results) ->
+		if err then return next err
+		unless results.user and results.usercode
+			return next(new Error('Номер не найден или использован. Или юзер не найден или ему назначен номер'))
+		results.user.number = results.usercode.number
+		results.user.hash = results.usercode.hash
+		results.usercode.usedBy = results.user.vkontakteId
+		async.parallel [
+			(cb) -> results.user.save cb
+			(cb) -> results.usercode.save cb
+		] , (err, results) ->
+			if err then return next err
+			res.redirect '/admin'
+
 app.post '/human/submitMedicine', authorize('human'), (req, res, next) ->
 	code = req.body.code
 	Medicine = mongoose.model 'medicine'
