@@ -43,7 +43,6 @@ userFactory.findOrCreateUser = (vkProfile, callback) ->
 			vkontakteId: vkProfile.id
 			profile: vkProfile
 			role: 'human'
-			hash: uuid.v4().substr(0, 13)
 			registered: new Date()
 			lastActionDate: new Date()
 		newUser.save (err) ->
