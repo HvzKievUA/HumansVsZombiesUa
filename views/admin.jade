@@ -24,7 +24,6 @@ block content
 			td умер?
 			td Посл. активность
 			td Стал зомби
-			td Самозомби
 			td Таймер
 		tbody
 			each user in users
@@ -37,7 +36,6 @@ block content
 					td #{user.isDead?'да':'нет'}
 					td=formatDate(user.lastActionDate)
 					td=formatDate(user.getZombie)
-					td=formatDate(user.selfZombie)
 					td=formatDuration(user.timer)
 	form.pure-form.submitMedicine(action="/admin/generatemedcine", method="POST")
 		fieldset

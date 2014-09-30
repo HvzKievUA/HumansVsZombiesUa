@@ -163,17 +163,12 @@ app.post '/zombie/submitHuman', authorize('zombie'), (req, res, next) ->
 				return res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
 			user.getZombie = new Date()
 			if !userObj.isDead
-				if userObj.selfZombie
-					user.lastActionDate = userObj.selfZombie
-				else
-					user.lastActionDate = new Date()
+				user.lastActionDate = new Date()
 			user.save (err) ->
 				if err then return next(err)
 				User.findOne { 'vkontakteId': req.user.vkontakteId }, (err, thisUser) ->
 					if err then return next(err)
 					thisUser.lastActionDate =  new Date()
-					if !thisUser.getZombie
-						thisUser.selfZombie = new Date()
 					thisUser.save (err, user) ->
 						if err then return next(err)
 						res.viewData.user = UserFactory(user.toObject()).getInfo()
@@ -182,13 +177,6 @@ app.post '/zombie/submitHuman', authorize('zombie'), (req, res, next) ->
 		else
 			res.viewData.profileMessage = "Извините, человек не найден"
 			res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
-
-app.post '/human/selfzombie', authorize('human'), (req, res, next) ->
-	User = mongoose.model('user')
-	User.findOneAndUpdate { 'vkontakteId': req.user.vkontakteId }, {selfZombie: new Date(), lastActionDate: new Date()}, (err, user) ->
-		if err then return next err
-		res.viewData.user = UserFactory(user.toObject()).getInfo()
-		res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
 
 app.get '/auth/vkontakte',
 	passport.authenticate('vkontakte', { scope: ['friends'] }),
