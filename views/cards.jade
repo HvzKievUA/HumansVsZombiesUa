@@ -4,16 +4,14 @@ style.
 	span.hash {position: absolute; top: 142px; left: 142px;}
 	@media print {table {page-break-after: always;}}
 	span {font-weight: bold;}
-- for (var page = 0; page < Math.ceil(codes.length/8); page++)
-	p Сторінка #{page + 1} з #{Math.ceil(codes.length/8)}
+- for (var page = 0; page < codes.length; page++)
+	p Сторінка #{page + 1} з #{codes.length}
 	table
-		- for (var row = 0; row < 4; row++)
-			tr
-				for index in [row*2, row*2 + 1]
-					-var code = codes[page*8 + index]
-					td(width="347px", style="position: relative;")
-						if code
-							img(src="/img/card.png", width="347px")
-							span.hash=code.hash
-							span.number=code.number
-							img.qr(src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=http://www.hvz.kiev.ua/eat/#{code.hash}")
+		tr
+			-var code = codes[page]
+			td(width="347px", style="position: relative;")
+				if code
+					img(src="/img/card.png", width="347px")
+					span.hash=code.hash
+					span.number=code.number
+					img.qr(src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=http://www.hvz.kiev.ua/eat/#{code.hash}")
