@@ -17,8 +17,12 @@ block headerBanner
 
 block content
 	.news_col
-		h3 Тут міг би бути заголовок
-		p А тут Сірьожа мав би написати слово напутнє.
+		if news && news.length > 0
+			for _new in news
+				| - !{_new}
+		else
+			h3 Тут міг би бути заголовок
+			p А тут Сірьожа мав би написати слово напутнє.
 
 	h3 Командный чат
 	#vk_comments

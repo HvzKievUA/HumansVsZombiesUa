@@ -16,6 +16,9 @@ async = require 'async'
 MongoStore = require('connect-mongo')(session)
 UserFactory = require './modules/userFactory'
 _ = require 'lodash'
+fs = require 'fs'
+path = require 'path'
+jade = require 'jade'
 
 app = bootable(express())
 server = http.createServer(app)
@@ -222,30 +225,52 @@ app.get '/logout', (req, res) ->
 	res.redirect(if req.cookies.mobile then '/m' else '/')
 
 app.get '/teamHuman', authorize(), (req, res) ->
-	res.viewData.vkAppId = config.vk.appId
-	res.viewData.section = 'teamHuman'
-	User = mongoose.model('user')
-	User.find (err, users) ->
-		teamUsers = []
-		for user in users
-			user = UserFactory(user).getInfo()
-			if user.role is 'human'
-				teamUsers.push user
-		res.viewData.users = teamUsers
-		res.render('teamHuman', res.viewData)
+	tmpl_dir = __dirname + '/views/news/forHuman/'
+	# read all news in the directory
+	fs.readdir tmpl_dir, (err, news) ->
+		_news = []
+		if news?
+			for _new in news
+				if path.extname(_new) == '.jade'
+					console.log _new,  jade.compile(fs.readFileSync(tmpl_dir + _new, 'utf8'))()
+					_news.push jade.compile(fs.readFileSync(tmpl_dir + _new, 'utf8'))
+			res.viewData.news = _news
+
+		res.viewData.vkAppId = config.vk.appId
+		res.viewData.section = 'teamHuman'
+		User = mongoose.model('user')
+		User.find (err, users) ->
+			teamUsers = []
+			for user in users
+				user = UserFactory(user).getInfo()
+				if user.role is 'human'
+					teamUsers.push user
+			res.viewData.users = teamUsers
+			res.render('teamHuman', res.viewData)
 
 app.get '/teamZombie', authorize(), (req, res) ->
-	res.viewData.vkAppId = config.vk.appId
-	res.viewData.section = 'teamZombie'
-	User = mongoose.model('user')
-	User.find (err, users) ->
-		teamUsers = []
-		for user in users
-			user = UserFactory(user).getInfo()
-			if user.role is 'zombie'
-				teamUsers.push user
-		res.viewData.users = teamUsers
-		res.render('teamZombie', res.viewData)
+	tmpl_dir = __dirname + '/views/news/forZombie/'
+	# read all news in the directory
+	fs.readdir tmpl_dir, (err, news) ->
+		_news = []
+		if news?
+			for _new in news
+				if path.extname(_new) == '.jade'
+					console.log _new,  jade.compile(fs.readFileSync(tmpl_dir + _new, 'utf8'))()
+					_news.push jade.compile(fs.readFileSync(tmpl_dir + _new, 'utf8'))
+			res.viewData.news = _news
+
+		res.viewData.vkAppId = config.vk.appId
+		res.viewData.section = 'teamZombie'
+		User = mongoose.model('user')
+		User.find (err, users) ->
+			teamUsers = []
+			for user in users
+				user = UserFactory(user).getInfo()
+				if user.role is 'zombie'
+					teamUsers.push user
+			res.viewData.users = teamUsers
+			res.render('teamZombie', res.viewData)
 
 app.get '/profile', authorize('any'), (req, res) ->
 	res.render('profile', res.viewData)
