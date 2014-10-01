@@ -5,8 +5,14 @@ block content
 		.ui-bar
 			if profileMessage
 				p=profileMessage
-			p Здраствуйте, #{user.profile.displayName}. Ваша роль - #{user.role == 'human' ? 'Человек' : 'Зомби'}
-			p Вам нужно съесть #{user.role == 'human' ? 'лекарство' : 'человека'} на протяжении #{formatDuration(user.timer)}
+			if user.role == 'human' || user.role == 'zombie'
+				if hasStarted
+					p Здраствуйте, #{user.profile.displayName}. Ваша роль - #{user.role == 'human' ? 'Человек' : 'Зомби'}
+					p Вам нужно съесть #{user.role == 'human' ? 'лекарство' : 'человека'} на протяжении #{formatDuration(user.timer)}
+				else
+					p Игра начнеться через #{formatDuration(toStart)}
+			if user.role == 'pending'
+				p Вам нужно получить код в организаторов
 		if user.role == 'human' || user.isAdmin
 			form(action="/human/submitMedicine", method="POST")
 				.ui-field-contain

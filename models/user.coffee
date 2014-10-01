@@ -11,15 +11,17 @@ UserSchema = new mongoose.Schema
 		type: String
 	lastActionDate:
 		type: Date
+	eatenHours:
+		type: Number
 	registered:
 		type: Date
 	getZombie:
-		type: Date
-	selfZombie:
 		type: Date
 	hash:
 		type: String
 	number:
 		type: Number
+	history:
+		type: Array
 
 mongoose.model('user', UserSchema)

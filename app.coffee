@@ -49,7 +49,7 @@ app.get '/', authorize(), (req, res) ->
 	User.find (err, users) ->
 		res.viewData.section = 'home'
 		res.viewData.users = users
-		teams = {zombie: [], human: [], dead: []}
+		teams = {zombie: [], human: [], dead: [], pending: []}
 		for user in users
 			u = UserFactory(user.toObject()).getInfo()
 			teams[u.role].push u
@@ -179,31 +179,32 @@ app.post '/zombie/submitHuman', authorize('zombie'), (req, res, next) ->
 	if !hash then return next(new Error 'Hash should be provided')
 	User.findOne {'hash': hash}, (err, user) ->
 		if err then return next(err)
-		if user
-			userObj = user.toObject()
-			UserFactory(userObj).getInfo()
-#			if userObj.isDead
-#				res.viewData.profileMessage = "Нельзя съесть труп"
-#				return res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
-			if userObj.getZombie or (userObj.role is 'zombie' and !userObj.selfZombie)
-				res.viewData.profileMessage = "Нельзя съесть зомби"
-				return res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
-			user.getZombie = new Date()
-			if !userObj.isDead
-				user.lastActionDate = new Date()
-			user.save (err) ->
-				if err then return next(err)
-				User.findOne { 'vkontakteId': req.user.vkontakteId }, (err, thisUser) ->
-					if err then return next(err)
-					thisUser.lastActionDate =  new Date()
-					thisUser.save (err, user) ->
-						if err then return next(err)
-						res.viewData.user = UserFactory(user.toObject()).getInfo()
-						res.viewData.profileMessage = "Код сработал"
-						res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
-		else
+		if !user
 			res.viewData.profileMessage = "Извините, человек не найден"
-			res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
+			return res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
+		userObj = user.toObject()
+		UserFactory(userObj).getInfo()
+		if userObj.role isnt 'human'
+			res.viewData.profileMessage = "Можно схавать только живого человека (не зомби, не труп)"
+			return res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
+		user.getZombie = new Date()
+		user.lastActionDate = new Date()
+		user.save (err) ->
+			if err then return next(err)
+			User.findOne { 'vkontakteId': req.user.vkontakteId }, (err, thisUser) ->
+				if err then return next(err)
+				if thisUser.getZombie #normal zombie eat human
+					thisUser.eatenHours = (thisUser.eatenHours || 0) + 36
+				else #zombie from hunger eat human
+					thisUserObj = thisUser.toObject()
+					UserFactory(thisUserObj).getInfo()
+					thisUser.getZombie = new Date()
+					thisUser.eatenHours = 12 + Math.ceil(thisUserObj.timer/(1000 * 3600))
+				thisUser.save (err, user) ->
+					if err then return next(err)
+					res.viewData.user = UserFactory(user.toObject()).getInfo()
+					res.viewData.profileMessage = "Код сработал"
+					res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
 
 app.get '/auth/vkontakte',
 	passport.authenticate('vkontakte', { scope: ['friends'] }),

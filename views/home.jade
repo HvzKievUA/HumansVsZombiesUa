@@ -117,10 +117,12 @@ block content
 			h2.widget_heading
 				| Кол-во игроков: #{users.length}
 			div.widget_body
-				//p
+				p
+					| Еще не участвуют: #{teams.pending.length}&nbsp;
+				p
 					| Людей: #{teams.human.length}&nbsp;
 					| Зомби: #{teams.zombie.length}&nbsp;
-				//p Выбыло: #{teams.dead.length}
+				p Выбыло: #{teams.dead.length}
 
 		div.widget.widget-bg_1.vkgroup
 			div#vk_groups

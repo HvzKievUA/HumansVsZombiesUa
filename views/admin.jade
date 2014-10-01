@@ -21,11 +21,11 @@ block content
 			td vkId
 			td Имя
 			td роль
-			td умер?
-			td Посл. активность
+			td Посл. акт.
 			td Стал зомби
+			td Сожрано Ч.
 			td Таймер
-			td Присвоить№
+			td Дать№
 		tbody
 			each user in users
 				tr
@@ -34,9 +34,9 @@ block content
 					td=user.vkontakteId
 					td=user.profile.displayName
 					td=user.role
-					td #{user.isDead?'да':'нет'}
 					td=formatDate(user.lastActionDate)
 					td=formatDate(user.getZombie)
+					td=user.eatenHours
 					td=formatDuration(user.timer)
 					td
 						if !user.number
