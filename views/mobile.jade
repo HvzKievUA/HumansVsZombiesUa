@@ -20,6 +20,9 @@ block content
 					.ui-input-text
 						input#inputMedicine(type="text", name="code")
 				button.ui-btn(type="submit") Полечиться
+			.h3 Последняя человеконовость
+			.news_col
+				| !{h_new}
 		if user.role == 'zombie' || user.isAdmin
 			form(action="/zombie/submitHuman", method="POST")
 				.ui-field-contain
@@ -27,6 +30,9 @@ block content
 					.ui-input-text
 						input#inputHuman(type="text" name="hash")
 				button.ui-btn(type="submit") Захавать человека
+			.h3 Последняя зомбиновость
+			.news_col
+				| !{z_new}
 		a.ui-btn.ui-corner-all(href="/logout") Выйти
 	else
 		.ui-field-contain

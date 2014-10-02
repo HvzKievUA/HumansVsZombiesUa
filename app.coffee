@@ -19,6 +19,7 @@ _ = require 'lodash'
 fs = require 'fs'
 path = require 'path'
 jade = require 'jade'
+Promise = require 'promise'
 
 app = bootable(express())
 server = http.createServer(app)
@@ -292,7 +293,44 @@ app.get '/rules', authorize(), (req, res) ->
 	res.render('rules', res.viewData)
 
 app.get '/m', authorize(), (req, res) ->
-	res.render 'mobile', res.viewData
+	tmpl_dir_z = __dirname + '/views/news/forZombie/'
+	tmpl_dir_h = __dirname + '/views/news/forHuman/'
+
+
+	humanNews = new Promise (resolve, reject) ->
+		# read all news in the directory
+		fs.readdir tmpl_dir_h, (err, news) ->
+			_new = null
+
+			if news?
+				while __new = news.pop()
+					if path.extname(__new) == '.jade'
+						_new = jade.compile(fs.readFileSync(tmpl_dir_h + __new, 'utf8'))()
+						break
+
+			resolve _new
+
+
+	zombieNews = new Promise (resolve, reject) ->
+		# read all news in the directory
+		fs.readdir tmpl_dir_z, (err, news) ->
+			_new = null
+
+			if news?
+				while __new = news.pop()
+					if path.extname(__new) == '.jade'
+						_new = jade.compile(fs.readFileSync(tmpl_dir_z + __new, 'utf8'))()
+						break
+
+			resolve _new
+
+
+	Promise.all [Promise.resolve(humanNews), Promise.resolve(zombieNews)]
+		.then (p_res) ->
+			res.viewData.h_new = p_res[0]
+			res.viewData.z_new = p_res[1]
+			res.render 'mobile', res.viewData
+		
 
 app.use (req, res) ->
 	authorize()(req, res, ->
