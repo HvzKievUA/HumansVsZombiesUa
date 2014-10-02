@@ -145,6 +145,7 @@ app.post '/admin/setnumber', authorize('admin'), (req, res, next) ->
 			return next(new Error('Номер не найден или использован. Или юзер не найден или ему назначен номер'))
 		results.user.number = results.usercode.number
 		results.user.hash = results.usercode.hash
+		results.user.lastActionDate = new Date()
 		results.usercode.usedBy = results.user.vkontakteId
 		async.parallel [
 			(cb) -> results.user.save cb
