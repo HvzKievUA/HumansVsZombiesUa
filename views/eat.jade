@@ -1,0 +1,12 @@
+extends mobileLayout
+
+block head
+	script(type="text/javascript", src='/js/build/eat.js')
+
+block content
+	form.eat(action="/zombie/submitHuman", method="POST")
+		.ui-field-contain
+			label(for="inputHuman") Ввести код человека
+				.ui-input-text
+					input#inputHuman(type="text" name="hash", value="hash")
+			button.ui-btn(type="submit") Захавать человека

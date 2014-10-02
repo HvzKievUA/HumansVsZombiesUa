@@ -214,6 +214,10 @@ app.post '/zombie/submitHuman', authorize('zombie'), (req, res, next) ->
 					res.viewData.profileMessage = "Код сработал"
 					res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
 
+app.get '/eat/:hash', authorize('zombie'), (req, res) ->
+	res.viewData.hash = req.params.hash
+	res.render('eat', res.viewData)
+
 app.get '/auth/vkontakte',
 	passport.authenticate('vkontakte', { scope: ['friends'] }),
 	(req, res) ->
