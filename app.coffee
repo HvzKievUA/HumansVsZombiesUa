@@ -246,8 +246,7 @@ app.get '/teamHuman', authorize(), (req, res) ->
 		if news?
 			for _new in news
 				if path.extname(_new) == '.jade'
-					console.log _new,  jade.compile(fs.readFileSync(tmpl_dir + _new, 'utf8'))()
-					_news.push jade.compile(fs.readFileSync(tmpl_dir + _new, 'utf8'))
+					_news.unshift jade.compile(fs.readFileSync(tmpl_dir + _new, 'utf8'))()
 			res.viewData.news = _news
 
 		res.viewData.vkAppId = config.vk.appId
@@ -270,8 +269,7 @@ app.get '/teamZombie', authorize(), (req, res) ->
 		if news?
 			for _new in news
 				if path.extname(_new) == '.jade'
-					console.log _new,  jade.compile(fs.readFileSync(tmpl_dir + _new, 'utf8'))()
-					_news.push jade.compile(fs.readFileSync(tmpl_dir + _new, 'utf8'))
+					_news.unshift jade.compile(fs.readFileSync(tmpl_dir + _new, 'utf8'))()
 			res.viewData.news = _news
 
 		res.viewData.vkAppId = config.vk.appId

@@ -19,8 +19,11 @@ block content
 	.news_col
 		if news && news.length > 0
 			for _new in news
-				| - !{_new}
+				| !{_new}
 		else
+			// Сірьожа, не пиши тут нічого. Йди й створи файл в
+			// https://github.com/eagleeye/HumansVsZombiesUa/tree/master/views/news/forZombie
+			// по образу і подобію
 			h3 Тут міг би бути заголовок
 			p А тут Сірьожа мав би написати слово напутнє.
 
@@ -37,5 +40,4 @@ block content
 			each user in users
 				li.list-group-item.user-list
 					a(href=user.profile.profileUrl)
-						#img.avatar(src=user.profile.photos[0].value)
 						=user.profile.displayName
