@@ -23,5 +23,7 @@ UserSchema = new mongoose.Schema
 		type: Number
 	history:
 		type: Array
+	medicines:
+		type: Array
 
 mongoose.model('user', UserSchema)

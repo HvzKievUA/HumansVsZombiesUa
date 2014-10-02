@@ -25,7 +25,7 @@ block content
 			td Стал зом
 			td Сожр
 			td Таймер
-			td Дать№
+			td Дать№*
 		tbody
 			each user in users
 				tr
@@ -44,6 +44,8 @@ block content
 								input(type="hidden", name="vkId", value=user.vkontakteId)
 								input(type="text", name="number", required="required")
 								button(type="submit") Сохр.
+						if user.number && user.medicines
+							=user.medicines.length
 	form.pure-form.submitMedicine(action="/admin/generatemedcine", method="POST")
 		fieldset
 			legend Сгенерировать лекарства. Всего существует: #{medicines.length}
@@ -54,14 +56,14 @@ block content
 				label(for="medicineDescription") Описание
 				input#medicineDescription(type="text", name="description", min="1", max="100", required="required")
 			p
-				label(for="medicineUnlimited") Безлимит по времини?
-				input(type="checkbox", name="unlimited", value="true")
+				label(for="validTo") Срок годности в формате "ММ-ДД ЧЧ:ММ" , например "10-04 17:00"
+				input(type="text", required="required", name="validTo", title="ММ-ДД ЧЧ:ММ")
 			input(type="submit", value="Сгенерировать")
 	table.medicines.pure-table(border=1)
 		thead
 			td Код
-			td Безлимит?
 			td Описание
+			td Срок годности
 			td Сгенерирован
 			td Использован
 			td Время использования
@@ -69,8 +71,8 @@ block content
 			each medicine in medicines
 				tr.medicine(class="#{medicine.usedBy ? 'used' : ''}")
 					td=medicine.code
-					td=(medicine.unlimited ? 'Да' : 'Нет')
 					td=medicine.description
+					td=formatDate(medicine.validTo)
 					td=formatDate(medicine.generated)
 					td=medicine.usedBy
 					td=formatDate(medicine.usedTime)

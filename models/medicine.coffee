@@ -16,5 +16,8 @@ Medicine = new mongoose.Schema
 		type: Boolean
 	description:
 		type: String
+	validTo:
+		type: Date
+		required: yes
 
 mongoose.model('medicine', Medicine)

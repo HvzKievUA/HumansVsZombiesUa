@@ -91,13 +91,17 @@ app.post '/admin/generatemedcine', authorize('admin'), (req, res, next) ->
 	count = parseInt(req.body.count) || 0
 	unless 0 < count < 101
 		return next(new Error("Сірьожа, '#{count}' не канає, не більше 100, не менше 1"))
+	validTo = moment("2014-#{req.body.validTo} +03:00" , "YYYY-MM-DD HH:mm Z")
+	if !validTo.isValid
+		return next(new Error("Сірьожа, Годен до '#{req.body.validTo}' не канає, шот ні то"))
 	Medicine = mongoose.model 'medicine'
 	createCode = (cb) ->
 		medicine = new Medicine
 			code: uuid.v4().substr(0, 13)
-			generated: new Date(),
+			generated: new Date()
 			description: req.body.description
 			unlimited: !!req.body.unlimited
+			validTo: validTo
 		medicine.save cb
 
 	async.times count, (n, next) ->
@@ -156,22 +160,26 @@ app.post '/human/submitMedicine', authorize('human'), (req, res, next) ->
 	if !code then return next(new Error 'Code should be provided')
 	Medicine.findOne {'code': code, 'usedBy': { $exists: no }}, (err, medicine) ->
 		if err then return next(err)
-		if medicine
-			if !medicine.unlimited and moment().diff(moment(medicine.generated)) > 26 * 3600 * 1000
-				res.viewData.profileMessage = "Извините, код просрочен"
-				return res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
-			medicine.usedBy = req.user.vkontakteId
-			medicine.usedTime =  new Date()
-			medicine.save (err) ->
-				if err then return next(err)
-				User.findOneAndUpdate { 'vkontakteId': req.user.vkontakteId }, { lastActionDate: new Date() }, (err, user) ->
-					if err then return next(err)
-					res.viewData.user = UserFactory(user.toObject()).getInfo()
-					res.viewData.profileMessage = "Код сработал!"
-					res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
-		else
+		if !medicine
 			res.viewData.profileMessage = "Извините, код уже использован или не существует."
-			res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
+			return res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
+		if moment(medicine.validTo).diff(moment()) < 0
+			res.viewData.profileMessage = "Извините, код просрочен."
+			return res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
+		medicines = res.viewData.user.medicines or []
+		if medicine.description in medicines
+			res.viewData.profileMessage = "Нельзя использовать вакцину с етой раздачи дважды."
+			return res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
+		medicines.push medicine.description
+		medicine.usedBy = req.user.vkontakteId
+		medicine.usedTime =  new Date()
+		medicine.save (err) ->
+			if err then return next(err)
+			User.findOneAndUpdate { 'vkontakteId': req.user.vkontakteId }, { lastActionDate: new Date(), medicines: medicines}, (err, user) ->
+				if err then return next(err)
+				res.viewData.user = UserFactory(user.toObject()).getInfo()
+				res.viewData.profileMessage = "Код сработал!"
+				res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
 
 app.post '/zombie/submitHuman', authorize('zombie'), (req, res, next) ->
 	hash = req.body.hash
