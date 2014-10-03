@@ -257,7 +257,10 @@ app.get '/teamHuman', authorize('human'), (req, res) ->
 		if news?
 			for _new in news
 				if path.extname(_new) == '.jade'
-					_news.unshift jade.compile(fs.readFileSync(tmpl_dir + _new, 'utf8'))()
+					try
+						_news.unshift jade.compile(fs.readFileSync(tmpl_dir + _new, 'utf8'))()
+					catch e
+						_news.unshift '<p class="error_message">Ай-яй-яй! Хтось невалідний шаблон "' + _new + '" закомітив. Треба сказати адмінам.</p>'
 			res.viewData.news = _news
 
 		res.viewData.vkAppId = config.vk.appId
@@ -280,7 +283,10 @@ app.get '/teamZombie', authorize('zombie'), (req, res) ->
 		if news?
 			for _new in news
 				if path.extname(_new) == '.jade'
-					_news.unshift jade.compile(fs.readFileSync(tmpl_dir + _new, 'utf8'))()
+					try
+						_news.unshift jade.compile(fs.readFileSync(tmpl_dir + _new, 'utf8'))()
+					catch e
+						_news.unshift '<p class="error_message">Ай-яй-яй! Хтось невалідний шаблон "' + _new + '" закомітив. Треба сказати адмінам.</p>'
 			res.viewData.news = _news
 
 		res.viewData.vkAppId = config.vk.appId
@@ -313,10 +319,13 @@ app.get '/m', authorize(), (req, res) ->
 			_new = null
 
 			if news?
-				while __new = news.pop()
-					if path.extname(__new) == '.jade'
-						_new = jade.compile(fs.readFileSync(tmpl_dir_h + __new, 'utf8'))()
-						break
+				try
+					while __new = news.pop()
+						if path.extname(__new) == '.jade'
+							_new = jade.compile(fs.readFileSync(tmpl_dir_h + __new, 'utf8'))()
+							break
+				catch e
+					_new = '<p class="error_message">Остання новина крива. Скажи адмінам.</p>'
 
 			resolve _new
 
@@ -327,10 +336,13 @@ app.get '/m', authorize(), (req, res) ->
 			_new = null
 
 			if news?
-				while __new = news.pop()
-					if path.extname(__new) == '.jade'
-						_new = jade.compile(fs.readFileSync(tmpl_dir_z + __new, 'utf8'))()
-						break
+				try
+					while __new = news.pop()
+						if path.extname(__new) == '.jade'
+							_new = jade.compile(fs.readFileSync(tmpl_dir_z + __new, 'utf8'))()
+							break
+				catch e
+					_new = '<p class="error_message">Остання новина крива. Скажи адмінам.</p>'
 
 			resolve _new
 
