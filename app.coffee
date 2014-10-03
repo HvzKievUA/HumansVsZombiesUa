@@ -155,6 +155,16 @@ app.post '/admin/setnumber', authorize('admin'), (req, res, next) ->
 			if err then return next err
 			res.redirect '/admin'
 
+app.get '/admin/submitmedicineforallhumans', authorize('admin'), (req, res, next) ->
+	User = mongoose.model 'user'
+	User.find (err, users) ->
+		for user in users
+			u = UserFactory(user.toObject()).getInfo()
+			if u.role is 'human'
+				user.lastActionDate = new Date()
+				user.save();
+		res.send('ok')
+
 app.post '/human/submitMedicine', authorize('human'), (req, res, next) ->
 	code = req.body.code
 	Medicine = mongoose.model 'medicine'
