@@ -249,7 +249,7 @@ app.get '/logout', (req, res) ->
 	req.logout()
 	res.redirect(if req.cookies.mobile then '/m' else '/')
 
-app.get '/teamHuman', authorize(), (req, res) ->
+app.get '/teamHuman', authorize('human'), (req, res) ->
 	tmpl_dir = __dirname + '/views/news/forHuman/'
 	# read all news in the directory
 	fs.readdir tmpl_dir, (err, news) ->
