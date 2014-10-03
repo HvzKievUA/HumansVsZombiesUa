@@ -37,6 +37,11 @@ block content
 			p Вам нужно захавать человека на протяжении
 		if user.role == 'human'
 			p Вам нужно достать вакцину на протяжении
+		p
+			| Да, кстати, "в поле" удобнее использовать 
+			a(href="/m") мобильную версию сайта
+			| . Там можно ввести код и посмотреть последнюю командную новость
+			| . Удачи :)
 		.timer(data-timer=user.timer)
 		if user.isAdmin || user.role === 'zombie'
 			form(action="/zombie/submitHuman", method="POST")
