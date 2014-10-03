@@ -272,7 +272,7 @@ app.get '/teamHuman', authorize('human'), (req, res) ->
 			res.viewData.users = teamUsers
 			res.render('teamHuman', res.viewData)
 
-app.get '/teamZombie', authorize(), (req, res) ->
+app.get '/teamZombie', authorize('zombie'), (req, res) ->
 	tmpl_dir = __dirname + '/views/news/forZombie/'
 	# read all news in the directory
 	fs.readdir tmpl_dir, (err, news) ->
