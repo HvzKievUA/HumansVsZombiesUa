@@ -32,7 +32,7 @@ block content
 		p Карточки и повязки можно будет получить в пятницу 03 с 12:00 до 14:00 на площади Знаний (возле Прометея).
 		img(src="http://kpi.ua/files/images-story/prometheus.jpg")
 	else
-		p Здраствуйте, #{user.profile.displayName}! Ваша роль - #{user.role == 'zombie' ? 'ЗОМБИ' : 'ЧЕЛОВЕК'}
+		p Здравствуйте, #{user.profile.displayName}! Ваша роль - #{user.role == 'zombie' ? 'ЗОМБИ' : 'ЧЕЛОВЕК'}
 		if user.role == 'zombie'
 			p Вам нужно захавать человека на протяжении
 		if user.role == 'human'
