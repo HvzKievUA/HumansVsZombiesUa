@@ -30,7 +30,7 @@ userFactory = (user) ->
 				user.role = 'human'
 			else #zombie from hunger
 				user.role = 'zombie'
-				user.timer = moment(user.lastActionDate).add(humanBaseTimeH + zombieBaseTimeH, 'hours').diff(moment())
+				user.timer = moment.duration(timer).add(zombieBaseTimeH, 'hours').asMilliseconds()
 		user.isDead = user.timer < 0
 		if user.isDead then user.role = 'dead'
 		user
