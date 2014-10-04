@@ -2,8 +2,8 @@ moment = require 'moment'
 config = require 'cnf'
 mongoose = require 'mongoose'
 
-humanBaseTimeH = 24
-zombieBaseTimeH = 24
+humanBaseTimeH = 24 + 48
+zombieBaseTimeH = 24 + 48
 
 userFactory = (user) ->
 	moment
