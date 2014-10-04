@@ -37,21 +37,37 @@ block content
 			p Вам нужно захавать человека на протяжении
 		if user.role == 'human'
 			p Вам нужно достать вакцину на протяжении
+		.timer(data-timer=user.timer)
 		p
 			| Да, кстати, "в поле" удобнее использовать 
 			a(href="/m") мобильную версию сайта
 			| . Там можно ввести код и посмотреть последнюю командную новость
 			| . Удачи :)
-		.timer(data-timer=user.timer)
 		if user.isAdmin || user.role === 'zombie'
 			form(action="/zombie/submitHuman", method="POST")
 				fieldset
 					legend Ввести код человека
 					input(type="text", name="hash", required="required")
+					| &nbsp;
 					input(type="submit", value="Захавать человека")
+			// if there are other zombies already
+			if zombies
+				form(action="/zombie/shareTime", method="POST")
+					fieldset
+						legend Поделиться временем
+						| Отдать 
+						input(type="number", min="1", max="12", name="hours", placeholder="(часов)", required="required", style="width: 75px;")
+						| &nbsp;зомбаку 
+						select(name="otherZombie", required="required")
+							each zombie in zombies
+								option(value=zombie.profile.vkontakteId)
+									=zombie.profile.displayName
+						| &nbsp;
+						input(type="submit", value="Поделиться")
 		if user.isAdmin || user.role === 'human' || user.role === 'zombie'
 			form(action="/human/submitMedicine", method="POST")
 				fieldset
 					legend Ввести код лекарства
 					input(type="text", name="code", required="required")
+					| &nbsp;
 					input(type="submit", value="Полечиться")

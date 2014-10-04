@@ -238,6 +238,36 @@ app.post '/zombie/submitHuman', authorize('zombie'), (req, res, next) ->
 					res.viewData.profileMessage = "Код сработал"
 					res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
 
+app.post '/zombie/shareTime', authorize('zombie'), (req, res, next) ->
+	time = parseInt req.body.hours
+	vkID = req.body.otherZombie
+	User = mongoose.model 'user'
+	if !time or !vkID or !(0<time<13) then return next(new Error 'Zombie should be selected. Time is also mandatory and must be integer in range from 1 to 12.')
+	# TODO: check available user time here
+	#time *= 3600  # to seconds
+	if req.user.timer - time*3600 <= 0 then return next(new Error "You do not have enough time to share.")
+	User.findOne {'vkontakteId': vkID}, (err, user) ->
+		if err then return next(err)
+		if !user
+			res.viewData.profileMessage = "Извините, зомби не найден"
+			return res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
+		userObj = user.toObject()
+		#if userObj.role isnt 'zombie'
+		#	res.viewData.profileMessage = "Можно отдавать время только зомби"
+		#	return res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
+		user.lastActionDate = new Date()
+		user.eatenHours += time
+		user.save (err) ->
+			if err then return next(err)
+			User.findOne { 'vkontakteId': req.user.vkontakteId }, (err, thisUser) ->
+				if err then return next(err)
+				thisUser.eatenHours -= time
+				thisUser.save (err, user) ->
+					if err then return next(err)
+					res.viewData.user = UserFactory(user.toObject()).getInfo()
+					res.viewData.profileMessage = 'Вы отдали ' + time + ' час' + (if time==1 then '' else (if time<5 then 'а' else 'ов')) + ' своего времени зомбаку ' + req.user.profile.displayName + '.'
+					res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
+
 app.get '/eat/:hash', authorize('zombie'), (req, res) ->
 	res.viewData.hash = req.params.hash
 	res.render('eat', res.viewData)
@@ -314,7 +344,16 @@ app.get '/teamZombie', authorize('zombie'), (req, res) ->
 			res.render('teamZombie', res.viewData)
 
 app.get '/profile', authorize('any'), (req, res) ->
-	res.render('profile', res.viewData)
+	User = mongoose.model('user')
+	User.find (err, users) ->
+		if res.viewData.user.role == 'zombie' or res.viewData.user.isAdmin
+			teamUsers = []
+			for user in users
+				user = UserFactory(user).getInfo()
+				if user.role is 'zombie' and user.profile.vkontakteId != res.viewData.user.profile.vkontakteId
+					teamUsers.push user
+			res.viewData.zombies = teamUsers
+		res.render('profile', res.viewData)
 
 app.get '/rules', authorize(), (req, res) ->
 	res.viewData.section = 'rules'
