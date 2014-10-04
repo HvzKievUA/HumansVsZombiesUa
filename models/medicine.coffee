@@ -19,5 +19,7 @@ Medicine = new mongoose.Schema
 	validTo:
 		type: Date
 		required: yes
+	action:
+		type: String
 
 mongoose.model('medicine', Medicine)

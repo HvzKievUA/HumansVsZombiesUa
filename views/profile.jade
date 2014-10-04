@@ -49,7 +49,7 @@ block content
 					legend Ввести код человека
 					input(type="text", name="hash", required="required")
 					input(type="submit", value="Захавать человека")
-		if user.isAdmin || user.role === 'human'
+		if user.isAdmin || user.role === 'human' || user.role === 'zombie'
 			form(action="/human/submitMedicine", method="POST")
 				fieldset
 					legend Ввести код лекарства

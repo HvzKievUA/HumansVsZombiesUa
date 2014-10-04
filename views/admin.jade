@@ -58,11 +58,17 @@ block content
 			p
 				label(for="validTo") Срок годности в формате "ММ-ДД ЧЧ:ММ" , например "10-04 17:00"
 				input(type="text", required="required", name="validTo", title="ММ-ДД ЧЧ:ММ")
+			p
+				label(for="medicineAction") Действие лекарства
+				select#medicineAction(name="action")
+					option(value="healHuman", selected="selected") healHuman
+					option(value="zombieToHuman") zombieToHuman
 			input(type="submit", value="Сгенерировать")
 	table.medicines.pure-table(border=1)
 		thead
 			td Код
 			td Описание
+			td Действие
 			td Срок годности
 			td Сгенерирован
 			td Использован
@@ -72,6 +78,7 @@ block content
 				tr.medicine(class="#{medicine.usedBy ? 'used' : ''}")
 					td=medicine.code
 					td=medicine.description
+					td=(medicine.action || 'healHuman')
 					td=formatDate(medicine.validTo)
 					td=formatDate(medicine.generated)
 					td=medicine.usedBy

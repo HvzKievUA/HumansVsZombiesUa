@@ -13,7 +13,7 @@ block content
 					p Игра начнеться через #{formatDuration(toStart)}
 			if user.role == 'pending'
 				p Вам нужно получить код в организаторов
-		if user.role == 'human' || user.isAdmin
+		if user.role == 'human'|| user.role === 'zombie' || user.isAdmin
 			form(action="/human/submitMedicine", method="POST")
 				.ui-field-contain
 					label(for="inputMedicine") Ввести код лекарства

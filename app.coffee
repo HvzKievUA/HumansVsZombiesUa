@@ -102,7 +102,8 @@ app.post '/admin/generatemedcine', authorize('admin'), (req, res, next) ->
 			generated: new Date()
 			description: req.body.description
 			unlimited: !!req.body.unlimited
-			validTo: validTo
+			validTo: validTo,
+			action: req.body.action
 		medicine.save cb
 
 	async.times count, (n, next) ->
@@ -155,17 +156,17 @@ app.post '/admin/setnumber', authorize('admin'), (req, res, next) ->
 			if err then return next err
 			res.redirect '/admin'
 
-app.get '/admin/submitmedicineforallhumans', authorize('admin'), (req, res, next) ->
-	User = mongoose.model 'user'
-	User.find (err, users) ->
-		for user in users
-			u = UserFactory(user.toObject()).getInfo()
-			if u.role is 'human'
-				user.lastActionDate = new Date()
-				user.save();
-		res.send('ok')
+#app.get '/admin/submitmedicineforallhumans', authorize('admin'), (req, res, next) ->
+#	User = mongoose.model 'user'
+#	User.find (err, users) ->
+#		for user in users
+#			u = UserFactory(user.toObject()).getInfo()
+#			if u.role is 'human'
+#				user.lastActionDate = new Date()
+#				user.save();
+#		res.send('ok')
 
-app.post '/human/submitMedicine', authorize('human'), (req, res, next) ->
+app.post '/human/submitMedicine', authorize('any'), (req, res, next) ->
 	code = req.body.code
 	Medicine = mongoose.model 'medicine'
 	User = mongoose.model 'user'
@@ -182,12 +183,23 @@ app.post '/human/submitMedicine', authorize('human'), (req, res, next) ->
 		if medicine.description in medicines
 			res.viewData.profileMessage = "Нельзя использовать вакцину с етой раздачи дважды."
 			return res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
+		if medicine.action is 'zombieToHuman' and res.viewData.user.role isnt 'zombie'
+			res.viewData.profileMessage = 'Код для зомби может использовать только зомби';
+			return res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
+		else if (not medicine.action or medicine.action is 'healHuman') and res.viewData.user.role isnt 'human'
+			res.viewData.profileMessage = 'Код для людей может использовать только человек';
+			return res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
 		medicines.push medicine.description
 		medicine.usedBy = req.user.vkontakteId
 		medicine.usedTime =  new Date()
 		medicine.save (err) ->
 			if err then return next(err)
-			User.findOneAndUpdate { 'vkontakteId': req.user.vkontakteId }, { lastActionDate: new Date(), medicines: medicines}, (err, user) ->
+			User.findOneAndUpdate { 'vkontakteId': req.user.vkontakteId }, {
+					lastActionDate: new Date()
+					medicines: medicines,
+					getZombie: null,
+					eatenHours: null
+			}, (err, user) ->
 				if err then return next(err)
 				res.viewData.user = UserFactory(user.toObject()).getInfo()
 				res.viewData.profileMessage = "Код сработал!"
