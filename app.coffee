@@ -252,9 +252,9 @@ app.post '/zombie/shareTime', authorize('zombie'), (req, res, next) ->
 			res.viewData.profileMessage = "Извините, зомби не найден"
 			return res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
 		userObj = user.toObject()
-		#if userObj.role isnt 'zombie'
-		#	res.viewData.profileMessage = "Можно отдавать время только зомби"
-		#	return res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
+		if userObj.role isnt 'zombie'
+			res.viewData.profileMessage = "Можно отдавать время только зомби"
+			return res.render((if req.cookies.mobile then 'mobile' else 'profile'), res.viewData)
 		user.lastActionDate = new Date()
 		user.eatenHours += time
 		user.save (err) ->
