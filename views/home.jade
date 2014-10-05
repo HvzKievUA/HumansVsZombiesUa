@@ -92,7 +92,7 @@ block content
 			h2.widget_heading
 				| Краткая информация
 			ul.widget_body.widget_body-list
-				li.list_item Дата: 2-8 октября
+				li.list_item Дата: 2-6 октября
 				li.list_item Место: Всё НТУУ "КПИ"
 					a.list_item_link(href="/rules#gamezone") картa
 		.widget.widget-bg_2.timetostart
@@ -103,9 +103,11 @@ block content
 					=formatDuration(toStartHome)
 			else if !hasEnded
 				h2.widget_heading
-					| До конца HVZ 2014
+					//| До конца HVZ 2014
+					| Финальная битва
 				div.widget_body
-					=formatDuration(toEnd)
+					//=formatDuration(toEnd)
+					| 6 октября
 			else
 				h2.widget_heading
 					| HVZ 2014 окончено!
