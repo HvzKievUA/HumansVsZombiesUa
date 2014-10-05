@@ -45,6 +45,8 @@ app.all '/', (req, res, next) ->
 	res.header("Cache-Control", "no-transform")
 	next()
 
+app.get '/ping', (req, res) ->  res.json(status: 'ok')
+
 app.get '/', authorize(), (req, res) ->
 	User = mongoose.model('user')
 	User.find (err, users) ->
@@ -302,7 +304,7 @@ app.get '/teamHuman', authorize('human'), (req, res) ->
 					try
 						_news.unshift jade.compile(fs.readFileSync(tmpl_dir + _new, 'utf8'))()
 					catch e
-						_news.unshift '<p class="error_message">Ай-яй-яй! Хтось невалідний шаблон "' + _new + '" закомітив. Треба сказати адмінам.</p>'
+						_news.unshift '<p class="error_message">Непредвиденная ошибка на сайте, сообщите об этой ошибке администратору сайта</p>'
 			res.viewData.news = _news
 
 		res.viewData.vkAppId = config.vk.appId
@@ -328,7 +330,7 @@ app.get '/teamZombie', authorize('zombie'), (req, res) ->
 					try
 						_news.unshift jade.compile(fs.readFileSync(tmpl_dir + _new, 'utf8'))()
 					catch e
-						_news.unshift '<p class="error_message">Ай-яй-яй! Хтось невалідний шаблон "' + _new + '" закомітив. Треба сказати адмінам.</p>'
+						_news.unshift '<p class="error_message">Непредвиденная ошибка на сайте, сообщите об этой ошибке администратору сайта</p>'
 			res.viewData.news = _news
 
 		res.viewData.vkAppId = config.vk.appId
@@ -376,7 +378,7 @@ app.get '/m', authorize(), (req, res) ->
 							_new = jade.compile(fs.readFileSync(tmpl_dir_h + __new, 'utf8'))()
 							break
 				catch e
-					_new = '<p class="error_message">Остання новина крива. Скажи адмінам.</p>'
+					_new = '<p class="error_message">Непредвиденная ошибка на сайте, сообщите об этой ошибке администратору сайта</p>'
 
 			resolve _new
 
@@ -393,7 +395,7 @@ app.get '/m', authorize(), (req, res) ->
 							_new = jade.compile(fs.readFileSync(tmpl_dir_z + __new, 'utf8'))()
 							break
 				catch e
-					_new = '<p class="error_message">Остання новина крива. Скажи адмінам.</p>'
+					_new = '<p class="error_message">Непредвиденная ошибка на сайте, сообщите об этой ошибке администратору сайта</p>'
 
 			resolve _new
 
@@ -417,6 +419,7 @@ app.use (err, req, res, next) ->
 		if req.cookies.mobile
 			return res.status(500).render('messageMobile', message: 'Непредвиденная ошибка на сайте, сообщите об этой ошибке администратору сайта' + err )
 		res.viewData.message = err
+		console.error 'Error 500', err
 		res.status(500).render('500', res.viewData)
 	);
 

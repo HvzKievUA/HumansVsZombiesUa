@@ -59,9 +59,10 @@
     "serve-favicon": "^2.0.0"
   },
   "devDependencies": {
-    "mocha": "^1.21.4",
-    "request": "^2.37.0",
+    "attempt": "^1.0.0",
     "chai": "^1.9.1",
-    "chai-subset": "^0.3.0"
+    "chai-subset": "^0.3.0",
+    "mocha": "^1.21.4",
+    "request": "^2.37.0"
   }
 }
