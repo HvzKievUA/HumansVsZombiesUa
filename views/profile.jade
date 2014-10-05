@@ -50,20 +50,20 @@ block content
 					input(type="text", name="hash", required="required")
 					| &nbsp;
 					input(type="submit", value="Захавать человека")
-			// if there are other zombies already
-			if zombies
-				form(action="/zombie/shareTime", method="POST")
-					fieldset
-						legend Поделиться временем
-						| Отдать 
-						input(type="number", min="1", max="12", name="hours", placeholder="(часов)", required="required", style="width: 75px;")
-						| &nbsp;зомбаку 
-						select(name="otherZombie", required="required")
-							each zombie in zombies
-								option(value=zombie.profile.vkontakteId)
-									=zombie.profile.displayName
-						| &nbsp;
-						input(type="submit", value="Поделиться")
+			//// if there are other zombies already
+			//if zombies
+			//	form(action="/zombie/shareTime", method="POST")
+			//		fieldset
+			//			legend Поделиться временем
+			//			| Отдать 
+			//			input(type="number", min="1", max="12", name="hours", placeholder="(часов)", required="required", style="width: 75px;")
+			//			| &nbsp;зомбаку 
+			//			select(name="otherZombie", required="required")
+			//				each zombie in zombies
+			//					option(value=zombie.profile.vkontakteId)
+			//						=zombie.profile.displayName
+			//			| &nbsp;
+			//			input(type="submit", value="Поделиться")
 		if user.isAdmin || user.role === 'human' || user.role === 'zombie'
 			form(action="/human/submitMedicine", method="POST")
 				fieldset
