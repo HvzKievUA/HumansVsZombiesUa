@@ -51,6 +51,6 @@ gulp.task('sass', ['clean-css'], function () {
 	gulp.src(paths.sassSrc)
 		.pipe(sass({
 			sourceComments: 'map'
-		}))
+		})).on('error', gutil.log)
 		.pipe(gulp.dest(paths.cssBuild));
 });
