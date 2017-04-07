@@ -428,4 +428,4 @@ app.boot (err) ->
 		console.error err
 	port = config.http.port
 	server.listen port
-	console.info('Server started at ' + config.http.siteUrl + ' '.green)
+	console.info('Server started at ' + config.http.siteUrl)

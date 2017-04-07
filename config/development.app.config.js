@@ -1,7 +1,7 @@
 module.exports = {
 	http: {
-		port: process.env.PORT || 80,
-		siteUrl: process.env.SITE_URL || 'http://localhost.e-conomic.ws/'
+		port: process.env.PORT || 5776,
+		siteUrl: process.env.SITE_URL || 'http://localhost:5776'
 	},
 	mongoUrl: 'mongodb://localhost/hvz',
 	vk: {
