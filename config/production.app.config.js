@@ -3,7 +3,7 @@ module.exports = {
 		siteUrl: process.env.SITE_URL,
 		port: process.env.PORT
 	},
-	mongoUrl: process.env.MONGOHQ_URL,
+	mongoUrl: process.env.MONGODB_URI,
 	vk: {
 		appId: process.env.HVZ_VK_APP_ID,
 		appSecret: process.env.HVZ_VK_SECRET
