@@ -11,6 +11,6 @@ module.exports = {
     sentryURL: process.env.HVZ_SENTRY_URL,
 	cookieSecret: process.env.HVZ_COOKIE_SECRET,
 	sessionSecret: process.env.HVZ_SESSION_SECRET,
-	startDate: "2014-10-2 17-00 +03:00",
-	endDate: "2014-10-6 19-00 +03:00"
+	startDate: "2017-05-18 17-00 +03:00",
+	endDate: "2017-05-21 19-00 +03:00"
 };
