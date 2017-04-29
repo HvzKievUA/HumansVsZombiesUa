@@ -57,7 +57,7 @@ html
 							if isAuth && (user.role === 'zombie' || user.isAdmin)
 								li.navbar_item(class="#{section == 'teamZombie' ? '__active' : ''}")
 									a.navbar_item_link(href="/teamZombie") Команда зомби
-							if isAuth
+							if isAuth && user.isAdmin
 								li.navbar_item(class="#{section == 'admin' ? '__active' : ''}")
 									a.navbar_item_link(href="/admin") Админ панель
 							li.navbar_item
